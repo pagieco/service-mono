@@ -1,0 +1,8 @@
+{
+  "private": true,
+  "docs": "vuepress dev .docs",
+  "docs:build": "vuepress build .docs",
+  "devDependencies": {
+    "vuepress": "^1.0.2"
+  }
+}

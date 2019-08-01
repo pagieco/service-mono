@@ -1,0 +1,9 @@
+watch:
+  directories:
+    - app
+    - tests
+    - database
+  fileMask: '*.php'
+
+phpunit:
+  arguments: '--stop-on-failure'

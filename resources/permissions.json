@@ -1,0 +1,5 @@
+{
+  "domain:list": ["List domains", "Display a list of domains."],
+
+  "environment:list": ["List environemnts", "Display a list of environments."]
+}

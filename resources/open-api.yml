@@ -1,0 +1,385 @@
+openapi: '3.0.0'
+
+info:
+  title: service-mono
+  version: 1.0.0
+  contact:
+    name: Pagie
+    url: https://pagie.co
+    email: hello@pagie.co
+
+servers:
+  - url: https://pagie.co/api/mono
+
+tags:
+  - name: Auth
+  - name: Domains
+  - name: Environments
+  - name: Teams
+  - name: Assets
+  - name: Forms
+  - name: Pages
+  - name: Collections
+  - name: Symbols
+
+paths:
+  /auth/authenticate:
+    post:
+      description: Authenticate a user
+      tags:
+        - Auth
+      operationId: Authenticate
+      responses:
+        200:
+          $ref: '#/components/responses/authenticate'
+        401:
+          $ref: '#/components/responses/status-401-response'
+        422:
+          $ref: '#/components/responses/status-422-response'
+
+  /auth/register:
+    post:
+      description: Register a new user
+      tags:
+        - Auth
+      operationId: Register
+      responses:
+        201:
+          $ref: '#/components/responses/register'
+        422:
+          $ref: '#/components/responses/status-422-response'
+
+  /domains:
+    get:
+      description: Get a list of domains
+      tags:
+        - Domains
+      operationId: GetDomains
+      responses:
+        200:
+          $ref: '#/components/responses/get-domains'
+        204:
+          description: No domains found
+
+  /environments:
+    get:
+      description: Get a list of environments
+      tags:
+        - Environments
+      operationId: GetEnvironments
+      responses:
+        200:
+          $ref: '#/components/responses/get-environments'
+        204:
+          description: No environments found
+
+  /teams:
+    get:
+      description: Get a list of teams the current user belongs to
+      tags:
+        - Teams
+      operationId: GetTeams
+      responses:
+        200:
+          $ref: '#/components/responses/get-teams'
+
+  /domains/{domain}/assets:
+    get:
+      description: Get a list of assets from the given domain
+      tags:
+        - Assets
+      operationId: GetAssets
+      responses:
+        200:
+          $ref: '#/components/responses/get-assets'
+
+  /domains/{domain}/forms:
+    get:
+      description: Get a list of forms from the given domain
+      tags:
+        - Forms
+      operationId: GetForms
+      responses:
+        200:
+          $ref: '#/components/responses/get-forms'
+
+  /domains/{domain}/pages:
+    get:
+      description: Get a list of pages from the given domain
+      tags:
+        - Pages
+      operationId: GetPages
+      responses:
+        200:
+          $ref: '#/components/responses/get-pages'
+
+components:
+  responses:
+    authenticate:
+      description: OK
+      content:
+        application/json:
+          schema:
+            properties:
+              data:
+                $ref: '#/components/schemas/authenticate'
+
+    register:
+      description: OK
+      content:
+        application/json:
+          schema:
+            properties:
+              data:
+                $ref: '#/components/schemas/register'
+
+    get-domains:
+      description: OK
+      content:
+        application/json:
+          schema:
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '#/components/schemas/domain'
+
+    get-environments:
+      description: OK
+      content:
+        application/json:
+          schema:
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '#/components/schemas/environment'
+
+    get-teams:
+      description: OK
+      content:
+        application/json:
+          schema:
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '#/components/schemas/team'
+
+    get-assets:
+      description: OK
+      content:
+        application/json:
+          schema:
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '#/components/schemas/asset'
+
+    get-forms:
+      description: OK
+      content:
+        application/json:
+          schema:
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '#/components/schemas/form'
+
+    get-pages:
+      description: OK
+      content:
+        application/json:
+          schema:
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '#/components/schemas/page'
+
+    status-401-response:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            properties:
+              message:
+                type: string
+
+    status-422-response:
+      description: Unprocessable Entity
+      content:
+        application/json:
+          schema:
+            properties:
+              message:
+                type: string
+              errors:
+                type: object
+
+  schemas:
+    authenticate:
+      properties:
+        type:
+          type: string
+
+    register:
+      properties:
+        id:
+          type: string
+          format: uuid
+        email:
+          type: string
+          format: email
+        name:
+          type: string
+        timezone:
+          type: string
+        last_ip:
+          type: string
+        last_login_at:
+          type: string
+          format: 'date-time'
+        email_verified_at:
+          type: string
+          format: 'date-time'
+        created_at:
+          type: string
+          format: 'date-time'
+        updated_at:
+          type: string
+          format: 'date-time'
+
+    domain:
+      properties:
+        id:
+          type: string
+          format: uuid
+        domain_name:
+          type: string
+        environment:
+          $ref: '#/components/schemas/domain-environment'
+        created_at:
+          type: string
+          format: 'date-time'
+        updated_at:
+          type: string
+          format: 'date-time'
+
+    environment:
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        domains:
+          type: array
+          items:
+            $ref: '#/components/schemas/environment-domain'
+        created_at:
+          type: string
+          format: 'date-time'
+        updated_at:
+          type: string
+          format: 'date-time'
+
+    environment-domain:
+      properties:
+        id:
+          type: string
+          format: uuid
+        domain_name:
+          type: string
+          example:
+            test-domain.production.pagie.co
+
+    domain-environment:
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+
+    team:
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        created_at:
+          type: string
+          format: 'date-time'
+        updated_at:
+          type: string
+          format: 'date-time'
+
+    asset:
+      properties:
+        id:
+          type: string
+          format: uuid
+        hash:
+          type: string
+        filename:
+          type: string
+        original_filename:
+          type: string
+        description:
+          type: string
+          nullable: true
+        extension:
+          type: string
+        mimetype:
+          type: string
+        filesize:
+          type: integer
+        extra_attributes:
+          type: object
+          nullable: true
+        path:
+          type: string
+        thumb_path:
+          type: string
+        hash_path:
+          type: string
+        created_at:
+          type: string
+          format: 'date-time'
+        updated_at:
+          type: string
+          format: 'date-time'
+
+    form:
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        created_at:
+          type: string
+          format: 'date-time'
+        updated_at:
+          type: string
+          format: 'date-time'
+
+    page:
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        slug:
+          type: string
+        created_at:
+          type: string
+          format: 'date-time'
+        updated_at:
+          type: string
+          format: 'date-time'

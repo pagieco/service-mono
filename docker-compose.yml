@@ -1,0 +1,105 @@
+version: '3.5'
+
+services:
+  redis:
+    container_name: service.mono.redis
+    image: redis:alpine
+    volumes:
+      - redis-volume:/data
+    ports:
+      - 16728:6379
+    networks:
+      - service-overlay
+
+  memcached:
+    container_name: service.mono.memcached
+    image: memcached
+    ports:
+      - 12324:11211
+    networks:
+      - service-overlay
+
+  mongodb:
+    container_name: service.mono.mongodb
+    image: mongo:latest
+    restart: always
+    environment:
+      - MONGO_DATA_DIR=/data/db
+      - MONGO_LOG_DIR=/dev/null
+    volumes:
+      - mongodb-volume:/data/db
+    ports:
+      - 34086:27017
+    networks:
+      - service-overlay
+
+  mysql:
+    container_name: service.mono.mysql
+    image: mysql:8.0
+    command: --default-authentication-plugin=mysql_native_password
+    working_dir: /app
+    volumes:
+      - mysql-volume:/app
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=service-mono
+      - MYSQL_USER=docker
+      - MYSQL_PASSWORD=docker
+    ports:
+      - 44008:3306
+    networks:
+      - service-overlay
+
+  webserver:
+    container_name: service.mono.webserver
+    build: .service-resources/dev/nginx
+    working_dir: /app
+    volumes:
+      - webserver-volume:/app
+      - ./.service-resources/dev/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - 13833:80
+    networks:
+      - service-overlay
+
+  application:
+    container_name: service.mono.application
+    build: .
+    volumes:
+      - .:/app:cached
+    networks:
+      - service-overlay
+
+  scheduler:
+    container_name: service.mono.scheduler
+    build: .
+    environment:
+      CONTAINER_ROLE: scheduler
+    volumes:
+      - .:/app:cached
+    networks:
+      - service-overlay
+
+networks:
+  service-overlay:
+    external:
+      name: service-overlay
+
+volumes:
+  redis-volume:
+    driver: local
+
+  mongodb-volume:
+    driver: local
+
+  mysql-volume:
+    driver: local
+
+  webserver-volume:
+    driver: local
+
+  application-volume:
+    driver: local
+
+  scheduler-volume:
+    driver: local
