@@ -99,4 +99,24 @@ return [
         ],
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Permissions
+    |--------------------------------------------------------------------------
+    |
+    | The list of available authorization permissions. These will only be used
+    | when seeding the database and should never directly be referred to.
+    |
+    */
+
+    'permissions' => [
+        'domain:list' => ['List domains', 'List the domains.'],
+        'environment:list' => ['List environments', 'List the environments.'],
+        'team:list' => ['List teams', 'List the teams.'],
+        'asset:list' => ['List assets', 'List the assets.'],
+        'form:list' => ['List forms', 'List the forms.'],
+        'page:list' => ['List pages', 'List the pages.'],
+        'collection:list' => ['List collections', 'List the collections.'],
+    ],
+
 ];
