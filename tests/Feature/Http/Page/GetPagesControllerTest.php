@@ -88,10 +88,11 @@ class GetPagesControllerTest extends TestCase
     /**
      * Prepare the authenticated route request.
      *
+     * @param  string|null $uuid
      * @return \Illuminate\Foundation\Testing\TestResponse
      */
-    protected function makeRequest(): TestResponse
+    protected function makeRequest(string $uuid = null): TestResponse
     {
-        return $this->get(route('get-pages', faker()->uuid));
+        return $this->get(route('get-pages', $uuid ?? faker()->uuid));
     }
 }

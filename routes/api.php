@@ -3,7 +3,7 @@
 Route::post('auth/authenticate', 'Auth\AuthenticateController')->name('authenticate');
 Route::post('auth/register', 'Auth\RegistrationController')->name('register');
 
-Route::middleware('auth:api')->group(function () {
+Route::middleware(['auth:api', 'verified'])->group(function () {
     // Domain routes...
     Route::get('/domains', 'Domain\GetDomainsController')->name('get-domains');
 

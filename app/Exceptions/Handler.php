@@ -60,6 +60,12 @@ class Handler extends ExceptionHandler
                 ? $exception->getStatusCode()
                 : Response::HTTP_NOT_FOUND;
 
+            if ($message = $exception->getMessage()) {
+                return response()->json([
+                    'message' => $message,
+                ], $statusCode);
+            }
+
             return Response::jsonStatus($statusCode);
         }
 
