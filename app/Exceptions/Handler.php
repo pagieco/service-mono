@@ -55,7 +55,11 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception): JsonResponse
     {
-        if ($this->isHttpException($exception) || $this->isModelNotFoundException($exception)) {
+        if ($this->isModelNotFoundException($exception)) {
+            return Response::jsonStatus(Response::HTTP_NOT_FOUND);
+        }
+
+        if ($this->isHttpException($exception)) {
             $statusCode = method_exists($exception, 'getStatusCode')
                 ? $exception->getStatusCode()
                 : Response::HTTP_NOT_FOUND;
