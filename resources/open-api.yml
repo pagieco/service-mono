@@ -83,6 +83,16 @@ paths:
         200:
           $ref: '#/components/responses/get-teams'
 
+  /teams/{team}:
+    get:
+      description: Get a specific team
+      tags:
+        - Teams
+      operationId: GetTeam
+      responses:
+        200:
+          $ref: '#/components/responses/get-team'
+
   /domains/{domain}/assets:
     get:
       description: Get a list of assets from the given domain
@@ -175,6 +185,15 @@ components:
                 type: array
                 items:
                   $ref: '#/components/schemas/team'
+
+    get-team:
+      description: OK
+      content:
+        application/json:
+          schema:
+            properties:
+              data:
+                $ref: '#/components/schemas/team'
 
     get-assets:
       description: OK

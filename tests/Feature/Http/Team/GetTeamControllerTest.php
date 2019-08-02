@@ -56,6 +56,8 @@ class GetTeamControllerTest extends TestCase
         $response = $this->get(route('get-team', $this->team->getKey()));
 
         $response->assertStatus(Response::HTTP_OK);
+
+        $this->assertSchema($response, 'GetTeam', Response::HTTP_OK);
     }
 
     /**
