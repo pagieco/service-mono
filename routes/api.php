@@ -2,6 +2,7 @@
 
 Route::post('auth/authenticate', 'Auth\AuthenticateController')->name('authenticate');
 Route::post('auth/register', 'Auth\RegistrationController')->name('register');
+Route::get('auth/verify-email', 'Auth\VerificationController')->name('verification.verify')->middleware('signed');
 
 Route::middleware(['auth:api', 'verified'])->group(function () {
     // Domain routes...
