@@ -98,7 +98,6 @@ abstract class TestCase extends BaseTestCase
     protected function assignAdminRoleToUser()
     {
         $role = new Role([
-            'slug' => 'admin',
             'name' => 'Admin',
         ]);
 
@@ -106,7 +105,7 @@ abstract class TestCase extends BaseTestCase
 
         $role->save();
 
-        $this->user->assignRole('admin');
+        $this->user->assignRole($role->id);
 
         $this->role = $role;
     }
