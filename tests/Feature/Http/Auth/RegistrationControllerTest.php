@@ -172,8 +172,12 @@ class RegistrationControllerTest extends TestCase
 
         $this->assertSchema($response, 'Register', Response::HTTP_CREATED);
 
-        Event::assertDispatched(Registered::class, function ($event) {
-            return $event->user->email === 'email@domain.com';
+        $user = User::find($response->json('data.id'));
+
+        $this->assertNotNull($user);
+
+        Event::assertDispatched(Registered::class, function ($event) use ($user) {
+            return $event->user->email === $user->email;
         });
     }
 }
