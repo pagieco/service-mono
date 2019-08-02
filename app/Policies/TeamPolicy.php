@@ -11,6 +11,17 @@ class TeamPolicy
     use HandlesAuthorization;
 
     /**
+     * Determine whether the user can list the teams.
+     *
+     * @param  \App\User $user
+     * @return bool
+     */
+    public function list(User $user)
+    {
+        return $user->hasAccess('team:list');
+    }
+
+    /**
      * Determine whether the user can view the domain.
      *
      * @param  \App\User  $user

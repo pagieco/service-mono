@@ -19,7 +19,7 @@ class GetTeamsControllerTest extends TestCase
     /** @test */
     public function it_doesnt_include_teams_where_the_user_has_no_access_to()
     {
-        $this->login();
+        $this->login()->forceAccess($this->role, 'team:list');
 
         factory(Team::class, 4)
             ->create()
@@ -39,9 +39,19 @@ class GetTeamsControllerTest extends TestCase
     }
 
     /** @test */
-    public function it_successfully_executes_the_get_teams_route()
+    public function it_throws_a_403_forbidden_exception_when_the_user_has_no_access_to_list_the_teams()
     {
         $this->login();
+
+        $response = $this->get(route('get-teams'));
+
+        $response->assertStatus(Response::HTTP_FORBIDDEN);
+    }
+
+    /** @test */
+    public function it_successfully_executes_the_get_teams_route()
+    {
+        $this->login()->forceAccess($this->role, 'team:list');
 
         factory(Team::class, 4)->create()
             ->each(function (Team $team) {
