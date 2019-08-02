@@ -3,7 +3,6 @@
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
 use App\Team;
-use App\Domain;
 use App\Environment;
 use Faker\Generator as Faker;
 

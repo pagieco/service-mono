@@ -2,7 +2,6 @@
 
 namespace App;
 
-use App\Concerns;
 use App\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 

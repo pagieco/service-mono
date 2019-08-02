@@ -5,7 +5,6 @@ namespace Tests\Unit;
 use App\Domain;
 use App\Environment;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class DomainTest extends ModelTestCase
 {

@@ -2,7 +2,6 @@
 
 namespace App;
 
-use App\Concerns;
 use Illuminate\Support\Str;
 use App\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Auth;
 
-use GuzzleHttp\Client;
 use App\Http\Response;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use App\Http\Requests\AuthenticateRequest;
 use GuzzleHttp\Exception\BadResponseException;

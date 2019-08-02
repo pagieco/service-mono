@@ -4,7 +4,6 @@ namespace App\Providers;
 
 use App\Listeners\LogUserLogin;
 use Illuminate\Auth\Events\Registered;
-use App\Listeners\RemoveOldAccessTokens;
 use App\Listeners\CreatePersonalUserTeam;
 use Laravel\Passport\Events\AccessTokenCreated;
 use App\Listeners\CreateInitialDomainAndEnvironment;

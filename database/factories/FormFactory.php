@@ -2,8 +2,8 @@
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
-use App\Team;
 use App\Form;
+use App\Team;
 use App\Domain;
 use Faker\Generator as Faker;
 

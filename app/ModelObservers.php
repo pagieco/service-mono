@@ -2,8 +2,6 @@
 
 namespace App;
 
-use App\Observers;
-
 trait ModelObservers
 {
     /**

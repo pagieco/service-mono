@@ -2,11 +2,11 @@
 
 namespace Tests;
 
-use App\Environment;
 use App\Role;
 use App\Team;
 use App\User;
 use App\Domain;
+use App\Environment;
 use Laravel\Passport\Passport;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Database\Eloquent\Model;

@@ -22,7 +22,6 @@ if (! function_exists('created')) {
 if (! function_exists('current_domain')) {
     function current_domain()
     {
-
     }
 }
 

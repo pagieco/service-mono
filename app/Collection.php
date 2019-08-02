@@ -2,7 +2,6 @@
 
 namespace App;
 
-use App\Concerns;
 use Jenssegers\Mongodb\Eloquent\Model;
 
 class Collection extends Model
