@@ -22,7 +22,7 @@ class TeamPolicy
     }
 
     /**
-     * Determine whether the user can view the domain.
+     * Determine whether the user can view the team.
      *
      * @param  \App\User  $user
      * @param  \App\Team  $team
