@@ -19,7 +19,7 @@ class GetDomainsControllerTest extends TestCase
     /** @test */
     public function it_returns_an_empty_response_when_no_domains_where_found()
     {
-        $this->login();
+        $this->login()->forceAccess($this->role, 'domain:list');
 
         $response = $this->get(route('get-domains'));
 
@@ -29,7 +29,7 @@ class GetDomainsControllerTest extends TestCase
     /** @test */
     public function it_doesnt_include_domains_from_other_teams()
     {
-        $this->login();
+        $this->login()->forceAccess($this->role, 'domain:list');
         $this->domain();
 
         factory(Domain::class)->create();
@@ -40,9 +40,19 @@ class GetDomainsControllerTest extends TestCase
     }
 
     /** @test */
-    public function it_successfully_executes_the_get_domain_route()
+    public function it_throws_a_403_forbidden_exception_when_the_user_has_no_access_to_the_list_of_domains()
     {
         $this->login();
+
+        $response = $this->get(route('get-domains'));
+
+        $response->assertStatus(Response::HTTP_FORBIDDEN);
+    }
+
+    /** @test */
+    public function it_successfully_executes_the_get_domain_route()
+    {
+        $this->login()->forceAccess($this->role, 'domain:list');
         $this->domain();
 
         $response = $this->get(route('get-domains'));
