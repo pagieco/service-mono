@@ -13,6 +13,7 @@ Route::middleware(['auth:api', 'verified'])->group(function () {
 
     // Team routes...
     Route::get('/teams', 'Team\GetTeamsController')->name('get-teams');
+    Route::get('/teams/{team}', 'Team\GetTeamController')->name('get-team');
 
     Route::prefix('domains/{domain}')->group(function () {
         // Asset routes...
