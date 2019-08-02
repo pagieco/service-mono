@@ -27,7 +27,7 @@ trait AuthenticatedRoute
 
         $this->login($user);
 
-        $response = $this->makeRequest($this->domain()->id);
+        $response = $this->makeRequest($this->getRouteUuid());
 
         $response->assertStatus(Response::HTTP_FORBIDDEN);
 
@@ -44,5 +44,15 @@ trait AuthenticatedRoute
     protected function makeRequest(): TestResponse
     {
         throw new \BadMethodCallException('Please implement the `'.__METHOD__.'` method.');
+    }
+
+    /**
+     * Get the route UUID used for verified route requests.
+     *
+     * @return string
+     */
+    protected function getRouteUuid(): string
+    {
+        return $this->domain()->id;
     }
 }
