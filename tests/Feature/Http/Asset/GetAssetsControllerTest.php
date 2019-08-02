@@ -19,7 +19,7 @@ class GetAssetsControllerTest extends TestCase
     /** @test */
     public function it_returns_an_empty_response_when_no_assets_where_found()
     {
-        $this->login();
+        $this->login()->forceAccess($this->role, 'asset:list');
 
         $response = $this->get(route('get-assets', $this->domain()->id));
 
@@ -29,7 +29,7 @@ class GetAssetsControllerTest extends TestCase
     /** @test */
     public function it_doesnt_include_asset_from_other_teams()
     {
-        $this->login();
+        $this->login()->forceAccess($this->role, 'asset:list');
 
         $domain = $this->domain();
 
@@ -48,7 +48,7 @@ class GetAssetsControllerTest extends TestCase
     /** @test */
     public function it_doesnt_include_assets_from_other_domains()
     {
-        $this->login();
+        $this->login()->forceAccess($this->role, 'asset:list');
 
         $domain = $this->domain();
 
@@ -67,9 +67,19 @@ class GetAssetsControllerTest extends TestCase
     }
 
     /** @test */
-    public function it_successfully_executes_the_get_assets_route()
+    public function it_throws_a_403_forbidden_exception_when_the_user_has_no_access_to_list_the_assets()
     {
         $this->login();
+
+        $response = $this->get(route('get-assets', $this->domain()->id));
+
+        $response->assertStatus(Response::HTTP_FORBIDDEN);
+    }
+
+    /** @test */
+    public function it_successfully_executes_the_get_assets_route()
+    {
+        $this->login()->forceAccess($this->role, 'asset:list');
 
         $domain = $this->domain();
 
