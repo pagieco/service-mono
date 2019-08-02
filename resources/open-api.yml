@@ -113,6 +113,16 @@ paths:
         200:
           $ref: '#/components/responses/get-pages'
 
+  /domains/{domain}/collections:
+    get:
+      description: get a list of collections from the given domain
+      tags:
+        - Collections
+      operationId: GetCollections
+      responses:
+        200:
+          $ref: '#/components/responses/get-collections'
+
 components:
   responses:
     authenticate:
@@ -198,6 +208,17 @@ components:
                 type: array
                 items:
                   $ref: '#/components/schemas/page'
+
+    get-collections:
+      description: OK
+      content:
+        application/json:
+          schema:
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '#/components/schemas/collection'
 
     status-401-response:
       description: Unauthorized
@@ -376,6 +397,20 @@ components:
         name:
           type: string
         slug:
+          type: string
+        created_at:
+          type: string
+          format: 'date-time'
+        updated_at:
+          type: string
+          format: 'date-time'
+
+    collection:
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
           type: string
         created_at:
           type: string
