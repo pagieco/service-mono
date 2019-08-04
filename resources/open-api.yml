@@ -72,6 +72,16 @@ paths:
           $ref: '#/components/responses/get-environments'
         204:
           description: No environments found
+    post:
+      description: Create a new environment
+      tags:
+        - Environments
+      operationId: CreateEnvironment
+      responses:
+        201:
+          $ref: '#/components/responses/create-environment'
+        422:
+          $ref: '#/components/responses/status-422-response'
 
   /teams:
     get:
@@ -174,6 +184,15 @@ components:
                 type: array
                 items:
                   $ref: '#/components/schemas/environment'
+
+    create-environment:
+      description: OK
+      content:
+        application/json:
+          schema:
+            properties:
+              data:
+                $ref: '#/components/schemas/environment'
 
     get-teams:
       description: OK
