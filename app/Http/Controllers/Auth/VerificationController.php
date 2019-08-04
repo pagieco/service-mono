@@ -7,6 +7,7 @@ use App\Http\Response;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Auth\Events\Verified;
+use App\Notifications\WelcomeMessage;
 
 class VerificationController extends Controller
 {
@@ -25,6 +26,8 @@ class VerificationController extends Controller
         if ($user->markEmailAsVerified()) {
             event(new Verified($user));
         }
+
+        $user->notify(new WelcomeMessage);
 
         return redirect(config('auth.redirect-after-verify'));
     }
