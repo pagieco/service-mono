@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\Timezone;
 use Illuminate\Foundation\Http\FormRequest;
 
 class RegistrationRequest extends FormRequest
@@ -27,6 +28,7 @@ class RegistrationRequest extends FormRequest
             'name' => 'required|min:5|max:100',
             'email' => 'required|email|unique:users|max:100',
             'password' => 'required|min:8|max:255',
+            'timezone' => ['required', new Timezone],
         ];
     }
 }

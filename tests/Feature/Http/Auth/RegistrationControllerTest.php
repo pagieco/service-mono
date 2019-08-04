@@ -22,6 +22,7 @@ class RegistrationControllerTest extends TestCase
             'name' => faker()->name,
             'email' => null,
             'password' => faker()->password,
+            'timezone' => faker()->timezone,
         ]);
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
@@ -36,6 +37,7 @@ class RegistrationControllerTest extends TestCase
             'name' => faker()->name,
             'email' => 'non-valid-email',
             'password' => faker()->password,
+            'timezone' => faker()->timezone,
         ]);
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
@@ -52,6 +54,7 @@ class RegistrationControllerTest extends TestCase
             'name' => faker()->name,
             'email' => $user->email,
             'password' => faker()->password,
+            'timezone' => faker()->timezone,
         ]);
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
@@ -66,6 +69,7 @@ class RegistrationControllerTest extends TestCase
             'name' => faker()->name,
             'email' => str_repeat('a', 100).faker()->email,
             'password' => faker()->password,
+            'timezone' => faker()->timezone,
         ]);
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
@@ -80,6 +84,7 @@ class RegistrationControllerTest extends TestCase
             'name' => faker()->name,
             'email' => faker()->email,
             'password' => null,
+            'timezone' => faker()->timezone,
         ]);
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
@@ -94,6 +99,7 @@ class RegistrationControllerTest extends TestCase
             'name' => faker()->name,
             'email' => faker()->email,
             'password' => 'short',
+            'timezone' => faker()->timezone,
         ]);
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
@@ -108,6 +114,7 @@ class RegistrationControllerTest extends TestCase
             'name' => faker()->name,
             'email' => faker()->email,
             'password' => str_repeat('a', 260),
+            'timezone' => faker()->timezone,
         ]);
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
@@ -122,6 +129,7 @@ class RegistrationControllerTest extends TestCase
             'name' => null,
             'email' => faker()->email,
             'password' => faker()->password,
+            'timezone' => faker()->timezone,
         ]);
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
@@ -136,6 +144,7 @@ class RegistrationControllerTest extends TestCase
             'name' => 'abcd',
             'email' => faker()->email,
             'password' => faker()->password,
+            'timezone' => faker()->timezone,
         ]);
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
@@ -150,6 +159,36 @@ class RegistrationControllerTest extends TestCase
             'name' => str_repeat('a', 110),
             'email' => faker()->email,
             'password' => faker()->password,
+            'timezone' => faker()->timezone,
+        ]);
+
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+
+        $this->assertSchema($response, 'Register', Response::HTTP_UNPROCESSABLE_ENTITY);
+    }
+
+    /** @test */
+    public function it_requires_a_timezone_when_registering_a_new_user()
+    {
+        $response = $this->post(route('register'), [
+            'name' => 'My user name',
+            'email' => faker()->email,
+            'password' => faker()->password,
+        ]);
+
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+
+        $this->assertSchema($response, 'Register', Response::HTTP_UNPROCESSABLE_ENTITY);
+    }
+
+    /** @test */
+    public function it_validates_on_a_valid_timezone_when_registering_a_new_user()
+    {
+        $response = $this->post(route('register'), [
+            'name' => 'My user name',
+            'email' => faker()->email,
+            'password' => faker()->password,
+            'timezone' => 'fake-timezone',
         ]);
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
@@ -166,6 +205,7 @@ class RegistrationControllerTest extends TestCase
             'name' => 'My user name',
             'email' => 'email@domain.com',
             'password' => 'my-secret-password',
+            'timezone' => faker()->timezone,
         ]);
 
         $response->assertStatus(Response::HTTP_CREATED);
