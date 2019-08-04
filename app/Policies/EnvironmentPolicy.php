@@ -3,6 +3,7 @@
 namespace App\Policies;
 
 use App\User;
+use App\Domain;
 use App\Environment;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -44,5 +45,21 @@ class EnvironmentPolicy
     {
         return $user->hasAccess('environment:view')
             && team()->environments->contains($environment->id);
+    }
+
+    /**
+     * Determine whether the user can attach the domain to the environment.
+     *
+     * @param  \App\User $user
+     * @param  \App\Environment $environment
+     * @param  \App\Domain $domain
+     * @return bool
+     * @throws \Throwable
+     */
+    public function attachDomain(User $user, Environment $environment, Domain $domain)
+    {
+        return $user->hasAccess('environment:attach-domain')
+            && team()->environments->contains($environment->id)
+            && team()->domains->contains($domain);
     }
 }
