@@ -3,8 +3,8 @@
 namespace Tests\Feature\Http\Teams;
 
 use App\Domain;
-use App\Environment;
 use Tests\TestCase;
+use App\Environment;
 use App\Http\Response;
 use Tests\ValidatesOpenAPISchema;
 use Tests\Feature\Http\AuthenticatedRoute;
