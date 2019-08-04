@@ -119,4 +119,15 @@ return [
         'collection:list' => ['List collections', 'List the collections.'],
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Redirect After Verify
+    |--------------------------------------------------------------------------
+    |
+    | Where the user redirects to after successfully email verification.
+    |
+    */
+
+    'redirect-after-verify' => env('AUTH_REDIRECT_AFTER_VERIFY'),
+
 ];

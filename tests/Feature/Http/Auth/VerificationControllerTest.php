@@ -3,6 +3,7 @@
 namespace Tests\Feature\Http\Auth;
 
 use App\User;
+use Illuminate\Http\RedirectResponse;
 use Tests\TestCase;
 use App\Http\Response;
 use Illuminate\Support\Str;
@@ -76,9 +77,9 @@ class VerificationControllerTest extends TestCase
 
         $response = $this->get($route);
 
-        $response->assertStatus(Response::HTTP_CREATED);
+        $response->assertStatus(Response::HTTP_FOUND);
 
-        $response->assertJson(['message' => 'The user is successfully verified.']);
+        $this->assertInstanceOf(RedirectResponse::class, $response->baseResponse);
 
         Event::assertDispatched(Verified::class, function ($e) use ($user) {
             return $e->user->id === $user->id;

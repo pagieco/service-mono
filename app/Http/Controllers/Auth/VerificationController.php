@@ -14,6 +14,7 @@ class VerificationController extends Controller
      * Verifiy the user through a signed-url.
      *
      * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function __invoke(Request $request)
     {
@@ -25,6 +26,6 @@ class VerificationController extends Controller
             event(new Verified($user));
         }
 
-        abort(Response::HTTP_CREATED, 'The user is successfully verified.');
+        return redirect(config('auth.redirect-after-verify'));
     }
 }
