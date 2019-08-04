@@ -7,6 +7,7 @@ Route::get('auth/verify-email', 'Auth\VerificationController')->name('verificati
 Route::middleware(['auth:api', 'verified'])->group(function () {
     // Domain routes...
     Route::get('/domains', 'Domain\GetDomainsController')->name('get-domains');
+    Route::get('/domains/{domain}', 'Domain\GetDomainController')->name('get-domain');
 
     // Environment routes...
     Route::get('/environments', 'Environment\GetEnvironmentsController')->name('get-environments');
