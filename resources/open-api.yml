@@ -89,6 +89,13 @@ paths:
       tags:
         - Environments
       operationId: GetEnvironment
+      parameters:
+        - in: path
+          name: environment
+          schema:
+            type: string
+          required: true
+          description: The environment ID
       responses:
         200:
           $ref: '#/components/responses/get-environment'
@@ -109,6 +116,13 @@ paths:
       tags:
         - Teams
       operationId: GetTeam
+      parameters:
+        - in: path
+          name: team
+          schema:
+            type: string
+          required: true
+          description: The team ID
       responses:
         200:
           $ref: '#/components/responses/get-team'
@@ -119,6 +133,13 @@ paths:
       tags:
         - Assets
       operationId: GetAssets
+      parameters:
+        - in: path
+          name: domain
+          schema:
+            type: string
+          required: true
+          description: The domain ID
       responses:
         200:
           $ref: '#/components/responses/get-assets'
@@ -129,6 +150,13 @@ paths:
       tags:
         - Forms
       operationId: GetForms
+      parameters:
+        - in: path
+          name: domain
+          schema:
+            type: string
+          required: true
+          description: The domain ID
       responses:
         200:
           $ref: '#/components/responses/get-forms'
@@ -139,6 +167,13 @@ paths:
       tags:
         - Pages
       operationId: GetPages
+      parameters:
+        - in: path
+          name: domain
+          schema:
+            type: string
+          required: true
+          description: The domain ID
       responses:
         200:
           $ref: '#/components/responses/get-pages'
@@ -149,6 +184,13 @@ paths:
       tags:
         - Collections
       operationId: GetCollections
+      parameters:
+        - in: path
+          name: domain
+          schema:
+            type: string
+          required: true
+          description: The domain ID
       responses:
         200:
           $ref: '#/components/responses/get-collections'
