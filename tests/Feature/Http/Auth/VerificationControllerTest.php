@@ -3,13 +3,13 @@
 namespace Tests\Feature\Http\Auth;
 
 use App\User;
-use Illuminate\Http\RedirectResponse;
 use Tests\TestCase;
 use App\Http\Response;
 use Illuminate\Support\Str;
 use Tests\ValidatesOpenAPISchema;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Auth\Events\Verified;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
