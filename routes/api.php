@@ -12,6 +12,7 @@ Route::middleware(['auth:api', 'verified'])->group(function () {
     // Environment routes...
     Route::get('/environments', 'Environment\GetEnvironmentsController')->name('get-environments');
     Route::post('/environments', 'Environment\CreateEnvironmentsController')->name('create-environment');
+    Route::get('/environments/{environment}', 'Environment\GetEnvironmentController')->name('get-environment');
 
     // Team routes...
     Route::get('/teams', 'Team\GetTeamsController')->name('get-teams');

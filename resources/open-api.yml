@@ -83,6 +83,16 @@ paths:
         422:
           $ref: '#/components/responses/status-422-response'
 
+  /environments/{environment}:
+    get:
+      description: Get a specific environment
+      tags:
+        - Environments
+      operationId: GetEnvironment
+      responses:
+        200:
+          $ref: '#/components/responses/get-environment'
+
   /teams:
     get:
       description: Get a list of teams the current user belongs to
@@ -184,6 +194,15 @@ components:
                 type: array
                 items:
                   $ref: '#/components/schemas/environment'
+
+    get-environment:
+      description: OK
+      content:
+        application/json:
+          schema:
+            properties:
+              data:
+                $ref: '#/components/schemas/environment'
 
     create-environment:
       description: OK
