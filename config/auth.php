@@ -110,13 +110,19 @@ return [
     */
 
     'permissions' => [
-        'domain:list' => ['List domains', 'List the domains.'],
-        'environment:list' => ['List environments', 'List the environments.'],
-        'team:list' => ['List teams', 'List the teams.'],
         'asset:list' => ['List assets', 'List the assets.'],
+        'collection:list' => ['List collections', 'List the collections.'],
+        'domain:list' => ['List domains', 'List the domains.'],
+        'domain:view' => ['View domain', 'View a domain.'],
+        'environment:list' => ['List environments', 'List the environments.'],
+        'environment:create' => ['Create environment', 'Create a new environment.'],
+        'environment:view' => ['View environment', 'View an environment.'],
+        'environment:attach-domain' => ['Attach domain', 'Attach a domain to an environment.'],
+        'environment:detach-domain' => ['Detach domain', 'Detach a domain from an environment.'],
         'form:list' => ['List forms', 'List the forms.'],
         'page:list' => ['List pages', 'List the pages.'],
-        'collection:list' => ['List collections', 'List the collections.'],
+        'team:list' => ['List teams', 'List the teams.'],
+        'team:view' => ['View team', 'View a team.'],
     ],
 
     /*
