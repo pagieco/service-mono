@@ -27,7 +27,7 @@ class CreateDomainsTable extends Migration
 
             $table->foreign('environment_id')
                 ->references('id')->on('environments')
-                ->onDelete('cascade');
+                ->onDelete('set null');
         });
     }
 
