@@ -106,6 +106,13 @@ paths:
       tags:
         - Environments
       operationId: AttachDomain
+      parameters:
+        - in: path
+          name: environment
+          schema:
+            type: string
+          required: true
+          description: The environment ID
       responses:
         201:
           $ref: '#/components/responses/status-201-response'
