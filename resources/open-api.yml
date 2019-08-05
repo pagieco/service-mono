@@ -100,6 +100,16 @@ paths:
         200:
           $ref: '#/components/responses/get-environment'
 
+  /environments/{environment}/attach-domain:
+    put:
+      description: Attach a domain to an environment
+      tags:
+        - Environments
+      operationId: AttachDomain
+      responses:
+        201:
+          $ref: '#/components/responses/status-201-response'
+
   /teams:
     get:
       description: Get a list of teams the current user belongs to
@@ -318,6 +328,15 @@ components:
                 type: array
                 items:
                   $ref: '#/components/schemas/collection'
+
+    status-201-response:
+      description: Created
+      content:
+        application/json:
+          schema:
+            properties:
+              message:
+                type: string
 
     status-401-response:
       description: Unauthorized

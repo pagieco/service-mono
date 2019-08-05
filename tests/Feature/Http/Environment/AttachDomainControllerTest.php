@@ -62,6 +62,8 @@ class AttachDomainControllerTest extends TestCase
         ]);
 
         $response->assertStatus(Response::HTTP_CREATED);
+
+        $this->assertSchema($response, 'AttachDomain', Response::HTTP_CREATED);
     }
 
     /**
