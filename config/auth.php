@@ -120,6 +120,7 @@ return [
         'environment:attach-domain' => ['Attach domain', 'Attach a domain to an environment.'],
         'environment:detach-domain' => ['Detach domain', 'Detach a domain from an environment.'],
         'environment:update' => ['Update environment', 'Update an environment'],
+        'environment:delete' => ['Delete environment', 'Delete an environment'],
         'form:list' => ['List forms', 'List the forms.'],
         'page:list' => ['List pages', 'List the pages.'],
         'team:list' => ['List teams', 'List the teams.'],

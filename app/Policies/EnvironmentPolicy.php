@@ -92,4 +92,18 @@ class EnvironmentPolicy
         return $user->hasAccess('environment:update')
             && team()->environments->contains($environment->id);
     }
+
+    /**
+     * Determine whether the user can delete the environment.
+     *
+     * @param  \App\User $user
+     * @param  \App\Environment $environment
+     * @return bool
+     * @throws \Throwable
+     */
+    public function delete(User $user, Environment $environment)
+    {
+        return $user->hasAccess('environment:delete')
+            && team()->environments->contains($environment->id);
+    }
 }
