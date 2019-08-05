@@ -57,13 +57,19 @@ class AttachDomainControllerTest extends TestCase
     {
         $this->login()->forceAccess($this->role, 'environment:attach-domain');
 
-        $response = $this->put(route('attach-domain-to-environment', $this->createTestResource()->id), [
+        $environment = $this->createTestResource();
+
+        $response = $this->put(route('attach-domain-to-environment', $environment->id), [
             'domain' => $this->domain()->id,
         ]);
 
         $response->assertStatus(Response::HTTP_CREATED);
 
         $this->assertSchema($response, 'AttachDomain', Response::HTTP_CREATED);
+
+        $this->assertDatabaseHas('domains', [
+            'environment_id' => $environment->id,
+        ]);
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Environment;
 
+use App\Domain;
 use App\Environment;
 use App\Http\Response;
 use App\Http\Requests\AttachDomainToEnvironmentRequest;
@@ -28,8 +29,21 @@ class AttachDomainController
 
         $this->authorize('attach-domain', [$environment, $domain]);
 
-        $domain->environment()->associate($environment);
+        $this->attach($domain, $environment);
 
         return created();
+    }
+
+    /**
+     * Attach a domain to an environment.
+     *
+     * @param  \App\Domain $domain
+     * @param  \App\Environment $environment
+     */
+    protected function attach(Domain $domain, Environment $environment): void
+    {
+        $domain->environment()->associate($environment);
+
+        $domain->save();
     }
 }
