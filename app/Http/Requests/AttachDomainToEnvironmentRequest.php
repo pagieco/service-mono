@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\Uuid;
 use Illuminate\Foundation\Http\FormRequest;
 
 class AttachDomainToEnvironmentRequest extends FormRequest
@@ -24,7 +25,7 @@ class AttachDomainToEnvironmentRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'domain' => ['required', new Uuid],
         ];
     }
 }

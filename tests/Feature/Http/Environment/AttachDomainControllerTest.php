@@ -53,6 +53,20 @@ class AttachDomainControllerTest extends TestCase
     }
 
     /** @test */
+    public function it_validates_on_uuid_when_attaching_a_domain_to_an_environment()
+    {
+        $this->login()->forceAccess($this->role, 'environment:attach-domain');
+
+        $environment = $this->createTestResource();
+
+        $response = $this->put(route('attach-domain-to-environment', $environment->id), [
+            'domain' => 'non-valid-uuid',
+        ]);
+
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+    }
+
+    /** @test */
     public function it_successfully_executes_the_attach_domain_to_environment_route()
     {
         $this->login()->forceAccess($this->role, 'environment:attach-domain');
