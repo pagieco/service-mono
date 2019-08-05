@@ -117,6 +117,23 @@ paths:
         201:
           $ref: '#/components/responses/status-201-response'
 
+  /environments/{environment}/detach-domain:
+    delete:
+      description: Detach a domain from an environment
+      tags:
+        - Environments
+      operationId: DetachDomain
+      parameters:
+        - in: path
+          name: environment
+          schema:
+            type: string
+          required: true
+          description: The environment ID
+      responses:
+        204:
+          description: Domain successfully detached
+
   /teams:
     get:
       description: Get a list of teams the current user belongs to

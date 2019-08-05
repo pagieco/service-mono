@@ -62,4 +62,20 @@ class EnvironmentPolicy
             && team()->environments->contains($environment->id)
             && team()->domains->contains($domain);
     }
+
+    /**
+     * Determine whether the user can detach the domain from the environment.
+     *
+     * @param  \App\User $user
+     * @param  \App\Environment $environment
+     * @param  \App\Domain $domain
+     * @return bool
+     * @throws \Throwable
+     */
+    public function detachDomain(User $user, Environment $environment, Domain $domain)
+    {
+        return $user->hasAccess('environment:detach-domain')
+            && team()->environments->contains($environment->id)
+            && team()->domains->contains($domain);
+    }
 }

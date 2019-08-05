@@ -17,7 +17,7 @@ class CreateDomainsTable extends Migration
             $table->uuid('id');
             $table->primary('id');
             $table->uuid('team_id');
-            $table->uuid('environment_id');
+            $table->uuid('environment_id')->nullable();
             $table->string('domain_name');
             $table->timestamps();
 

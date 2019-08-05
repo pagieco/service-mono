@@ -13,6 +13,7 @@ Route::middleware(['auth:api', 'verified'])->group(function () {
     Route::get('/environments', 'Environment\GetEnvironmentsController')->name('get-environments');
     Route::post('/environments', 'Environment\CreateEnvironmentsController')->name('create-environment');
     Route::put('/environments/{environment}/attach-domain', 'Environment\AttachDomainController')->name('attach-domain-to-environment');
+    Route::delete('/environments/{environment}/detach-domain', 'Environment\DetachDomainController')->name('detach-domain-from-environment');
     Route::get('/environments/{environment}', 'Environment\GetEnvironmentController')->name('get-environment');
 
     // Team routes...
