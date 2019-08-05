@@ -15,6 +15,7 @@ Route::middleware(['auth:api', 'verified'])->group(function () {
     Route::put('/environments/{environment}/attach-domain', 'Environment\AttachDomainController')->name('attach-domain-to-environment');
     Route::delete('/environments/{environment}/detach-domain', 'Environment\DetachDomainController')->name('detach-domain-from-environment');
     Route::get('/environments/{environment}', 'Environment\GetEnvironmentController')->name('get-environment');
+    Route::patch('/environments/{environment}', 'Environment\UpdateEnvironmentController')->name('update-environment');
 
     // Team routes...
     Route::get('/teams', 'Team\GetTeamsController')->name('get-teams');

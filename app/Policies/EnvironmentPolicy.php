@@ -78,4 +78,18 @@ class EnvironmentPolicy
             && team()->environments->contains($environment->id)
             && team()->domains->contains($domain);
     }
+
+    /**
+     * Determine whether the user can update the environment.
+     *
+     * @param  \App\User $user
+     * @param  \App\Environment $environment
+     * @return bool
+     * @throws \Throwable
+     */
+    public function update(User $user, Environment $environment)
+    {
+        return $user->hasAccess('environment:update')
+            && team()->environments->contains($environment->id);
+    }
 }

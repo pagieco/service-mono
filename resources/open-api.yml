@@ -99,6 +99,21 @@ paths:
       responses:
         200:
           $ref: '#/components/responses/get-environment'
+    patch:
+      description: Update a specific environment
+      tags:
+        - Environments
+      operationId: UpdateEnvironment
+      parameters:
+        - in: path
+          name: environment
+          schema:
+            type: string
+          required: true
+          description: The environment ID
+      responses:
+        200:
+          $ref: '#/components/responses/get-environment'
 
   /environments/{environment}/attach-domain:
     put:
