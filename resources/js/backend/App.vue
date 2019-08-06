@@ -2,15 +2,15 @@
 
 import appConfig from './app.config';
 
-export function getPageTitle(title, $store = null) {
-  const template = typeof title === 'function' ? title($store) : title;
+export function getPageTitle(title) {
+  const template = typeof title === 'function' ? title() : title;
 
   return template ? `${template} | ${appConfig.title}` : appConfig.title;
 }
 
 export default {
   meta: {
-    titleTemplate: title => getPageTitle(title, this.$store),
+    titleTemplate: title => getPageTitle(title),
   },
 };
 
