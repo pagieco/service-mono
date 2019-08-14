@@ -22,12 +22,18 @@ class DomainsTableSeeder extends Seeder
         $environment = EnvironmentsTableSeeder::getProductionEnvironment();
 
         $domain = new Domain([
-            'domain_name' => sprintf('wildcats-%s.pagie.co', $environment->slug),
+            'id' => static::$uuid,
+            'domain_name' => sprintf('demo.pagie.local', $environment->slug),
         ]);
 
         $domain->team()->associate(TeamsTableSeeder::getWildcatsTeam());
         $domain->environment()->associate(EnvironmentsTableSeeder::getProductionEnvironment());
 
         $domain->save();
+    }
+
+    public static function getDemoDomain(): Domain
+    {
+        return Domain::findOrFail(static::$uuid);
     }
 }

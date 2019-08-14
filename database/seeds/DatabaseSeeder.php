@@ -18,5 +18,6 @@ class DatabaseSeeder extends Seeder
         $this->call(RolesTableSeeder::class);
         $this->call(EnvironmentsTableSeeder::class);
         $this->call(DomainsTableSeeder::class);
+        $this->call(PagesTableSeeder::class);
     }
 }

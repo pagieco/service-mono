@@ -19,6 +19,8 @@ class CreateDomainsTable extends Migration
             $table->uuid('team_id');
             $table->uuid('environment_id')->nullable();
             $table->string('domain_name');
+            $table->mediumText('css_rules')->nullable();
+            $table->string('css_file')->nullable();
             $table->timestamps();
 
             $table->foreign('team_id')

@@ -2,10 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
+use App\Http\Router\RouteResolver;
+
 class FrontendController
 {
-    public function __invoke()
+    public function __invoke(Request $request)
     {
-        return 'frontend';
+        $resolver = new RouteResolver($request);
+
+        $domain = $resolver->domain();
+
+        return $resolver->resource($domain)->toResponse($request);
     }
 }
