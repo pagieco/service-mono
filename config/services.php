@@ -52,4 +52,10 @@ return [
         ],
     ],
 
+    'google' => [
+        'fonts' => [
+            'key' => env('GOOGLE_FONT_API_KEY'),
+        ],
+    ],
+
 ];
