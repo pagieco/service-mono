@@ -9,6 +9,9 @@ Route::middleware(['auth:api', 'verified'])->group(function () {
     Route::get('/domains', 'Domain\GetDomainsController')->name('get-domains');
     Route::get('/domains/{domain}', 'Domain\GetDomainController')->name('get-domain');
 
+    // Font routes...
+    Route::get('/font-list', 'Font\GetFontListController')->name('get-font-list');
+
     // Environment routes...
     Route::get('/environments', 'Environment\GetEnvironmentsController')->name('get-environments');
     Route::post('/environments', 'Environment\CreateEnvironmentsController')->name('create-environment');

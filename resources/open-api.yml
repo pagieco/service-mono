@@ -16,6 +16,7 @@ tags:
   - name: Domains
   - name: Environments
   - name: Teams
+  - name: Fonts
   - name: Assets
   - name: Forms
   - name: Pages
@@ -176,6 +177,16 @@ paths:
         200:
           $ref: '#/components/responses/get-team'
 
+  /font-list:
+    get:
+      description: Get the font list
+      tags:
+        - Fonts
+      operationId: GetFontList
+      responses:
+        200:
+          $ref: '#/components/responses/get-font-list'
+
   /domains/{domain}/assets:
     get:
       description: Get a list of assets from the given domain
@@ -323,6 +334,17 @@ components:
             properties:
               data:
                 $ref: '#/components/schemas/team'
+
+    get-font-list:
+      description: OK
+      content:
+        application/json:
+          schema:
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '#/components/schemas/font'
 
     get-assets:
       description: OK
@@ -495,6 +517,17 @@ components:
         updated_at:
           type: string
           format: 'date-time'
+
+    font:
+      properties:
+        origin:
+          type: string
+        family:
+          type: string
+        variants:
+          type: object
+        subsets:
+          type: object
 
     asset:
       properties:
