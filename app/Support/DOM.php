@@ -10,7 +10,7 @@ class DOM
         'contenteditable',
     ];
 
-    public static function createDocumentFromDom($dom)
+    public static function createDocumentFromDom(array $dom): DOMDocument
     {
         $document = new DOMDocument();
 
@@ -25,15 +25,20 @@ class DOM
         return $document;
     }
 
-    public static function createDomNode($node, DOMDocument $document)
+    public static function createDomNode(array $node, DOMDocument $document)
     {
         $element = $document->createElement(strtolower($node['nodeType']));
         $element->setAttribute('data-id', $node['uuid']);
-        $element->textContent = $node['textContent'];
 
-        foreach ($node['nodeAttributes'] as $attribute => $value) {
-            if (! empty($value) && ! in_array($attribute, static::$reservedAttributes)) {
-                $element->setAttribute($attribute, $value);
+        if (isset($node['textContent'])) {
+            $element->textContent = $node['textContent'];
+        }
+
+        if (isset($node['nodeAttributes'])) {
+            foreach ($node['nodeAttributes'] as $attribute => $value) {
+                if (! empty($value) && ! in_array($attribute, static::$reservedAttributes)) {
+                    $element->setAttribute($attribute, $value);
+                }
             }
         }
 
