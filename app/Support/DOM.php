@@ -2,6 +2,7 @@
 
 namespace App\Support;
 
+use DOMElement;
 use DOMDocument;
 
 class DOM
@@ -25,7 +26,7 @@ class DOM
         return $document;
     }
 
-    public static function createDomNode(array $node, DOMDocument $document)
+    public static function createDomNode(array $node, DOMDocument $document): DOMElement
     {
         $element = $document->createElement(strtolower($node['nodeType']));
         $element->setAttribute('data-id', $node['uuid']);
