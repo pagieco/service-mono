@@ -5,6 +5,8 @@ Route::post('auth/register', 'Auth\RegistrationController')->name('register');
 Route::get('auth/verify-email', 'Auth\VerificationController')->name('verification.verify')->middleware('signed');
 
 Route::middleware(['auth:api', 'verified'])->group(function () {
+    Route::get('/auth/current-user', 'Auth\CurrentUserController')->name('current-user');
+
     // Domain routes...
     Route::get('/domains', 'Domain\GetDomainsController')->name('get-domains');
     Route::get('/domains/{domain}', 'Domain\GetDomainController')->name('get-domain');
