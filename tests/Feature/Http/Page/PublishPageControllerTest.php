@@ -145,12 +145,10 @@ class PublishPageControllerTest extends TestCase
     {
         if (is_array($uuid)) {
             list($domain, $page) = $uuid;
-
-            return $this->put(route('publish-page', [$domain, $page]));
+        } else {
+            $domain = faker()->uuid;
+            $page = faker()->uuid;
         }
-
-        $domain = $domain ?? faker()->uuid;
-        $page = $page ?? faker()->uuid;
 
         return $this->put(route('publish-page', [$domain, $page]));
     }
