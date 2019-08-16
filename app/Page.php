@@ -5,6 +5,7 @@ namespace App;
 use App\Support\DOM;
 use App\Renderers\PageRenderer;
 use App\Database\Eloquent\Model;
+use App\Support\Stylesheet;
 use Illuminate\Contracts\Support\Responsable;
 
 class Page extends Model implements Responsable
@@ -37,11 +38,10 @@ class Page extends Model implements Responsable
             'dom' => $dom->saveHTML(),
         ]);
 
-        $this->workspace()->update([
+        $this->domain()->update([
             'css_rules' => $css,
+            'css_file' => (new Stylesheet)->compile($this->domain, $css),
         ]);
-
-        $this->workspace->compileStylesheet();
     }
 
     /**

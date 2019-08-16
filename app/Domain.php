@@ -25,7 +25,16 @@ class Domain extends Model
      * @var array
      */
     protected $fillable = [
-        'domain_name',
+        'domain_name', 'css_rules', 'css_file',
+    ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'css_rules' => 'array',
     ];
 
     /**

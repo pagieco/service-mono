@@ -238,6 +238,30 @@ paths:
         200:
           $ref: '#/components/responses/get-pages'
 
+  /domains/{domain}/pages/{page}/publish:
+    put:
+      description: Publish the given page
+      tags:
+        - Pages
+      operationId: PublishPage
+      parameters:
+        - in: path
+          name: domain
+          schema:
+            type: string
+          required: true
+          description: The domain ID
+        - in: path
+          name: page
+          schema:
+            type: string
+            format: uuid
+          required: true
+          description: the page ID
+      responses:
+        422:
+          $ref: '#/components/responses/status-422-response'
+
   /domains/{domain}/collections:
     get:
       description: get a list of collections from the given domain

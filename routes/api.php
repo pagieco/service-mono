@@ -34,6 +34,7 @@ Route::middleware(['auth:api', 'verified'])->group(function () {
 
         // Page routes...
         Route::get('/pages', 'Page\GetPagesController')->name('get-pages');
+        Route::put('/pages/{page}/publish', 'Page\PublishPageController')->name('publish-page');
 
         // Collection routes...
         Route::get('/collections', 'Collection\GetCollectionsController')->name('get-collections');

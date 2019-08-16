@@ -49,9 +49,9 @@ trait AuthenticatedRoute
     /**
      * Get the route UUID used for verified route requests.
      *
-     * @return string
+     * @return string|array
      */
-    protected function getRouteUuid(): string
+    protected function getRouteUuid()
     {
         return $this->domain()->id;
     }
