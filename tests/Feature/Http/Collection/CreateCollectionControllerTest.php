@@ -4,6 +4,7 @@ namespace Tests\Feature\Http\Collection;
 
 use Tests\TestCase;
 use App\Http\Response;
+use Tests\RefreshCollections;
 use App\Enums\DatabaseFieldType;
 use Tests\ValidatesOpenAPISchema;
 use Tests\Feature\Http\AuthenticatedRoute;
@@ -14,6 +15,7 @@ class CreateCollectionControllerTest extends TestCase
 {
     use RefreshDatabase;
     use AuthenticatedRoute;
+    use RefreshCollections;
     use ValidatesOpenAPISchema;
 
     /** @test */
