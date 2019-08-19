@@ -121,7 +121,7 @@ trait HasPermissions
 
         return Role::query()
             ->select('id')
-            ->where('team_id', team()->id)
+            ->where('team_id', current_team()->id)
             ->whereIn('id', $roles)
             ->get();
     }

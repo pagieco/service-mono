@@ -23,7 +23,7 @@ class GetEnvironmentsController
     {
         $this->authorize('list', Environment::class);
 
-        $environments = team()->environments;
+        $environments = current_team()->environments;
 
         abort_if($environments->isEmpty(), Response::HTTP_NO_CONTENT);
 

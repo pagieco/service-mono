@@ -95,14 +95,14 @@ if (! function_exists('status_response')) {
     }
 }
 
-if (! function_exists('team')) {
+if (! function_exists('current_team')) {
     /**
      * Get the current team if the user is logged-in.
      *
      * @return \App\Team
      * @throws \Throwable
      */
-    function team(): Team
+    function current_team(): Team
     {
         return user()->currentTeam();
     }

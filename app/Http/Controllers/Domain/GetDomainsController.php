@@ -24,7 +24,7 @@ class GetDomainsController
     {
         $this->authorize('list', Domain::class);
 
-        $domains = team()->domains;
+        $domains = current_team()->domains;
 
         abort_if($domains->isEmpty(), Response::HTTP_NO_CONTENT);
 

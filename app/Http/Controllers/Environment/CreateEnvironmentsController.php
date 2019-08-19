@@ -24,7 +24,7 @@ class CreateEnvironmentsController
     {
         $environment = new Environment($request->all());
 
-        $environment->team()->associate(team());
+        $environment->team()->associate(current_team());
 
         return tap($environment)->save();
     }

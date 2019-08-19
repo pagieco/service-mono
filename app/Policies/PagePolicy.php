@@ -32,6 +32,6 @@ class PagePolicy
     public function publish(User $user, Page $page)
     {
         return $user->hasAccess('page:publish')
-            && team()->pages->contains($page->id);
+            && current_team()->pages->contains($page->id);
     }
 }

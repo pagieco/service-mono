@@ -25,7 +25,7 @@ class GetCollectionsController
         $this->authorize('list', Collection::class);
 
         $collections = Collection::query()
-            ->where('team_id', team()->id)
+            ->where('team_id', current_team()->id)
             ->where('domain_id', $domain->id)
             ->get();
 

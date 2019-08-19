@@ -32,7 +32,7 @@ class AssetPolicy
     public function view(User $user, Asset $asset)
     {
         return $user->hasAccess('asset:view')
-            && team()->assets->contains($asset->id);
+            && current_team()->assets->contains($asset->id);
     }
 
     /**

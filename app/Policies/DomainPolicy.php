@@ -32,6 +32,6 @@ class DomainPolicy
     public function view(User $user, Domain $domain)
     {
         return $user->hasAccess('domain:view')
-            && team()->domains->contains($domain->id);
+            && current_team()->domains->contains($domain->id);
     }
 }

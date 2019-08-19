@@ -44,7 +44,7 @@ class EnvironmentPolicy
     public function view(User $user, Environment $environment)
     {
         return $user->hasAccess('environment:view')
-            && team()->environments->contains($environment->id);
+            && current_team()->environments->contains($environment->id);
     }
 
     /**
@@ -59,8 +59,8 @@ class EnvironmentPolicy
     public function attachDomain(User $user, Environment $environment, Domain $domain)
     {
         return $user->hasAccess('environment:attach-domain')
-            && team()->environments->contains($environment->id)
-            && team()->domains->contains($domain);
+            && current_team()->environments->contains($environment->id)
+            && current_team()->domains->contains($domain);
     }
 
     /**
@@ -75,8 +75,8 @@ class EnvironmentPolicy
     public function detachDomain(User $user, Environment $environment, Domain $domain)
     {
         return $user->hasAccess('environment:detach-domain')
-            && team()->environments->contains($environment->id)
-            && team()->domains->contains($domain);
+            && current_team()->environments->contains($environment->id)
+            && current_team()->domains->contains($domain);
     }
 
     /**
@@ -90,7 +90,7 @@ class EnvironmentPolicy
     public function update(User $user, Environment $environment)
     {
         return $user->hasAccess('environment:update')
-            && team()->environments->contains($environment->id);
+            && current_team()->environments->contains($environment->id);
     }
 
     /**
@@ -104,6 +104,6 @@ class EnvironmentPolicy
     public function delete(User $user, Environment $environment)
     {
         return $user->hasAccess('environment:delete')
-            && team()->environments->contains($environment->id);
+            && current_team()->environments->contains($environment->id);
     }
 }

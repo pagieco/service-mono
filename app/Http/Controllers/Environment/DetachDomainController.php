@@ -23,7 +23,7 @@ class DetachDomainController
      */
     public function __invoke(DetachDomainFromEnvironmentRequest $request, Environment $environment)
     {
-        $domain = team()->domains()->find($request->domain);
+        $domain = current_team()->domains()->find($request->domain);
 
         abort_unless($domain, Response::HTTP_BAD_REQUEST);
 

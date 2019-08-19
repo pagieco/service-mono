@@ -56,7 +56,7 @@ trait Uploadable
         $instance->setOriginFile($file);
 
         $instance->domain()->associate(request()->route('domain'));
-        $instance->team()->associate(team());
+        $instance->team()->associate(current_team());
 
         return $instance;
     }
