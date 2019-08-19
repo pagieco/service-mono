@@ -32,6 +32,7 @@ Route::middleware(['auth:api', 'verified'])->group(function () {
         Route::get('/assets', 'Asset\GetAssetsController')->name('get-assets');
         Route::post('/assets', 'Asset\UploadAssetController')->name('upload-asset');
         Route::get('/assets/{asset}', 'Asset\GetAssetController')->name('get-asset');
+        Route::delete('/assets/{asset}', 'Asset\DeleteAssetController')->name('delete-asset');
 
         // Form Routes...
         Route::get('/forms', 'Form\GetFormsController')->name('get-forms');

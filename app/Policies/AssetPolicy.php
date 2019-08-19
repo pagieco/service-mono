@@ -45,4 +45,15 @@ class AssetPolicy
     {
         return $user->hasAccess('asset:upload');
     }
+
+    /**
+     * Determine whether the user can delete an asset.
+     *
+     * @param  \App\User $user
+     * @return bool
+     */
+    public function delete(User $user)
+    {
+        return $user->hasAccess('asset:delete');
+    }
 }
