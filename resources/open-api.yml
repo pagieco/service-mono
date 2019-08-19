@@ -405,6 +405,31 @@ paths:
           $ref: '#/components/responses/status-403-response'
         404:
           $ref: '#/components/responses/status-404-response'
+    delete:
+      description: Delete a specific collection
+      tags:
+        - Collections
+      operationId: DeleteCollection
+      parameters:
+        - in: path
+          name: domain
+          schema:
+            type: string
+            format: uuid
+          required: true
+        - in: path
+          name: collection
+          schema:
+            type: string
+            format: uuid
+          required: true
+      responses:
+        204:
+          description: Collection successfully deleted
+        403:
+          $ref: '#/components/responses/status-403-response'
+        404:
+          $ref: '#/components/responses/status-404-response'
 
 components:
   requestBodies:

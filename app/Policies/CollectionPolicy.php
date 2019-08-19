@@ -45,4 +45,18 @@ class CollectionPolicy
         return $user->hasAccess('collection:view')
             && current_team()->id === $collection->team_id;
     }
+
+    /**
+     * Determine whether the user can delete the collection.
+     *
+     * @param  \App\User $user
+     * @param  \App\Collection $collection
+     * @return bool
+     * @throws \Throwable
+     */
+    public function delete(User $user, Collection $collection)
+    {
+        return $user->hasAccess('collection:delete')
+            && current_team()->id === $collection->team_id;
+    }
 }
