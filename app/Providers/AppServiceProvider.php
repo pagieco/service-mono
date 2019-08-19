@@ -21,6 +21,15 @@ class AppServiceProvider extends ServiceProvider
     {
         Passport::ignoreMigrations();
 
+        // Try to call the `register...` method on included traits.
+        foreach (class_uses($this) as $trait) {
+            $classname = class_basename($trait);
+
+            if (method_exists($trait, 'register'.$classname)) {
+                $trait::{'register'.$classname}();
+            }
+        }
+
         require __DIR__.'/../Support/helpers.php';
     }
 
