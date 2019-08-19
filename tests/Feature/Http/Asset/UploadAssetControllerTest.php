@@ -20,17 +20,21 @@ class UploadAssetControllerTest extends TestCase
     /** @test */
     public function it_throws_a_403_forbidden_exception_when_the_user_is_not_allowed_to_upload_an_asset()
     {
-        Storage::fake();
+        Storage::fake('uploads');
 
         $this->login();
 
         $response = $this->post(route('upload-asset', $this->domain()->id), [
-            'file' => UploadedFile::fake()->image('avatar.jpg'),
+            'file' => UploadedFile::fake()->image('avatar.jpeg'),
         ]);
 
         $response->assertStatus(Response::HTTP_FORBIDDEN);
 
         $this->assertSchema($response, 'UploadAsset', Response::HTTP_FORBIDDEN);
+
+        $path = sprintf('%s/avatar.jpeg', $this->domain()->id);
+
+        Storage::disk('uploads')->assertMissing($path);
     }
 
     /** @test */
