@@ -30,6 +30,7 @@ Route::middleware(['auth:api', 'verified'])->group(function () {
     Route::prefix('domains/{domain}')->group(function () {
         // Asset routes...
         Route::get('/assets', 'Asset\GetAssetsController')->name('get-assets');
+        Route::get('/assets/{asset}', 'Asset\GetAssetController')->name('get-asset');
 
         // Form Routes...
         Route::get('/forms', 'Form\GetFormsController')->name('get-forms');

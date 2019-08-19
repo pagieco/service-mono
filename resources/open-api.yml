@@ -214,6 +214,33 @@ paths:
         200:
           $ref: '#/components/responses/get-assets'
 
+  /domains/{domain}/assets/{asset}:
+    get:
+      description: Get a specific asset
+      tags:
+        - Assets
+      operationId: GetAsset
+      parameters:
+        - in: path
+          name: domain
+          schema:
+            type: string
+            format: uuid
+          required: true
+        - in: path
+          name: asset
+          schema:
+            type: string
+            format: uuid
+          required: true
+      responses:
+        200:
+          $ref: '#/components/responses/get-asset'
+        403:
+          $ref: '#/components/responses/status-403-response'
+        404:
+          $ref: '#/components/responses/status-404-response'
+
   /domains/{domain}/forms:
     get:
       description: Get a list of forms from the given domain
@@ -400,6 +427,15 @@ components:
                 items:
                   $ref: '#/components/schemas/asset'
 
+    get-asset:
+      description: OK
+      content:
+        application/json:
+          schema:
+            properties:
+              data:
+                $ref: '#/components/schemas/asset'
+
     get-forms:
       description: OK
       content:
@@ -450,6 +486,28 @@ components:
             properties:
               message:
                 type: string
+
+    status-403-response:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            properties:
+              message:
+                type: string
+                example:
+                  Forbidden
+
+    status-404-response:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            properties:
+              message:
+                type: string
+                example:
+                  Not Found
 
     status-422-response:
       description: Unprocessable Entity
