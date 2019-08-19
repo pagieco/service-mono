@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Collection;
 
 use App\Domain;
 use App\Collection;
+use App\CollectionField;
 use Illuminate\Http\Request;
 use App\Http\Resources\CollectionResource;
 use App\Http\Requests\CreateCollectionRequest;
@@ -28,6 +29,10 @@ class CreateCollectionController
 
         $collection = $this->createCollection($request, $domain);
 
+        foreach ($request->fields as $field) {
+            $this->createCollectionField($collection, $field);
+        }
+
         return new CollectionResource($collection);
     }
 
@@ -47,5 +52,17 @@ class CreateCollectionController
         $collection->team()->associate(current_team());
 
         return tap($collection)->save();
+    }
+
+    /**
+     * Create a new collection field.
+     *
+     * @param  \App\Collection $collection
+     * @param  array $field
+     * @return \App\CollectionField
+     */
+    protected function createCollectionField(Collection $collection, array $field): CollectionField
+    {
+        return $collection->fields()->create($field);
     }
 }

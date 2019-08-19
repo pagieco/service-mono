@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CollectionResource extends JsonResource
+class CollectionFieldRelationshipResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,11 +15,12 @@ class CollectionResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->_id,
+            'id' => $this->id,
+            'type' => $this->type,
+            'slug' => $this->slug,
             'name' => $this->name,
-            'fields' => new CollectionFieldsRelationshipResource($this->fields),
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            'is_required' => $this->is_required,
+            'helptext' => $this->helptext,
         ];
     }
 }

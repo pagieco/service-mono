@@ -3,9 +3,8 @@
 namespace App;
 
 use Jenssegers\Mongodb\Eloquent\Model;
-use Jenssegers\Mongodb\Relations\EmbedsMany;
 
-class Collection extends Model
+class CollectionField extends Model
 {
     use Concerns\BelongsToTeam;
     use Concerns\BelongsToDomain;
@@ -22,7 +21,7 @@ class Collection extends Model
      *
      * @var string
      */
-    protected $collection = 'databases';
+    protected $collection = 'database_fields';
 
     /**
      * The attributes that are mass assignable.
@@ -30,16 +29,15 @@ class Collection extends Model
      * @var array
      */
     protected $fillable = [
-        'name',
+        'type', 'name', 'slug', 'helptext', 'is_required',
     ];
 
     /**
-     * The fields that belong to this collection.
+     * The attributes that should be cast to native types.
      *
-     * @return \Jenssegers\Mongodb\Relations\EmbedsMany
+     * @var array
      */
-    public function fields(): EmbedsMany
-    {
-        return $this->embedsMany(CollectionField::class);
-    }
+    protected $casts = [
+        'is_required' => 'boolean',
+    ];
 }
