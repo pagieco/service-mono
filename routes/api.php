@@ -44,5 +44,6 @@ Route::middleware(['auth:api', 'verified'])->group(function () {
         // Collection routes...
         Route::get('/collections', 'Collection\GetCollectionsController')->name('get-collections');
         Route::post('/collections', 'Collection\CreateCollectionController')->name('create-collection');
+        Route::get('/collections/{collection}', 'Collection\GetCollectionController')->name('get-collection');
     });
 });

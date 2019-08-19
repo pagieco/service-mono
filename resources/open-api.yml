@@ -213,6 +213,25 @@ paths:
       responses:
         200:
           $ref: '#/components/responses/get-assets'
+    post:
+      description: Upload an asset to the given domain
+      tags:
+        - Assets
+      operationId: UploadAsset
+      parameters:
+        - in: path
+          name: domain
+          schema:
+            type: string
+          required: true
+          description: The domain ID
+      requestBody:
+        $ref: '#/components/requestBodies/upload-asset-request'
+      responses:
+        201:
+          $ref: '#/components/responses/get-asset'
+        403:
+          $ref: '#/components/responses/status-403-response'
 
   /domains/{domain}/assets/{asset}:
     get:
@@ -240,6 +259,32 @@ paths:
           $ref: '#/components/responses/status-403-response'
         404:
           $ref: '#/components/responses/status-404-response'
+    delete:
+      description: Delete a specific asset
+      tags:
+        - Assets
+      operationId: DeleteAsset
+      parameters:
+        - in: path
+          name: domain
+          schema:
+            type: string
+            format: uuid
+          required: true
+        - in: path
+          name: asset
+          schema:
+            type: string
+            format: uuid
+          required: true
+      responses:
+        204:
+          description: Asset successfully deleted
+        403:
+          $ref: '#/components/responses/status-403-response'
+        404:
+          $ref: '#/components/responses/status-404-response'
+
 
   /domains/{domain}/forms:
     get:
@@ -315,8 +360,64 @@ paths:
       responses:
         200:
           $ref: '#/components/responses/get-collections'
+    post:
+      description: Create a new collection
+      tags:
+        - Collections
+      operationId: CreateCollection
+      parameters:
+        - in: path
+          name: domain
+          schema:
+            type: string
+          required: true
+          description: The domain ID
+      responses:
+        201:
+          $ref: '#/components/responses/create-collection'
+        403:
+          $ref: '#/components/responses/status-403-response'
+        422:
+          $ref: '#/components/responses/status-422-response'
+
+  /domains/{domain}/collections/{collection}:
+    get:
+      description: Get a specific collection
+      tags:
+        - Collections
+      operationId: GetCollection
+      parameters:
+        - in: path
+          name: domain
+          schema:
+            type: string
+            format: uuid
+          required: true
+        - in: path
+          name: collection
+          schema:
+            type: string
+            format: uuid
+      responses:
+        200:
+          $ref: '#/components/responses/get-collection'
+        403:
+          $ref: '#/components/responses/status-403-response'
+        404:
+          $ref: '#/components/responses/status-404-response'
 
 components:
+  requestBodies:
+    upload-asset-request:
+      content:
+        multipart/form-data:
+          schema:
+            type: object
+            properties:
+              file:
+                type: string
+                format: binary
+
   responses:
     authenticate:
       description: OK
@@ -468,6 +569,24 @@ components:
                 type: array
                 items:
                   $ref: '#/components/schemas/collection'
+
+    get-collection:
+      description: OK
+      content:
+        application/json:
+          schema:
+            properties:
+              data:
+                $ref: '#/components/schemas/collection'
+
+    create-collection:
+      description: OK
+      content:
+        application/json:
+          schema:
+            properties:
+              data:
+                $ref: '#/components/schemas/collection'
 
     status-201-response:
       description: Created

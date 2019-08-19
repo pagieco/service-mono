@@ -3,6 +3,7 @@
 namespace App\Policies;
 
 use App\User;
+use App\Collection;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class CollectionPolicy
@@ -29,5 +30,19 @@ class CollectionPolicy
     public function create(User $user)
     {
         return $user->hasAccess('collection:create');
+    }
+
+    /**
+     * Determine whether the user can view the team.
+     *
+     * @param  \App\User $user
+     * @param  \App\Collection $collection
+     * @return bool
+     * @throws \Throwable
+     */
+    public function view(User $user, Collection $collection)
+    {
+        return $user->hasAccess('collection:view')
+            && current_team()->id === $collection->team_id;
     }
 }
