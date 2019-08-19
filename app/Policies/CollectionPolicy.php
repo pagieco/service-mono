@@ -19,4 +19,15 @@ class CollectionPolicy
     {
         return $user->hasAccess('collection:list');
     }
+
+    /**
+     * Determine whether the user can create a new collection.
+     *
+     * @param  \App\User $user
+     * @return bool
+     */
+    public function create(User $user)
+    {
+        return $user->hasAccess('collection:create');
+    }
 }
