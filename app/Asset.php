@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Storage;
 class Asset extends Model
 {
     use Concerns\HasUUID;
+    use Concerns\Uploadable;
     use Concerns\BelongsToTeam;
     use Concerns\BelongsToDomain;
 
@@ -42,7 +43,7 @@ class Asset extends Model
      * @var array
      */
     protected $casts = [
-        'extra_attribtes' => 'array',
+        'extra_attributes' => 'array',
     ];
 
     /**

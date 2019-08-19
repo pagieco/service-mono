@@ -34,4 +34,15 @@ class AssetPolicy
         return $user->hasAccess('asset:view')
             && team()->assets->contains($asset->id);
     }
+
+    /**
+     * Determine whether the user can upload an asset.
+     *
+     * @param  \App\User $user
+     * @return bool
+     */
+    public function upload(User $user)
+    {
+        return $user->hasAccess('asset:upload');
+    }
 }
