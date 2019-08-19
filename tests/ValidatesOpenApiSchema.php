@@ -4,6 +4,7 @@ namespace Tests;
 
 use cebe\openapi\Reader;
 use Illuminate\Support\Str;
+use Illuminate\Http\Response;
 use cebe\openapi\spec\Schema;
 use cebe\openapi\spec\OpenApi;
 use cebe\openapi\spec\Operation;
@@ -29,6 +30,12 @@ trait ValidatesOpenAPISchema
             $this->openSchemaFile(),
             $operationId
         );
+
+        if ($statusCode === Response::HTTP_NO_CONTENT && empty($response->getContent())) {
+            $response->assertStatus($statusCode);
+
+            return;
+        }
 
         $schema = $this->transformSchema(
             $this->getSchema($operation, $statusCode)
