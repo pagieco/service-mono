@@ -72,7 +72,7 @@ class HelpersTest extends TestCase
     {
         $this->expectException(AuthenticationException::class);
 
-        user();
+        current_user();
     }
 
     /** @test */
@@ -80,6 +80,6 @@ class HelpersTest extends TestCase
     {
         $this->login();
 
-        $this->assertInstanceOf(User::class, user());
+        $this->assertInstanceOf(User::class, current_user());
     }
 }

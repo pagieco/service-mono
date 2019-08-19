@@ -104,18 +104,18 @@ if (! function_exists('current_team')) {
      */
     function current_team(): Team
     {
-        return user()->currentTeam();
+        return current_user()->currentTeam();
     }
 }
 
-if (! function_exists('user')) {
+if (! function_exists('current_user')) {
     /**
      * Get the currently logged in user.
      *
      * @return \Illuminate\Contracts\Auth\Authenticatable|null
      * @throws \Throwable
      */
-    function user(): ?Authenticatable
+    function current_user(): ?Authenticatable
     {
         throw_if(! $user = auth()->user(), AuthenticationException::class);
 
