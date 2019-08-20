@@ -4,7 +4,7 @@ COPY bin/container-startup.sh /usr/local/bin/start
 
 RUN apt-get update
 RUN apt-get install -y \
-	mysql-client \
+	mariadb-client \
 	libfreetype6-dev \
 	libjpeg62-turbo-dev \
 	libpng-dev \
