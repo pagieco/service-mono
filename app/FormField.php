@@ -33,7 +33,7 @@ class FormField extends Model
      * @var array
      */
     protected $casts = [
-        'validation' => 'array',
+        'validations' => 'array',
     ];
 
     /**

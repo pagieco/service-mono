@@ -302,6 +302,25 @@ paths:
       responses:
         200:
           $ref: '#/components/responses/get-forms'
+    post:
+      description: Create a new form
+      tags:
+        - Forms
+      operationId: CreateForm
+      parameters:
+        - in: path
+          name: domain
+          schema:
+            type: string
+          required: true
+          description: The domain ID
+      responses:
+        201:
+          $ref: '#/components/responses/create-form'
+        403:
+          $ref: '#/components/responses/status-403-response'
+        422:
+          $ref: '#/components/responses/status-422-response'
 
   /domains/{domain}/pages:
     get:
@@ -572,6 +591,15 @@ components:
                 type: array
                 items:
                   $ref: '#/components/schemas/form'
+
+    create-form:
+      description: OK
+      content:
+        application/json:
+          schema:
+            properties:
+              data:
+                $ref: '#/components/schemas/form'
 
     get-pages:
       description: OK

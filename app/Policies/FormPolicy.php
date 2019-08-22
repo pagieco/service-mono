@@ -19,4 +19,15 @@ class FormPolicy
     {
         return $user->hasAccess('form:list');
     }
+
+    /**
+     * Determine whether the user can create a new form.
+     *
+     * @param  \App\User $user
+     * @return bool
+     */
+    public function create(User $user)
+    {
+        return $user->hasAccess('form:create');
+    }
 }
