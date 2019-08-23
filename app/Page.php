@@ -40,7 +40,7 @@ class Page extends Model implements Responsable
 
         $this->domain()->update([
             'css_rules' => $css,
-            'css_file' => (new Stylesheet)->compile($this->domain, $css),
+            'css_file' => (new Stylesheet)->compile($css)->store($this->domain),
         ]);
     }
 

@@ -8,33 +8,60 @@ use Illuminate\Support\Facades\Storage;
 
 class Stylesheet
 {
-    public function compile(Domain $domain, array $cssRules = [])
-    {
-        $stylesheet = $this->reduceMediaQueries($cssRules);
-        $filename = sprintf('public/stylesheets/%s.css', $domain->id);
+    /**
+     * @var string
+     */
+    protected $contents;
 
-        Storage::put($filename, $stylesheet);
+    public function compile(array $cssRules = []): Stylesheet
+    {
+        $this->contents = trim($this->reduceMediaQueries($cssRules));
+
+        return $this;
+    }
+
+    public function store(Domain $domain)
+    {
+        $filename = sprintf('stylesheets/%s.css', $domain->id);
+
+        Storage::put($filename, $this->contents);
 
         return Storage::url($filename).'?t='.Str::random();
     }
 
-    protected function reduceMediaQueries(array $rules)
+    /**
+     * Get the current stylesheet contents.
+     *
+     * @return string
+     */
+    public function getContents(): string
     {
-        return array_reduce(array_keys($rules), function ($carry, $item) use ($rules) {
-            return sprintf('%s @media %s{%s}', $carry, $item, $this->reduceRules($rules[$item]));
+        return $this->contents;
+    }
+
+    protected function reduceMediaQueries(array $rules): string
+    {
+        $queries = array_keys($rules);
+
+        return array_reduce($queries, function (?array $carry, string $item) use ($rules): string {
+            return sprintf('%s @media %s{%s}', $carry, $item, $this->reduceSelectors($rules[$item]));
         });
     }
 
-    protected function reduceRules(array $rules)
+    protected function reduceSelectors(array $rules): ?string
     {
-        return array_reduce(array_keys($rules), function ($carry, $item) use ($rules) {
+        $selectors = array_keys($rules);
+
+        return array_reduce($selectors, function (?array $carry, string $item) use ($rules): string {
             return sprintf('%s%s{%s}', $carry, $item, $this->reduceProperties($rules[$item]));
         });
     }
 
-    protected function reduceProperties(array $rules)
+    protected function reduceProperties(array $rules): ?string
     {
-        return array_reduce(array_keys($rules), function ($carry, $item) use ($rules) {
+        $properties = array_keys($rules);
+
+        return array_reduce($properties, function (?array $carry, string $item) use ($rules): string {
             return sprintf('%s%s:%s;', $carry, $item, $rules[$item]);
         });
     }
