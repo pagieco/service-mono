@@ -111,7 +111,13 @@ return [
 
     'permissions' => [
         'asset:list' => ['List assets', 'List the assets.'],
+        'asset:view' => ['View asset', 'View an asset.'],
+        'asset:upload' => ['Upload asset', 'Upload an asset.'],
+        'asset:delete' => ['Delete asset', 'Delete an asset.'],
         'collection:list' => ['List collections', 'List the collections.'],
+        'collection:create' => ['Create collection', 'Create a collection.'],
+        'collection:view' => ['View collection', 'View a collection.'],
+        'collection:delete' => ['Delete collection', 'Delete a collection.'],
         'domain:list' => ['List domains', 'List the domains.'],
         'domain:view' => ['View domain', 'View a domain.'],
         'environment:list' => ['List environments', 'List the environments.'],
@@ -122,7 +128,9 @@ return [
         'environment:update' => ['Update environment', 'Update an environment'],
         'environment:delete' => ['Delete environment', 'Delete an environment'],
         'form:list' => ['List forms', 'List the forms.'],
+        'form:create' => ['Create form', 'Create a form.'],
         'page:list' => ['List pages', 'List the pages.'],
+        'page:publish' => ['Publish page', 'Publish a page.'],
         'team:list' => ['List teams', 'List the teams.'],
         'team:view' => ['View team', 'View a team.'],
     ],
