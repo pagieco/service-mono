@@ -6,6 +6,7 @@ use Tests\TestCase;
 use Illuminate\Http\Response;
 use Illuminate\Http\UploadedFile;
 use Tests\ValidatesOpenAPISchema;
+use App\Jobs\CreateAssetThumbnail;
 use Illuminate\Support\Facades\Storage;
 use Tests\Feature\Http\AuthenticatedRoute;
 use Illuminate\Foundation\Testing\TestResponse;
@@ -41,6 +42,8 @@ class UploadAssetControllerTest extends TestCase
     public function it_successfully_executes_the_upload_assets_route()
     {
         Storage::fake('uploads');
+
+        $this->expectsJobs(CreateAssetThumbnail::class);
 
         $this->login()->forceAccess($this->role, 'asset:upload');
 

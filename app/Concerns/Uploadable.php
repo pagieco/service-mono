@@ -2,7 +2,9 @@
 
 namespace App\Concerns;
 
+use App\Team;
 use App\Asset;
+use App\Domain;
 use Illuminate\Http\UploadedFile;
 
 trait Uploadable
@@ -15,9 +17,10 @@ trait Uploadable
     /**
      * Upload the current file.
      *
+     * @param  string $disk
      * @return Asset
      */
-    public function upload(): Asset
+    public function upload($disk = 'uploads'): Asset
     {
         $file = $this->getOriginFile();
 
@@ -25,23 +28,22 @@ trait Uploadable
         $filepath = $this->domain_id;
 
         $path = $file->storeAs($filepath, $filename, [
-            'disk' => 'uploads'
+            'disk' => $disk
         ]);
 
-        return tap($this)->fill([
-            'path' => $path,
-            'thumb_path' => $path,
-        ]);
+        return tap($this)->fill(['path' => $path]);
     }
 
     /**
      * Create a new asset instance from the given uploaded file.
      *
      * @param  \Illuminate\Http\UploadedFile $file
+     * @param  \App\Domain|null $domain
+     * @param  \App\Team|null $team
      * @return \App\Asset
      * @throws \Throwable
      */
-    public static function fromFile(UploadedFile $file): Asset
+    public static function fromFile(UploadedFile $file, ?Domain $domain = null, ?Team $team = null): Asset
     {
         $instance = new static([
             'hash' => $file->getContentHash(),
@@ -55,8 +57,8 @@ trait Uploadable
 
         $instance->setOriginFile($file);
 
-        $instance->domain()->associate(request()->route('domain'));
-        $instance->team()->associate(current_team());
+        $instance->domain()->associate($domain ?? request()->route('domain'));
+        $instance->team()->associate($team ?? current_team());
 
         return $instance;
     }
