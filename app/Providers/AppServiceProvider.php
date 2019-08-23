@@ -32,6 +32,10 @@ class AppServiceProvider extends ServiceProvider
             }
         }
 
+        if ($this->app->isLocal()) {
+            $this->app->register(TelescopeServiceProvider::class);
+        }
+
         require __DIR__.'/../Support/helpers.php';
     }
 
