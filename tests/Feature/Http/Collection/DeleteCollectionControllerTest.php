@@ -6,7 +6,6 @@ use App\Collection;
 use Tests\TestCase;
 use App\Http\Response;
 use Tests\RefreshCollections;
-use App\Enums\DatabaseFieldType;
 use Tests\ValidatesOpenAPISchema;
 use Tests\Feature\Http\AuthenticatedRoute;
 use Illuminate\Foundation\Testing\TestResponse;

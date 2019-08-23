@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\Http\Collection;
 
-use Tests\TestCase;
 use App\Collection;
+use Tests\TestCase;
 use App\Http\Response;
 use Tests\ValidatesOpenAPISchema;
 use Tests\Feature\Http\AuthenticatedRoute;

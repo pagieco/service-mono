@@ -4,8 +4,8 @@ namespace Tests;
 
 use cebe\openapi\Reader;
 use Illuminate\Support\Str;
-use Illuminate\Http\Response;
 use cebe\openapi\spec\Schema;
+use Illuminate\Http\Response;
 use cebe\openapi\spec\OpenApi;
 use cebe\openapi\spec\Operation;
 use cebe\openapi\SpecObjectInterface;

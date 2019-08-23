@@ -13,10 +13,11 @@ class FormFieldValidation implements Rule
      * @param  string $attribute
      * @param  mixed $value
      * @return bool
+     * @throws \ReflectionException
      */
     public function passes($attribute, $value)
     {
-        if (!is_array($value)) {
+        if (! is_array($value)) {
             return false;
         }
 

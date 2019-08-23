@@ -4,7 +4,6 @@ namespace App\Http\Requests;
 
 use App\Enums\FormFieldType;
 use Illuminate\Validation\Rule;
-use App\Enums\FormFieldValidation;
 use Illuminate\Foundation\Http\FormRequest;
 use App\Rules\FormFieldValidation as FormValidationRule;
 

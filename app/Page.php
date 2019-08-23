@@ -3,9 +3,9 @@
 namespace App;
 
 use App\Support\DOM;
+use App\Support\Stylesheet;
 use App\Renderers\PageRenderer;
 use App\Database\Eloquent\Model;
-use App\Support\Stylesheet;
 use Illuminate\Contracts\Support\Responsable;
 
 class Page extends Model implements Responsable

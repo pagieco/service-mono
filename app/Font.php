@@ -2,7 +2,6 @@
 
 namespace App;
 
-use App\Concerns;
 use App\Database\Eloquent\Model;
 
 class Font extends Model
