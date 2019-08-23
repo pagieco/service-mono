@@ -43,7 +43,7 @@ class Team extends Model
      */
     public function domains(): HasMany
     {
-        return $this->hasMany(Domain::class)->orderBy('name');
+        return $this->hasMany(Domain::class)->orderBy('domain_name');
     }
 
     /**
