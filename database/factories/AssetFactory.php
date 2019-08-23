@@ -34,6 +34,5 @@ $factory->define(Asset::class, function (Faker $faker) {
         'mimetype' => $faker->mimeType,
         'filesize' => $faker->randomNumber(),
         'path' => $path,
-        'thumb_path' => sprintf('thumb--%s.%s', $filename, $extension),
     ];
 });

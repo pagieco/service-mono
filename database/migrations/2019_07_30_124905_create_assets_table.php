@@ -27,7 +27,7 @@ class CreateAssetsTable extends Migration
             $table->integer('filesize');
             $table->json('extra_attributes')->nullable();
             $table->string('path');
-            $table->string('thumb_path');
+            $table->string('thumb_path')->nullable();
             $table->timestamps();
 
             $table->foreign('team_id')
