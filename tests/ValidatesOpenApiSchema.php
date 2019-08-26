@@ -31,7 +31,9 @@ trait ValidatesOpenAPISchema
             $operationId
         );
 
-        if ($statusCode === Response::HTTP_NO_CONTENT && empty($response->getContent())) {
+        if ($statusCode === Response::HTTP_NO_CONTENT
+            && isset($operation->responses[Response::HTTP_NO_CONTENT])
+            && empty($response->getContent())) {
             $response->assertStatus($statusCode);
 
             return;
