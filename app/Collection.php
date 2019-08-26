@@ -3,6 +3,7 @@
 namespace App;
 
 use Jenssegers\Mongodb\Eloquent\Model;
+use Jenssegers\Mongodb\Relations\HasMany;
 use Jenssegers\Mongodb\Relations\EmbedsMany;
 
 class Collection extends Model
@@ -32,6 +33,16 @@ class Collection extends Model
     protected $fillable = [
         'name',
     ];
+
+    /**
+     * The entries that belong to this collection.
+     *
+     * @return \Jenssegers\Mongodb\Relations\HasMany
+     */
+    public function entries(): HasMany
+    {
+        return $this->hasMany(CollectionEntry::class);
+    }
 
     /**
      * The fields that belong to this collection.
