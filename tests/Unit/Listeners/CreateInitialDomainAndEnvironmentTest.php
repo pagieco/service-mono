@@ -21,4 +21,14 @@ class CreateInitialDomainAndEnvironmentTest extends TestCase
         $this->assertNotNull($user->currentTeam()->domains);
         $this->assertNotNull($user->currentTeam()->environments);
     }
+
+    /** @test */
+    public function it_creates_an_initial_workflow_when_the_registered_event_is_triggered()
+    {
+        $user = factory(User::class)->create();
+
+        event(new Registered($user));
+
+        $this->assertNotNull($user->currentTeam()->workflows);
+    }
 }

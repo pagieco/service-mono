@@ -3,6 +3,7 @@
 namespace App\Listeners;
 
 use App\Domain;
+use App\Workflow;
 use App\Environment;
 use Illuminate\Auth\Events\Registered;
 
@@ -18,8 +19,10 @@ class CreateInitialDomainAndEnvironment
     {
         $this->createInitialDomain(
             $event,
-            $this->createInitialEnvironment($event)
+            $this->createInitialEnvironment($event),
         );
+
+        $this->createInitialWorkflow($event);
     }
 
     /**
@@ -37,6 +40,23 @@ class CreateInitialDomainAndEnvironment
         $environment->team()->associate($event->user->currentTeam());
 
         return tap($environment)->save();
+    }
+
+    /**
+     * Create the initial workflow.
+     *
+     * @param  \Illuminate\Auth\Events\Registered $event
+     * @return \App\Workflow
+     */
+    protected function createInitialWorkflow(Registered $event): Workflow
+    {
+        $workflow = new Workflow([
+            'name' => 'Default workflow',
+        ]);
+
+        $workflow->team()->associate($event->user->currentTeam());
+
+        return tap($workflow)->save();
     }
 
     /**
