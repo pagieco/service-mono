@@ -8,6 +8,7 @@ use App\Http\Response;
 use GuzzleHttp\Client;
 use Tests\ValidatesOpenApiSchema;
 use Illuminate\Support\Facades\DB;
+use GuzzleHttp\Psr7\Response as Psr7Response;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class AuthenticateControllerTest extends TestCase
@@ -82,6 +83,10 @@ class AuthenticateControllerTest extends TestCase
     /** @test */
     public function it_throws_an_unauthorized_exception_for_an_invalid_password()
     {
+        $this->mock(Client::class, function ($mock) {
+            $mock->shouldReceive('post')->once()->andReturn(new Psr7Response(401));
+        });
+
         $user = factory(User::class)->create();
 
         $response = $this->post(route('authenticate'), [
@@ -99,7 +104,7 @@ class AuthenticateControllerTest extends TestCase
     {
         $this->mock(Client::class, function ($mock) {
             // todo: refactor this mock
-            $response = new \GuzzleHttp\Psr7\Response(200, [], json_encode([
+            $response = new Psr7Response(200, [], json_encode([
                 'access_token' => 'access_token',
             ]));
 

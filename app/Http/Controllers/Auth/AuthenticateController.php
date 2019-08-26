@@ -6,7 +6,7 @@ use App\Http\Response;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use App\Http\Requests\AuthenticateRequest;
-use GuzzleHttp\Exception\BadResponseException;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 
 class AuthenticateController
@@ -21,6 +21,7 @@ class AuthenticateController
      * @param  \GuzzleHttp\Client $client
      * @return \Illuminate\Http\JsonResponse|\Psr\Http\Message\StreamInterface
      * @throws \Illuminate\Validation\ValidationException
+     * @throws \Throwable
      */
     public function __invoke(AuthenticateRequest $request, Client $client)
     {
@@ -31,7 +32,7 @@ class AuthenticateController
 
         try {
             return $this->attemptLogin($request, $client);
-        } catch (BadResponseException $exception) {
+        } catch (\Exception $exception) {
             return $this->sendBadRequestResponse($exception);
         }
     }
@@ -42,6 +43,7 @@ class AuthenticateController
      * @param  \Illuminate\Http\Request $request
      * @param  \GuzzleHttp\Client $client
      * @return mixed
+     * @throws \Throwable
      */
     protected function attemptLogin(Request $request, Client $client)
     {
@@ -49,7 +51,7 @@ class AuthenticateController
         $clientId = config('services.passport.client.id');
         $clientSecret = config('services.passport.client.secret');
 
-        return $client->post($endpoint, [
+        $response = $client->post($endpoint, [
             'form_params' => [
                 'grant_type' => 'password',
                 'client_id' => $clientId,
@@ -57,18 +59,23 @@ class AuthenticateController
                 'username' => $request->email,
                 'password' => $request->password,
             ],
-        ])->getBody();
+        ]);
+
+        if ($response->getStatusCode() !== 200) {
+            throw new AuthenticationException;
+        }
+
+        return $response->getBody();
     }
 
     /**
      * Send a bad request response.
      *
-     * @param  \GuzzleHttp\Exception\BadResponseException $exception
      * @return \Illuminate\Http\JsonResponse
      */
-    protected function sendBadRequestResponse(BadResponseException $exception)
+    protected function sendBadRequestResponse()
     {
-        return Response::jsonStatus($exception->getCode());
+        return Response::jsonStatus(Response::HTTP_UNAUTHORIZED);
     }
 
     /**
