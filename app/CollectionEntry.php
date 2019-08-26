@@ -7,6 +7,7 @@ use Jenssegers\Mongodb\Relations\BelongsTo;
 
 class CollectionEntry extends Model
 {
+    use Concerns\Paginatable;
     use Concerns\BelongsToTeam;
     use Concerns\BelongsToDomain;
 

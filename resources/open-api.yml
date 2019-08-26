@@ -17,6 +17,7 @@ tags:
   - name: Environments
   - name: Teams
   - name: Fonts
+  - name: Workflows
   - name: Assets
   - name: Forms
   - name: Pages
@@ -317,12 +318,86 @@ paths:
         200:
           $ref: '#/components/responses/get-font-list'
 
+  /workflows:
+    get:
+      description: Get a list of workflows from the given domain
+      tags:
+        - Workflows
+      operationId: GetWorkflows
+      security:
+          - BearerAuth: []
+      responses:
+        200:
+          $ref: '#/components/responses/get-workflows'
+    post:
+      description: Create a new workflow
+      tags:
+        - Workflows
+      operationId: CreateWorkflow
+      security:
+          - BearerAuth: []
+      responses:
+        201:
+          $ref: '#/components/responses/create-workflow'
+        403:
+          $ref: '#/components/responses/status-403-response'
+        422:
+          $ref: '#/components/responses/status-422-response'
+
+  /workflows/{workflow}:
+    get:
+      description: Get a specific workfow
+      tags:
+        - Workflows
+      operationId: GetWorkflow
+      security:
+          - BearerAuth: []
+      parameters:
+        - in: path
+          name: workflow
+          schema:
+            type: string
+          required: true
+          description: The workflow ID
+      responses:
+        200:
+          $ref: '#/components/responses/get-workflow'
+        403:
+          $ref: '#/components/responses/status-403-response'
+        404:
+          $ref: '#/components/responses/status-404-response'
+    patch:
+      description: Update a specific workflow
+      tags:
+        - Workflows
+      operationId: UpdateWorkflow
+      security:
+          - BearerAuth: []
+      parameters:
+        - in: path
+          name: workflow
+          schema:
+            type: string
+          required: true
+          description: The workflow ID
+      responses:
+        200:
+          $ref: '#/components/responses/update-workflow'
+        403:
+          $ref: '#/components/responses/status-403-response'
+        404:
+          $ref: '#/components/responses/status-404-response'
+        422:
+          $ref: '#/components/responses/status-422-response'
+
   /domains/{domain}/assets:
     get:
       description: Get a list of assets from the given domain
       tags:
         - Assets
       operationId: GetAssets
+      security:
+          - BearerAuth: []
       parameters:
         - in: path
           name: domain
@@ -731,6 +806,44 @@ components:
                 items:
                   $ref: '#/components/schemas/font'
 
+    get-workflows:
+      description: OK
+      content:
+        application/json:
+          schema:
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '#/components/schemas/workflow'
+
+    get-workflow:
+      description: OK
+      content:
+        application/json:
+          schema:
+            properties:
+              data:
+                $ref: '#/components/schemas/workflow'
+
+    create-workflow:
+      description: OK
+      content:
+        application/json:
+          schema:
+            properties:
+              data:
+                $ref: '#/components/schemas/workflow'
+
+    update-workflow:
+      description: OK
+      content:
+        application/json:
+          schema:
+            properties:
+              data:
+                $ref: '#/components/schemas/workflow'
+
     get-assets:
       description: OK
       content:
@@ -1025,6 +1138,22 @@ components:
           type: object
         subsets:
           type: object
+
+    workflow:
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        description:
+          type: string
+        created_at:
+          type: string
+          format: 'date-time'
+        updated_at:
+          type: string
+          format: 'date-time'
 
     asset:
       properties:

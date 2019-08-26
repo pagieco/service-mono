@@ -20,7 +20,9 @@ class GetTeamsController
     {
         $this->authorize('list', Team::class);
 
-        $teams = auth()->user()->teams;
+        $teams = auth()->user()
+            ->teams()
+            ->paginate();
 
         return new TeamsResource($teams);
     }

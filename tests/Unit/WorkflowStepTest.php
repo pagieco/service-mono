@@ -2,18 +2,18 @@
 
 namespace Tests\Unit;
 
-use App\FormSubmission;
+use App\WorkflowStep;
 use App\Concerns\Paginatable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class FormSubmissionTest extends ModelTestCase
+class WorkflowStepTest extends ModelTestCase
 {
     /**
      * The model instance to test.
      *
      * @var \Illuminate\Database\Eloquent\Model
      */
-    protected $model = FormSubmission::class;
+    protected $model = WorkflowStep::class;
 
     /** @test */
     public function it_correctly_implements_the_paginatable_concern()
@@ -28,14 +28,8 @@ class FormSubmissionTest extends ModelTestCase
     }
 
     /** @test */
-    public function it_belongs_to_a_domain()
+    public function it_belongs_to_a_workflow()
     {
-        $this->assertInstanceOf(BelongsTo::class, app($this->model)->domain());
-    }
-
-    /** @test */
-    public function it_belongs_to_a_form()
-    {
-        $this->assertInstanceOf(BelongsTo::class, app($this->model)->form());
+        $this->assertInstanceOf(BelongsTo::class, app($this->model)->workflow());
     }
 }

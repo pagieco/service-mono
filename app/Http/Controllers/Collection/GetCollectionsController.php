@@ -27,7 +27,7 @@ class GetCollectionsController
         $collections = Collection::query()
             ->where('team_id', current_team()->id)
             ->where('domain_id', $domain->id)
-            ->get();
+            ->paginate();
 
         abort_if($collections->isEmpty(), Response::HTTP_NO_CONTENT);
 

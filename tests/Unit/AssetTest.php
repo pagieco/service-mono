@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use App\Asset;
+use App\Concerns\Paginatable;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -14,6 +15,12 @@ class AssetTest extends ModelTestCase
      * @var string
      */
     protected $model = Asset::class;
+
+    /** @test */
+    public function it_correctly_implements_the_paginatable_concern()
+    {
+        $this->assertTrue(in_array(Paginatable::class, class_uses($this->model)));
+    }
 
     /** @test */
     public function it_belongs_to_a_team()

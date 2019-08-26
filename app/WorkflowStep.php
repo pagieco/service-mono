@@ -3,21 +3,22 @@
 namespace App;
 
 use App\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class FormSubmission extends Model
+class WorkflowStep extends Model
 {
     use Concerns\HasUUID;
+    use Concerns\Uploadable;
     use Concerns\Paginatable;
     use Concerns\BelongsToTeam;
-    use Concerns\BelongsToDomain;
 
     /**
      * The table associated with the model.
      *
      * @var string
      */
-    protected $table = 'form_submissions';
+    protected $table = 'workflows';
 
     /**
      * The attributes that are mass assignable.
@@ -25,7 +26,7 @@ class FormSubmission extends Model
      * @var array
      */
     protected $fillable = [
-        'submission_data',
+        'name',
     ];
 
     /**
@@ -34,16 +35,26 @@ class FormSubmission extends Model
      * @var array
      */
     protected $casts = [
-        'submission_data' => 'array',
+        // ...
     ];
 
     /**
-     * Get the form this submission is attached to.
+     * Get the workflow that belongs to this step.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function form(): BelongsTo
+    public function workflow(): BelongsTo
     {
-        return $this->belongsTo(Form::class);
+        return $this->belongsTo(Workflow::class);
+    }
+
+    /**
+     * Get the users that are assigned to this step.
+     *
+     * @return \Jenssegers\Mongodb\Relations\HasMany
+     */
+    public function assignees(): HasMany
+    {
+        return $this->hasMany(User::class);
     }
 }

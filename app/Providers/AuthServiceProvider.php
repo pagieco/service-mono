@@ -21,6 +21,7 @@ class AuthServiceProvider extends ServiceProvider
         App\Form::class => App\Policies\FormPolicy::class,
         App\Page::class => App\Policies\PagePolicy::class,
         App\Team::class => App\Policies\TeamPolicy::class,
+        App\Workflow::class => App\Policies\WorkflowPolicy::class,
     ];
 
     /**

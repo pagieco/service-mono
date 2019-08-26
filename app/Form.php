@@ -2,15 +2,14 @@
 
 namespace App;
 
-use App\Concerns\HasUUID;
-use App\Concerns\BelongsToTeam;
 use App\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Form extends Model
 {
-    use HasUUID;
-    use BelongsToTeam;
+    use Concerns\HasUUID;
+    use Concerns\Paginatable;
+    use Concerns\BelongsToTeam;
     use Concerns\BelongsToDomain;
 
     /**

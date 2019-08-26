@@ -8,6 +8,7 @@ use Jenssegers\Mongodb\Relations\EmbedsMany;
 
 class Collection extends Model
 {
+    use Concerns\Paginatable;
     use Concerns\BelongsToTeam;
     use Concerns\BelongsToDomain;
 

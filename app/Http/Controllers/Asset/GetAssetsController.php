@@ -25,7 +25,7 @@ class GetAssetsController
     {
         $this->authorize('list', Asset::class);
 
-        $assets = $domain->assets;
+        $assets = $domain->assets()->paginate();
 
         abort_if($assets->isEmpty(), Response::HTTP_NO_CONTENT);
 

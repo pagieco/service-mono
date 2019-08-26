@@ -12,6 +12,7 @@ class Asset extends Model
 {
     use Concerns\HasUUID;
     use Concerns\Uploadable;
+    use Concerns\Paginatable;
     use Concerns\BelongsToTeam;
     use Concerns\BelongsToDomain;
 

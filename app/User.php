@@ -12,6 +12,7 @@ class User extends Authenticatable implements MustVerifyEmail
     use Notifiable;
     use HasApiTokens;
     use Concerns\HasUUID;
+    use Concerns\Paginatable;
     use Concerns\BelongsToTeam;
     use Concerns\HasPermissions;
     use Concerns\InteractsWithTeams;

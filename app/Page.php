@@ -11,6 +11,7 @@ use Illuminate\Contracts\Support\Responsable;
 class Page extends Model implements Responsable
 {
     use Concerns\HasUUID;
+    use Concerns\Paginatable;
     use Concerns\BelongsToTeam;
     use Concerns\BelongsToDomain;
 

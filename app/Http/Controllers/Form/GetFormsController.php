@@ -25,7 +25,7 @@ class GetFormsController
     {
         $this->authorize('list', Form::class);
 
-        $forms = $domain->forms;
+        $forms = $domain->forms()->paginate();
 
         abort_if($forms->isEmpty(), Response::HTTP_NO_CONTENT);
 

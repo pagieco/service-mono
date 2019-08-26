@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use App\Form;
+use App\Concerns\Paginatable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -14,6 +15,12 @@ class FormTest extends ModelTestCase
      * @var \Illuminate\Database\Eloquent\Model
      */
     protected $model = Form::class;
+
+    /** @test */
+    public function it_correctly_implements_the_paginatable_concern()
+    {
+        $this->assertTrue(in_array(Paginatable::class, class_uses($this->model)));
+    }
 
     /** @test */
     public function it_belongs_to_a_team()

@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Team extends Model
 {
     use Concerns\HasUUID;
+    use Concerns\Paginatable;
 
     /**
      * The table associated with the model.
@@ -74,5 +75,15 @@ class Team extends Model
     public function pages(): HasMany
     {
         return $this->hasMany(Page::class)->orderBy('name');
+    }
+
+    /**
+     * Get the workflows that belong to this team.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function workflows(): HasMany
+    {
+        return $this->hasMany(Workflow::class)->orderBy('name');
     }
 }

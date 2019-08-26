@@ -27,7 +27,21 @@ Route::middleware(['auth:api', 'verified'])->group(function () {
     Route::get('/teams', 'Team\GetTeamsController')->name('get-teams');
     Route::get('/teams/{team}', 'Team\GetTeamController')->name('get-team');
 
+    // Workflow routes...
+    Route::get('/workflows', 'Workflow\GetWorkflowsController')->name('get-workflows');
+    Route::post('/workflows', 'Workflow\CreateWorkflowController')->name('create-workflow');
+    Route::get('/workflows/{workflow}', 'Workflow\GetWorkflowController')->name('get-workflow');
+    Route::patch('/workflows/{workflow}', 'Workflow\UpdateWorkflowController')->name('update-workflow');
+    Route::delete('/workflows/{workflow}', 'Workflow\DeleteWorkflowController')->name('delete-workflow');
+
+//        Route::get('/workflow/{workflow}/steps', 'Workflow\GetWorkflowStepsController')->name('get-workflow-steps');
+//        Route::post('/workflow/{workflow}/steps', 'Workflow\CreateWorkflowStepController')->name('create-workflow-step');
+//        Route::get('/workflow/{workflow}/steps/{step}', 'Workflow\GetWorkflowStepController')->name('get-workflow-step');
+//        Route::patch('/workflow/{workflow}/steps/{step}', 'Workflow\UpdateWorkflowStepController')->name('update-workflow-step');
+//        Route::delete('/workflow/{workflow}/steps/{step}', 'Workflow\DeleteWorkflowStepController')->name('delete-workflow-step');
+
     Route::prefix('domains/{domain}')->group(function () {
+
         // Asset routes...
         Route::get('/assets', 'Asset\GetAssetsController')->name('get-assets');
         Route::post('/assets', 'Asset\UploadAssetController')->name('upload-asset');
@@ -47,5 +61,6 @@ Route::middleware(['auth:api', 'verified'])->group(function () {
         Route::post('/collections', 'Collection\CreateCollectionController')->name('create-collection');
         Route::get('/collections/{collection}', 'Collection\GetCollectionController')->name('get-collection');
         Route::delete('/collections/{collection}', 'Collection\DeleteCollectionController')->name('delete-collection');
+        Route::get('/collections/{collection}/entries', 'Collection\GetCollectionEntriesController')->name('get-collection-entries');
     });
 });

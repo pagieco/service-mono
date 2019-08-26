@@ -4,6 +4,7 @@ namespace Tests\Unit;
 
 use App\Collection;
 use Tests\TestCase;
+use App\Concerns\Paginatable;
 use Tests\RefreshCollections;
 use Jenssegers\Mongodb\Relations\HasMany;
 use Jenssegers\Mongodb\Relations\EmbedsMany;
@@ -14,6 +15,12 @@ class CollectionTest extends TestCase
     use RefreshCollections;
 
     protected $model = Collection::class;
+
+    /** @test */
+    public function it_correctly_implements_the_paginatable_concern()
+    {
+        $this->assertTrue(in_array(Paginatable::class, class_uses($this->model)));
+    }
 
     /** @test */
     public function it_belongs_to_a_team()

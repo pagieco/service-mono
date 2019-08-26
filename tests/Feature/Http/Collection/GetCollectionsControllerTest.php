@@ -92,6 +92,9 @@ class GetCollectionsControllerTest extends TestCase
 
         $response->assertStatus(Response::HTTP_OK);
 
+        $this->assertNotNull($response->json('links'));
+        $this->assertNotNull($response->json('meta'));
+
         $this->assertSchema($response, 'GetCollections', Response::HTTP_OK);
     }
 

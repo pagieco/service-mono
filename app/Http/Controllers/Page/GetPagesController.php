@@ -25,7 +25,7 @@ class GetPagesController
     {
         $this->authorize('list', Page::class);
 
-        $pages = $domain->pages;
+        $pages = $domain->pages()->paginate();
 
         abort_if($pages->isEmpty(), Response::HTTP_NO_CONTENT);
 
