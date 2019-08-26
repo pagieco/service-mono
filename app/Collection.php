@@ -22,7 +22,7 @@ class Collection extends Model
      *
      * @var string
      */
-    protected $collection = 'databases';
+    protected $collection = 'collections';
 
     /**
      * The attributes that are mass assignable.

@@ -21,7 +21,7 @@ class CollectionField extends Model
      *
      * @var string
      */
-    protected $collection = 'database_fields';
+    protected $collection = 'collection_fields';
 
     /**
      * The attributes that are mass assignable.
