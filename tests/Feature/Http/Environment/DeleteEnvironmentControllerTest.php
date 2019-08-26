@@ -24,6 +24,8 @@ class DeleteEnvironmentControllerTest extends TestCase
         $response = $this->delete(route('delete-environment', faker()->uuid));
 
         $response->assertStatus(Response::HTTP_NOT_FOUND);
+
+        $this->assertSchema($response, 'DeleteEnvironment', Response::HTTP_NOT_FOUND);
     }
 
     /** @test */
@@ -34,6 +36,8 @@ class DeleteEnvironmentControllerTest extends TestCase
         $response = $this->delete(route('delete-environment', $this->createTestResource()->id));
 
         $response->assertStatus(Response::HTTP_FORBIDDEN);
+
+        $this->assertSchema($response, 'DeleteEnvironment', Response::HTTP_FORBIDDEN);
     }
 
     /** @test */
@@ -48,6 +52,8 @@ class DeleteEnvironmentControllerTest extends TestCase
         $response = $this->delete(route('delete-environment', $environment->id));
 
         $response->assertStatus(Response::HTTP_NO_CONTENT);
+
+        $this->assertSchema($response, 'DeleteEnvironment', Response::HTTP_NO_CONTENT);
 
         $this->domain()->refresh();
 

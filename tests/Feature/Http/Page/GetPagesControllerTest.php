@@ -24,6 +24,8 @@ class GetPagesControllerTest extends TestCase
         $response = $this->get(route('get-pages', $this->domain()->id));
 
         $response->assertStatus(Response::HTTP_NO_CONTENT);
+
+        $this->assertSchema($response, 'GetPages', Response::HTTP_NO_CONTENT);
     }
 
     /** @test */
@@ -74,6 +76,8 @@ class GetPagesControllerTest extends TestCase
         $response = $this->get(route('get-pages', $this->domain()->id));
 
         $response->assertStatus(Response::HTTP_FORBIDDEN);
+
+        $this->assertSchema($response, 'GetPages', Response::HTTP_FORBIDDEN);
     }
 
     /** @test */

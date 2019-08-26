@@ -46,6 +46,8 @@ class GetTeamsControllerTest extends TestCase
         $response = $this->get(route('get-teams'));
 
         $response->assertStatus(Response::HTTP_FORBIDDEN);
+
+        $this->assertSchema($response, 'GetTeams', Response::HTTP_FORBIDDEN);
     }
 
     /** @test */

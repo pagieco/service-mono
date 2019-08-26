@@ -24,6 +24,8 @@ class GetAssetsControllerTest extends TestCase
         $response = $this->get(route('get-assets', $this->domain()->id));
 
         $response->assertStatus(Response::HTTP_NO_CONTENT);
+
+        $this->assertSchema($response, 'GetAssets', Response::HTTP_NO_CONTENT);
     }
 
     /** @test */
@@ -74,6 +76,8 @@ class GetAssetsControllerTest extends TestCase
         $response = $this->get(route('get-assets', $this->domain()->id));
 
         $response->assertStatus(Response::HTTP_FORBIDDEN);
+
+        $this->assertSchema($response, 'GetAssets', Response::HTTP_FORBIDDEN);
     }
 
     /** @test */

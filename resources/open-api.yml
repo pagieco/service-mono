@@ -56,9 +56,27 @@ paths:
       tags:
         - Auth
       operationId: CurrentUser
+      security:
+        - BearerAuth: []
       responses:
         200:
           $ref: '#/components/responses/user'
+
+  /auth/verify-email:
+    get:
+      description: Veritify the given account
+      tags:
+        - Auth
+      operationId: VerifyAccount
+      responses:
+        302:
+          $ref: '#/components/responses/status-302-response'
+        400:
+          $ref: '#/components/responses/status-400-response'
+        403:
+          $ref: '#/components/responses/status-403-response'
+        404:
+          $ref: '#/components/responses/status-404-response'
 
   /domains:
     get:
@@ -66,11 +84,38 @@ paths:
       tags:
         - Domains
       operationId: GetDomains
+      security:
+        - BearerAuth: []
       responses:
         200:
           $ref: '#/components/responses/get-domains'
         204:
           description: No domains found
+        403:
+          $ref: '#/components/responses/status-403-response'
+
+  /domains/{domain}:
+    get:
+      description: Get a specific domain
+      tags:
+        - Domains
+      operationId: GetDomain
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: domain
+          schema:
+            type: string
+          required: true
+          description: The domain ID
+      responses:
+        200:
+          $ref: '#/components/responses/get-domain'
+        403:
+          $ref: '#/components/responses/status-403-response'
+        404:
+          $ref: '#/components/responses/status-404-response'
 
   /environments:
     get:
@@ -78,19 +123,27 @@ paths:
       tags:
         - Environments
       operationId: GetEnvironments
+      security:
+        - BearerAuth: []
       responses:
         200:
           $ref: '#/components/responses/get-environments'
         204:
           description: No environments found
+        403:
+          $ref: '#/components/responses/status-403-response'
     post:
       description: Create a new environment
       tags:
         - Environments
       operationId: CreateEnvironment
+      security:
+        - BearerAuth: []
       responses:
         201:
           $ref: '#/components/responses/create-environment'
+        403:
+          $ref: '#/components/responses/status-403-response'
         422:
           $ref: '#/components/responses/status-422-response'
 
@@ -100,6 +153,8 @@ paths:
       tags:
         - Environments
       operationId: GetEnvironment
+      security:
+        - BearerAuth: []
       parameters:
         - in: path
           name: environment
@@ -110,11 +165,17 @@ paths:
       responses:
         200:
           $ref: '#/components/responses/get-environment'
+        403:
+          $ref: '#/components/responses/status-403-response'
+        404:
+          $ref: '#/components/responses/status-404-response'
     patch:
       description: Update a specific environment
       tags:
         - Environments
       operationId: UpdateEnvironment
+      security:
+          - BearerAuth: []
       parameters:
         - in: path
           name: environment
@@ -125,6 +186,33 @@ paths:
       responses:
         200:
           $ref: '#/components/responses/get-environment'
+        403:
+          $ref: '#/components/responses/status-403-response'
+        404:
+          $ref: '#/components/responses/status-404-response'
+        422:
+          $ref: '#/components/responses/status-422-response'
+    delete:
+      description: Delete a specific environment
+      tags:
+        - Environments
+      operationId: DeleteEnvironment
+      security:
+          - BearerAuth: []
+      parameters:
+        - in: path
+          name: environment
+          schema:
+            type: string
+          required: true
+          description: The environment ID
+      responses:
+        204:
+          description: Environment successfully deleted
+        403:
+          $ref: '#/components/responses/status-403-response'
+        404:
+          $ref: '#/components/responses/status-404-response'
 
   /environments/{environment}/attach-domain:
     put:
@@ -132,6 +220,8 @@ paths:
       tags:
         - Environments
       operationId: AttachDomain
+      security:
+        - BearerAuth: []
       parameters:
         - in: path
           name: environment
@@ -142,6 +232,14 @@ paths:
       responses:
         201:
           $ref: '#/components/responses/status-201-response'
+        400:
+          $ref: '#/components/responses/status-400-response'
+        403:
+          $ref: '#/components/responses/status-403-response'
+        404:
+          $ref: '#/components/responses/status-404-response'
+        422:
+          $ref: '#/components/responses/status-422-response'
 
   /environments/{environment}/detach-domain:
     delete:
@@ -149,6 +247,8 @@ paths:
       tags:
         - Environments
       operationId: DetachDomain
+      security:
+          - BearerAuth: []
       parameters:
         - in: path
           name: environment
@@ -159,6 +259,14 @@ paths:
       responses:
         204:
           description: Domain successfully detached
+        400:
+          $ref: '#/components/responses/status-400-response'
+        403:
+          $ref: '#/components/responses/status-403-response'
+        404:
+          $ref: '#/components/responses/status-404-response'
+        422:
+          $ref: '#/components/responses/status-422-response'
 
   /teams:
     get:
@@ -166,9 +274,13 @@ paths:
       tags:
         - Teams
       operationId: GetTeams
+      security:
+          - BearerAuth: []
       responses:
         200:
           $ref: '#/components/responses/get-teams'
+        403:
+          $ref: '#/components/responses/status-403-response'
 
   /teams/{team}:
     get:
@@ -176,6 +288,8 @@ paths:
       tags:
         - Teams
       operationId: GetTeam
+      security:
+          - BearerAuth: []
       parameters:
         - in: path
           name: team
@@ -186,6 +300,10 @@ paths:
       responses:
         200:
           $ref: '#/components/responses/get-team'
+        403:
+          $ref: '#/components/responses/status-403-response'
+        404:
+          $ref: '#/components/responses/status-404-response'
 
   /font-list:
     get:
@@ -193,6 +311,8 @@ paths:
       tags:
         - Fonts
       operationId: GetFontList
+      security:
+          - BearerAuth: []
       responses:
         200:
           $ref: '#/components/responses/get-font-list'
@@ -213,11 +333,17 @@ paths:
       responses:
         200:
           $ref: '#/components/responses/get-assets'
+        204:
+          description: No assets found
+        403:
+          $ref: '#/components/responses/status-403-response'
     post:
       description: Upload an asset to the given domain
       tags:
         - Assets
       operationId: UploadAsset
+      security:
+          - BearerAuth: []
       parameters:
         - in: path
           name: domain
@@ -239,6 +365,8 @@ paths:
       tags:
         - Assets
       operationId: GetAsset
+      security:
+          - BearerAuth: []
       parameters:
         - in: path
           name: domain
@@ -264,6 +392,8 @@ paths:
       tags:
         - Assets
       operationId: DeleteAsset
+      security:
+          - BearerAuth: []
       parameters:
         - in: path
           name: domain
@@ -285,13 +415,14 @@ paths:
         404:
           $ref: '#/components/responses/status-404-response'
 
-
   /domains/{domain}/forms:
     get:
       description: Get a list of forms from the given domain
       tags:
         - Forms
       operationId: GetForms
+      security:
+          - BearerAuth: []
       parameters:
         - in: path
           name: domain
@@ -302,11 +433,17 @@ paths:
       responses:
         200:
           $ref: '#/components/responses/get-forms'
+        204:
+          description: No forms found
+        403:
+          $ref: '#/components/responses/status-403-response'
     post:
       description: Create a new form
       tags:
         - Forms
       operationId: CreateForm
+      security:
+          - BearerAuth: []
       parameters:
         - in: path
           name: domain
@@ -328,6 +465,8 @@ paths:
       tags:
         - Pages
       operationId: GetPages
+      security:
+          - BearerAuth: []
       parameters:
         - in: path
           name: domain
@@ -338,6 +477,10 @@ paths:
       responses:
         200:
           $ref: '#/components/responses/get-pages'
+        204:
+          description: No pages found
+        403:
+          $ref: '#/components/responses/status-403-response'
 
   /domains/{domain}/pages/{page}/publish:
     put:
@@ -345,6 +488,8 @@ paths:
       tags:
         - Pages
       operationId: PublishPage
+      security:
+          - BearerAuth: []
       parameters:
         - in: path
           name: domain
@@ -360,6 +505,8 @@ paths:
           required: true
           description: the page ID
       responses:
+        200:
+          $ref: '#/components/responses/page-published'
         422:
           $ref: '#/components/responses/status-422-response'
 
@@ -369,6 +516,8 @@ paths:
       tags:
         - Collections
       operationId: GetCollections
+      security:
+          - BearerAuth: []
       parameters:
         - in: path
           name: domain
@@ -384,6 +533,8 @@ paths:
       tags:
         - Collections
       operationId: CreateCollection
+      security:
+          - BearerAuth: []
       parameters:
         - in: path
           name: domain
@@ -405,6 +556,8 @@ paths:
       tags:
         - Collections
       operationId: GetCollection
+      security:
+          - BearerAuth: []
       parameters:
         - in: path
           name: domain
@@ -417,6 +570,7 @@ paths:
           schema:
             type: string
             format: uuid
+          required: true
       responses:
         200:
           $ref: '#/components/responses/get-collection'
@@ -429,6 +583,8 @@ paths:
       tags:
         - Collections
       operationId: DeleteCollection
+      security:
+          - BearerAuth: []
       parameters:
         - in: path
           name: domain
@@ -451,6 +607,11 @@ paths:
           $ref: '#/components/responses/status-404-response'
 
 components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+
   requestBodies:
     upload-asset-request:
       content:
@@ -500,6 +661,15 @@ components:
                 type: array
                 items:
                   $ref: '#/components/schemas/domain'
+
+    get-domain:
+      description: OK
+      content:
+        application/json:
+          schema:
+            properties:
+              data:
+                $ref: '#/components/schemas/domain'
 
     get-environments:
       description: OK
@@ -612,6 +782,15 @@ components:
                 items:
                   $ref: '#/components/schemas/page'
 
+    page-published:
+      description: OK
+      content:
+        application/json:
+          schema:
+            properties:
+              data:
+                $ref: '#/components/schemas/page'
+
     get-collections:
       description: OK
       content:
@@ -643,6 +822,24 @@ components:
 
     status-201-response:
       description: Created
+      content:
+        application/json:
+          schema:
+            properties:
+              message:
+                type: string
+
+    status-302-response:
+      description: Found
+      content:
+        application/json:
+          schema:
+            properties:
+              message:
+                type: string
+
+    status-400-response:
+      description: Bad Request
       content:
         application/json:
           schema:

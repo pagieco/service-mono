@@ -133,6 +133,8 @@ class PublishPageControllerTest extends TestCase
         $this->assertNotNull($page->domain->css_file);
 
         $response->assertStatus(Response::HTTP_OK);
+
+        $this->assertSchema($response, 'PublishPage', Response::HTTP_OK);
     }
 
     /**

@@ -24,6 +24,8 @@ class GetFormsControllerTest extends TestCase
         $response = $this->get(route('get-forms', $this->domain()->id));
 
         $response->assertStatus(Response::HTTP_NO_CONTENT);
+
+        $this->assertSchema($response, 'GetForms', Response::HTTP_NO_CONTENT);
     }
 
     /** @test */
@@ -74,6 +76,8 @@ class GetFormsControllerTest extends TestCase
         $response = $this->get(route('get-forms', $this->domain()->id));
 
         $response->assertStatus(Response::HTTP_FORBIDDEN);
+
+        $this->assertSchema($response, 'GetForms', Response::HTTP_FORBIDDEN);
     }
 
     /** @test */

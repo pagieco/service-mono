@@ -26,6 +26,8 @@ class AttachDomainControllerTest extends TestCase
         ]);
 
         $response->assertStatus(Response::HTTP_NOT_FOUND);
+
+        $this->assertSchema($response, 'AttachDomain', Response::HTTP_NOT_FOUND);
     }
 
     /** @test */
@@ -38,6 +40,8 @@ class AttachDomainControllerTest extends TestCase
         ]);
 
         $response->assertStatus(Response::HTTP_BAD_REQUEST);
+
+        $this->assertSchema($response, 'AttachDomain', Response::HTTP_BAD_REQUEST);
     }
 
     /** @test */
@@ -50,6 +54,8 @@ class AttachDomainControllerTest extends TestCase
         ]);
 
         $response->assertStatus(Response::HTTP_FORBIDDEN);
+
+        $this->assertSchema($response, 'AttachDomain', Response::HTTP_FORBIDDEN);
     }
 
     /** @test */
@@ -64,6 +70,8 @@ class AttachDomainControllerTest extends TestCase
         ]);
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+
+        $this->assertSchema($response, 'AttachDomain', Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /** @test */

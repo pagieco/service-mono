@@ -66,6 +66,8 @@ class CreateEnvironmentsControllerTest extends TestCase
         ]);
 
         $response->assertStatus(Response::HTTP_FORBIDDEN);
+
+        $this->assertSchema($response, 'CreateEnvironment', Response::HTTP_FORBIDDEN);
     }
 
     /** @test */

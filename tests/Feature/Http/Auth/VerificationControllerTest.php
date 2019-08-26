@@ -26,6 +26,8 @@ class VerificationControllerTest extends TestCase
         $response = $this->get($route);
 
         $response->assertStatus(Response::HTTP_FORBIDDEN);
+
+        $this->assertSchema($response, 'VerifyAccount', Response::HTTP_FORBIDDEN);
     }
 
     /** @test */
@@ -36,6 +38,8 @@ class VerificationControllerTest extends TestCase
         $response = $this->get($route);
 
         $response->assertStatus(Response::HTTP_FORBIDDEN);
+
+        $this->assertSchema($response, 'VerifyAccount', Response::HTTP_FORBIDDEN);
     }
 
     /** @test */
@@ -46,6 +50,8 @@ class VerificationControllerTest extends TestCase
         $response = $this->get($route);
 
         $response->assertStatus(Response::HTTP_NOT_FOUND);
+
+        $this->assertSchema($response, 'VerifyAccount', Response::HTTP_NOT_FOUND);
     }
 
     /** @test */
@@ -62,6 +68,8 @@ class VerificationControllerTest extends TestCase
         $response->assertStatus(Response::HTTP_BAD_REQUEST);
 
         $response->assertJson(['message' => 'The user was already verified.']);
+
+        $this->assertSchema($response, 'VerifyAccount', Response::HTTP_BAD_REQUEST);
     }
 
     /** @test */

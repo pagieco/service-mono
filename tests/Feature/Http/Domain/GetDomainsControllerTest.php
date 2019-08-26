@@ -24,6 +24,8 @@ class GetDomainsControllerTest extends TestCase
         $response = $this->get(route('get-domains'));
 
         $response->assertStatus(Response::HTTP_NO_CONTENT);
+
+        $this->assertSchema($response, 'GetDomains', Response::HTTP_NO_CONTENT);
     }
 
     /** @test */
@@ -47,6 +49,8 @@ class GetDomainsControllerTest extends TestCase
         $response = $this->get(route('get-domains'));
 
         $response->assertStatus(Response::HTTP_FORBIDDEN);
+
+        $this->assertSchema($response, 'GetDomains', Response::HTTP_FORBIDDEN);
     }
 
     /** @test */

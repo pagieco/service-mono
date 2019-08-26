@@ -24,6 +24,8 @@ class GetTeamControllerTest extends TestCase
         $response = $this->get(route('get-team', faker()->uuid));
 
         $response->assertStatus(Response::HTTP_NOT_FOUND);
+
+        $this->assertSchema($response, 'GetTeam', Response::HTTP_NOT_FOUND);
     }
 
     /** @test */
@@ -36,6 +38,8 @@ class GetTeamControllerTest extends TestCase
         $response = $this->get(route('get-team', $team->getKey()));
 
         $response->assertStatus(Response::HTTP_FORBIDDEN);
+
+        $this->assertSchema($response, 'GetTeam', Response::HTTP_FORBIDDEN);
     }
 
     /** @test */
@@ -46,6 +50,8 @@ class GetTeamControllerTest extends TestCase
         $response = $this->get(route('get-team', $this->team->getKey()));
 
         $response->assertStatus(Response::HTTP_FORBIDDEN);
+
+        $this->assertSchema($response, 'GetTeam', Response::HTTP_FORBIDDEN);
     }
 
     /** @test */

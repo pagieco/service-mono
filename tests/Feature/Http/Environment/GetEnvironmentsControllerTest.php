@@ -24,6 +24,8 @@ class GetEnvironmentsControllerTest extends TestCase
         $response = $this->get(route('get-environments'));
 
         $response->assertStatus(Response::HTTP_NO_CONTENT);
+
+        $this->assertSchema($response, 'GetEnvironments', Response::HTTP_NO_CONTENT);
     }
 
     /** @test */
@@ -50,6 +52,8 @@ class GetEnvironmentsControllerTest extends TestCase
         $response = $this->get(route('get-environments'));
 
         $response->assertStatus(Response::HTTP_FORBIDDEN);
+
+        $this->assertSchema($response, 'GetEnvironments', Response::HTTP_FORBIDDEN);
     }
 
     /** @test */

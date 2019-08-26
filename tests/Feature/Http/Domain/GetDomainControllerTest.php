@@ -25,6 +25,8 @@ class GetDomainControllerTest extends TestCase
         $response = $this->get(route('get-domain', faker()->uuid));
 
         $response->assertStatus(Response::HTTP_NOT_FOUND);
+
+        $this->assertSchema($response, 'GetDomain', Response::HTTP_NOT_FOUND);
     }
 
     /** @test */
@@ -35,6 +37,8 @@ class GetDomainControllerTest extends TestCase
         $response = $this->get(route('get-domain', $this->domain()->id));
 
         $response->assertStatus(Response::HTTP_FORBIDDEN);
+
+        $this->assertSchema($response, 'GetDomain', Response::HTTP_FORBIDDEN);
     }
 
     /** @test */
@@ -50,6 +54,8 @@ class GetDomainControllerTest extends TestCase
         $response = $this->get(route('get-domain', $domain->id));
 
         $response->assertStatus(Response::HTTP_NOT_FOUND);
+
+        $this->assertSchema($response, 'GetDomain', Response::HTTP_NOT_FOUND);
     }
 
     /** @test */
@@ -60,6 +66,8 @@ class GetDomainControllerTest extends TestCase
         $response = $this->get(route('get-domain', $this->domain()->id));
 
         $response->assertStatus(Response::HTTP_OK);
+
+        $this->assertSchema($response, 'GetDomain', Response::HTTP_OK);
     }
 
     /**

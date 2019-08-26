@@ -2,7 +2,6 @@
 
 namespace Tests\Feature\Http\Environment;
 
-use App\User;
 use Tests\TestCase;
 use App\Environment;
 use App\Http\Response;
@@ -25,6 +24,8 @@ class GetEnvironmentControllerTest extends TestCase
         $response = $this->get(route('get-environment', faker()->uuid));
 
         $response->assertStatus(Response::HTTP_NOT_FOUND);
+
+        $this->assertSchema($response, 'GetEnvironment', Response::HTTP_NOT_FOUND);
     }
 
     /** @test */
@@ -35,6 +36,8 @@ class GetEnvironmentControllerTest extends TestCase
         $response = $this->get(route('get-environment', $this->createTestResource()->id));
 
         $response->assertStatus(Response::HTTP_FORBIDDEN);
+
+        $this->assertSchema($response, 'GetEnvironment', Response::HTTP_FORBIDDEN);
     }
 
     /** @test */
@@ -47,6 +50,8 @@ class GetEnvironmentControllerTest extends TestCase
         $response = $this->get(route('get-environment', $environment->id));
 
         $response->assertStatus(Response::HTTP_NOT_FOUND);
+
+        $this->assertSchema($response, 'GetEnvironment', Response::HTTP_NOT_FOUND);
     }
 
     /** @test */
