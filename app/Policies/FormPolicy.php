@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Form;
 use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -29,5 +30,10 @@ class FormPolicy
     public function create(User $user)
     {
         return $user->hasAccess('form:create');
+    }
+
+    public function viewSubmissions(User $user, Form $form)
+    {
+        return $user->hasAccess('form:view-submissions');
     }
 }

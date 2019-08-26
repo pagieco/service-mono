@@ -51,6 +51,7 @@ Route::middleware(['auth:api', 'verified'])->group(function () {
         // Form Routes...
         Route::get('/forms', 'Form\GetFormsController')->name('get-forms');
         Route::post('/forms', 'Form\CreateFormController')->name('create-form');
+        Route::get('/forms/{form}/submissions', 'Form\GetFormSubmissionsController')->name('get-form-submissions');
 
         // Page routes...
         Route::get('/pages', 'Page\GetPagesController')->name('get-pages');

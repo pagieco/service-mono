@@ -534,6 +534,37 @@ paths:
         422:
           $ref: '#/components/responses/status-422-response'
 
+  /domains/{domain}/forms/{form}/submissions:
+    get:
+      description: Get a list of form submissions from the given form
+      tags:
+        - Forms
+      operationId: GetFormSubmissions
+      parameters:
+        - in: path
+          name: domain
+          schema:
+            type: string
+            format: uuid
+          required: true
+          description: The domain ID
+        - in: path
+          name: form
+          schema:
+            type: string
+            format: uuid
+          required: true
+          description: The form ID
+      responses:
+        200:
+          $ref: '#/components/responses/get-form-submissions'
+        204:
+          description: No form submissions found
+        403:
+          $ref: '#/components/responses/status-403-response'
+        404:
+          $ref: '#/components/responses/status-404-response'
+
   /domains/{domain}/pages:
     get:
       description: Get a list of pages from the given domain
@@ -884,6 +915,17 @@ components:
               data:
                 $ref: '#/components/schemas/form'
 
+    get-form-submissions:
+      description: OK
+      content:
+        application/json:
+          schema:
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '#/components/schemas/form-submission'
+
     get-pages:
       description: OK
       content:
@@ -1198,6 +1240,18 @@ components:
           format: uuid
         name:
           type: string
+        created_at:
+          type: string
+          format: 'date-time'
+        updated_at:
+          type: string
+          format: 'date-time'
+
+    form-submission:
+      properties:
+        id:
+          type: string
+          format: uuid
         created_at:
           type: string
           format: 'date-time'
