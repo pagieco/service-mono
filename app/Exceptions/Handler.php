@@ -51,9 +51,25 @@ class Handler extends ExceptionHandler
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Exception  $exception
+     * @return \Illuminate\Http\Response|\Illuminate\Http\JsonResponse
+     */
+    public function render($request, Exception $exception)
+    {
+        if ($request->segment(1) === 'api') {
+            return $this->renderApiException($request, $exception);
+        }
+
+        return parent::render($request, $exception);
+    }
+
+    /**
+     * Render an exception into a JSON response.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Exception $exception
      * @return \Illuminate\Http\JsonResponse
      */
-    public function render($request, Exception $exception): JsonResponse
+    protected function renderApiException($request, Exception $exception): JsonResponse
     {
         if ($this->isModelNotFoundException($exception)) {
             return Response::jsonStatus(Response::HTTP_NOT_FOUND);
