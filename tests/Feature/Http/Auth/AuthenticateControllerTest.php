@@ -2,13 +2,13 @@
 
 namespace Tests\Feature\Http\Auth;
 
-use App\Http\Response;
 use App\User;
-use GuzzleHttp\Client;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
+use App\Http\Response;
+use GuzzleHttp\Client;
 use Tests\ValidatesOpenApiSchema;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class AuthenticateControllerTest extends TestCase
 {
