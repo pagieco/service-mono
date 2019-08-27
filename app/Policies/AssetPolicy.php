@@ -50,10 +50,13 @@ class AssetPolicy
      * Determine whether the user can delete an asset.
      *
      * @param  \App\User $user
+     * @param  \App\Asset $asset
      * @return bool
+     * @throws \Throwable
      */
-    public function delete(User $user)
+    public function delete(User $user, Asset $asset)
     {
-        return $user->hasAccess('asset:delete');
+        return $user->hasAccess('asset:delete')
+            && current_team()->assets->contains($asset->id);
     }
 }

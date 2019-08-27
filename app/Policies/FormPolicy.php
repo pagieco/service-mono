@@ -34,6 +34,7 @@ class FormPolicy
 
     public function viewSubmissions(User $user, Form $form)
     {
-        return $user->hasAccess('form:view-submissions');
+        return $user->hasAccess('form:view-submissions')
+            && current_team()->id === $form->team_id;
     }
 }

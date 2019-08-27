@@ -60,7 +60,7 @@ class EnvironmentPolicy
     {
         return $user->hasAccess('environment:attach-domain')
             && current_team()->environments->contains($environment->id)
-            && current_team()->domains->contains($domain);
+            && current_team()->domains->contains($domain->id);
     }
 
     /**
