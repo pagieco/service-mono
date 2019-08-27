@@ -1,16 +1,25 @@
 <?php
 
-namespace Tets\Unit\Policies;
+namespace Tests\Unit\Policies;
 
 use App\Domain;
-use Tests\TestCase;
 use App\Environment;
 use App\Policies\EnvironmentPolicy;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class EnvironmentPolicyTest extends TestCase
+class EnvironmentPolicyTest extends PolicyTestCase
 {
     use RefreshDatabase;
+
+    protected $policyList = [
+        'environment:list',
+        'environment:create',
+        'environment:view',
+        'environment:attach-domain',
+        'environment:detach-domain',
+        'environment:update',
+        'environment:delete',
+    ];
 
     /** @test */
     public function it_returns_false_when_the_user_has_no_permission_to_list_the_environments()

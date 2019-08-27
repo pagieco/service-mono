@@ -1,15 +1,19 @@
 <?php
 
-namespace Tets\Unit\Policies;
+namespace Tests\Unit\Policies;
 
 use App\Team;
-use Tests\TestCase;
 use App\Policies\TeamPolicy;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class TeamPolicyTest extends TestCase
+class TeamPolicyTest extends PolicyTestCase
 {
     use RefreshDatabase;
+
+    protected $policyList = [
+        'team:list',
+        'team:view',
+    ];
 
     /** @test */
     public function it_returns_false_when_the_user_has_no_permission_to_list_the_teams()

@@ -1,15 +1,21 @@
 <?php
 
-namespace Tets\Unit\Policies;
+namespace Tests\Unit\Policies;
 
 use App\Collection;
-use Tests\TestCase;
 use App\Policies\CollectionPolicy;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class CollectionPolicyTest extends TestCase
+class CollectionPolicyTest extends PolicyTestCase
 {
     use RefreshDatabase;
+
+    protected $policyList = [
+        'collection:list',
+        'collection:create',
+        'collection:view',
+        'collection:delete',
+    ];
 
     /** @test */
     public function it_returns_false_when_the_user_has_no_permission_to_list_the_collections()

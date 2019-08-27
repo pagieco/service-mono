@@ -129,10 +129,16 @@ return [
         'environment:delete' => ['Delete environment', 'Delete an environment'],
         'form:list' => ['List forms', 'List the forms.'],
         'form:create' => ['Create form', 'Create a form.'],
+        'form:view-submissions' => ['View submissions', 'View form submissions.'],
         'page:list' => ['List pages', 'List the pages.'],
         'page:publish' => ['Publish page', 'Publish a page.'],
         'team:list' => ['List teams', 'List the teams.'],
         'team:view' => ['View team', 'View a team.'],
+        'workflow:list' => ['List workflows', 'List the workflows.'],
+        'workflow:view' => ['View workflow', 'View a workflow.'],
+        'workflow:create' => ['Create workflow', 'Create a new workflow.'],
+        'workflow:update' => ['Update workflow', 'Update a workflow.'],
+        'workflow:delete' => ['Delete workflow', 'Delete a workflow.'],
     ],
 
     /*

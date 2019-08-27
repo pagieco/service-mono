@@ -1,15 +1,19 @@
 <?php
 
-namespace Tets\Unit\Policies;
+namespace Tests\Unit\Policies;
 
 use App\Domain;
-use Tests\TestCase;
 use App\Policies\DomainPolicy;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class DomainPolicyTest extends TestCase
+class DomainPolicyTest extends PolicyTestCase
 {
     use RefreshDatabase;
+
+    protected $policyList = [
+        'domain:list',
+        'domain:view',
+    ];
 
     /** @test */
     public function it_returns_false_when_the_user_has_no_permission_to_list_the_domains()

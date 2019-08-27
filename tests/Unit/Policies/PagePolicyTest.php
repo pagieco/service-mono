@@ -1,15 +1,19 @@
 <?php
 
-namespace Tets\Unit\Policies;
+namespace Tests\Unit\Policies;
 
 use App\Page;
-use Tests\TestCase;
 use App\Policies\PagePolicy;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class PagePolicyTest extends TestCase
+class PagePolicyTest extends PolicyTestCase
 {
     use RefreshDatabase;
+
+    protected $policyList = [
+        'page:list',
+        'page:publish',
+    ];
 
     /** @test */
     public function it_returns_false_when_the_user_has_no_acess_to_list_the_pages()

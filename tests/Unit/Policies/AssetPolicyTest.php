@@ -1,15 +1,21 @@
 <?php
 
-namespace Tets\Unit\Policies;
+namespace Tests\Unit\Policies;
 
 use App\Asset;
-use Tests\TestCase;
 use App\Policies\AssetPolicy;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class AssetPolicyTest extends TestCase
+class AssetPolicyTest extends PolicyTestCase
 {
     use RefreshDatabase;
+
+    protected $policyList = [
+        'asset:list',
+        'asset:view',
+        'asset:upload',
+        'asset:delete',
+    ];
 
     /** @test */
     public function it_returns_false_when_the_user_has_no_permission_to_list_the_assets()

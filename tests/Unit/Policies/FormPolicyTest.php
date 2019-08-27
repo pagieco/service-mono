@@ -1,15 +1,20 @@
 <?php
 
-namespace Tets\Unit\Policies;
+namespace Tests\Unit\Policies;
 
 use App\Form;
-use Tests\TestCase;
 use App\Policies\FormPolicy;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class FormPolicyTest extends TestCase
+class FormPolicyTest extends PolicyTestCase
 {
     use RefreshDatabase;
+
+    protected $policyList = [
+        'form:list',
+        'form:create',
+        'form:view-submissions',
+    ];
 
     /** @test */
     public function it_returns_false_when_the_user_has_no_permission_to_list_the_forms()

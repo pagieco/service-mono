@@ -1,15 +1,22 @@
 <?php
 
-namespace Tets\Unit\Policies;
+namespace Tests\Unit\Policies;
 
 use App\Workflow;
-use Tests\TestCase;
 use App\Policies\WorkflowPolicy;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class WorkflowPolicyTest extends TestCase
+class WorkflowPolicyTest extends PolicyTestCase
 {
     use RefreshDatabase;
+
+    protected $policyList = [
+        'workflow:list',
+        'workflow:view',
+        'workflow:create',
+        'workflow:update',
+        'workflow:delete',
+    ];
 
     /** @test */
     public function it_returns_false_when_the_user_has_no_permission_to_list_the_workflows()
