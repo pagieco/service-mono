@@ -17,6 +17,6 @@ class PageResolver implements ResolverInterface
      */
     public static function resolve(Request $request, Domain $domain = null)
     {
-        return Page::where('slug', $request->path())->firstOrFail();
+        return Page::where('slug', $request->path())->first() ?? false;
     }
 }
