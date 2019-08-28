@@ -66,7 +66,7 @@ class UploadPictureControllerTest extends TestCase
 
         $response->assertSchema('UploadUserPicture', Response::HTTP_OK);
 
-        Storage::disk('avatars')->assertMissing('picture.jpeg');
+        Storage::disk('avatars')->assertExists($this->user->id.'.jpeg');
     }
 
     /**

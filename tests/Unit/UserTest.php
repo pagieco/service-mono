@@ -9,7 +9,9 @@ use App\Permission;
 use App\Events\TeamJoined;
 use App\Events\TeamSwitched;
 use App\Concerns\Paginatable;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -181,6 +183,12 @@ class UserTest extends ModelTestCase
     /** @test */
     public function it_can_upload_a_profile_picture()
     {
-        $this->markTestIncomplete();
+        $user = factory(User::class)->create();
+
+        Storage::fake();
+
+        $user->uploadProfilePicture(UploadedFile::fake()->image('picture.jpeg'));
+
+        Storage::disk('avatars')->assertExists($user->id.'.jpeg');
     }
 }
