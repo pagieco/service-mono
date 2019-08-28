@@ -17,6 +17,7 @@ tags:
   - name: Environments
   - name: Teams
   - name: Fonts
+  - name: User
   - name: Workflows
   - name: Assets
   - name: Forms
@@ -78,6 +79,54 @@ paths:
           $ref: '#/components/responses/status-403-response'
         404:
           $ref: '#/components/responses/status-404-response'
+
+  /forms/{form}/submit:
+    post:
+      description: Handle the form post
+      tags:
+        - Forms
+      operationId: SubmitForm
+      responses:
+        201:
+          $ref: '#/components/responses/submit-form'
+        400:
+          $ref: '#/components/responses/status-400-response'
+        404:
+          $ref: '#/components/responses/status-404-response'
+        406:
+          $ref: '#/components/responses/status-406-response'
+        422:
+          $ref: '#/components/responses/status-422-response'
+
+  /user:
+    patch:
+      description: Update the user
+      tags:
+        - User
+      operationId: UpdateUser
+      security:
+        - BearerAuth: []
+      responses:
+        200:
+          $ref: '#/components/responses/update-user'
+        422:
+          $ref: '#/components/responses/status-422-response'
+
+  /user/upload-picture:
+    post:
+      description: Upload the user's profile picture
+      tags:
+        - User
+      operationId: UploadUserPicture
+      security:
+        - BearerAuth: []
+      responses:
+        200:
+          $ref: '#/components/responses/upload-picture'
+        403:
+          $ref: '#/components/responses/status-403-response'
+        422:
+          $ref: '#/components/responses/status-422-response'
 
   /domains:
     get:
@@ -634,6 +683,10 @@ paths:
       responses:
         200:
           $ref: '#/components/responses/get-collections'
+        204:
+          description: No collections found
+        403:
+          $ref: '#/components/responses/status-403-response'
     post:
       description: Create a new collection
       tags:
@@ -756,6 +809,24 @@ components:
             properties:
               data:
                 $ref: '#/components/schemas/user'
+
+    update-user:
+      description: OK
+      content:
+        application/json:
+          schema:
+            properties:
+              data:
+                $ref: '#/components/schemas/user'
+
+    upload-picture:
+      description: OK
+      content:
+        application/json:
+          schema:
+            properties:
+              data:
+                $ref: '#/components/schemas/user-picture'
 
     get-domains:
       description: OK
@@ -895,6 +966,15 @@ components:
               data:
                 $ref: '#/components/schemas/asset'
 
+    submit-form:
+      description: OK
+      content:
+        application/json:
+          schema:
+            properties:
+              data:
+                $ref: '#/components/schemas/form-submission'
+
     get-forms:
       description: OK
       content:
@@ -1033,6 +1113,17 @@ components:
                 example:
                   Not Found
 
+    status-406-response:
+      description: Not Acceptable
+      content:
+        application/json:
+          schema:
+            properties:
+              message:
+                type: string
+                example:
+                  Not Acceptable
+
     status-422-response:
       description: Unprocessable Entity
       content:
@@ -1100,6 +1191,17 @@ components:
         created_at:
           type: string
           format: 'date-time'
+        updated_at:
+          type: string
+          format: 'date-time'
+
+    user-picture:
+      properties:
+        id:
+          type: string
+          format: uuid
+        picture:
+          type: string
         updated_at:
           type: string
           format: 'date-time'
