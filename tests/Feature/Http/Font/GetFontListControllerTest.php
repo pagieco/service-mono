@@ -5,7 +5,6 @@ namespace Tests\Feature\Http\Font;
 use App\Font;
 use Tests\TestCase;
 use App\Http\Response;
-use Tests\ValidatesOpenAPISchema;
 use Tests\Feature\Http\AuthenticatedRoute;
 use Illuminate\Foundation\Testing\TestResponse;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -14,7 +13,6 @@ class GetFontListControllerTest extends TestCase
 {
     use RefreshDatabase;
     use AuthenticatedRoute;
-    use ValidatesOpenAPISchema;
 
     /** @test */
     public function it_throws_a_500_internal_server_error_when_the_font_list_is_empty()
@@ -35,7 +33,7 @@ class GetFontListControllerTest extends TestCase
 
         $this->assertCount(5, $response->json('data'));
 
-        $this->assertSchema($response, 'GetFontList', Response::HTTP_OK);
+        $response->assertSchema('GetFontList', Response::HTTP_OK);
     }
 
     /**

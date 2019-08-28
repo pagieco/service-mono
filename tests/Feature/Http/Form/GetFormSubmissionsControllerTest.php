@@ -6,7 +6,6 @@ use App\Form;
 use Tests\TestCase;
 use App\Http\Response;
 use App\FormSubmission;
-use Tests\ValidatesOpenAPISchema;
 use Tests\Feature\Http\AuthenticatedRoute;
 use Illuminate\Foundation\Testing\TestResponse;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -15,7 +14,6 @@ class GetFormSubmissionsControllerTest extends TestCase
 {
     use RefreshDatabase;
     use AuthenticatedRoute;
-    use ValidatesOpenAPISchema;
 
     /** @test */
     public function it_throws_a_404_not_found_exception_when_the_form_could_not_be_found()
@@ -24,9 +22,7 @@ class GetFormSubmissionsControllerTest extends TestCase
 
         $response = $this->get(route('get-form-submissions', [$this->domain(), faker()->uuid]));
 
-        $response->assertStatus(Response::HTTP_NOT_FOUND);
-
-        $this->assertSchema($response, 'GetFormSubmissions', Response::HTTP_NOT_FOUND);
+        $response->assertSchema('GetFormSubmissions', Response::HTTP_NOT_FOUND);
     }
 
     /** @test */
@@ -38,9 +34,7 @@ class GetFormSubmissionsControllerTest extends TestCase
 
         $response = $this->get(route('get-form-submissions', [$this->domain(), $form->id]));
 
-        $response->assertStatus(Response::HTTP_FORBIDDEN);
-
-        $this->assertSchema($response, 'GetFormSubmissions', Response::HTTP_FORBIDDEN);
+        $response->assertSchema('GetFormSubmissions', Response::HTTP_FORBIDDEN);
     }
 
     /** @test */
@@ -52,9 +46,7 @@ class GetFormSubmissionsControllerTest extends TestCase
 
         $response = $this->get(route('get-form-submissions', [$this->domain(), $form->id]));
 
-        $response->assertStatus(Response::HTTP_NOT_FOUND);
-
-        $this->assertSchema($response, 'GetFormSubmissions', Response::HTTP_NOT_FOUND);
+        $response->assertSchema('GetFormSubmissions', Response::HTTP_NOT_FOUND);
     }
 
     /** @test */
@@ -66,9 +58,7 @@ class GetFormSubmissionsControllerTest extends TestCase
 
         $response = $this->get(route('get-form-submissions', [$this->domain(), $form->id]));
 
-        $response->assertStatus(Response::HTTP_NO_CONTENT);
-
-        $this->assertSchema($response, 'GetFormSubmissions', Response::HTTP_NO_CONTENT);
+        $response->assertSchema('GetFormSubmissions', Response::HTTP_NO_CONTENT);
     }
 
     /** @test */
@@ -109,9 +99,7 @@ class GetFormSubmissionsControllerTest extends TestCase
 
         $response = $this->get(route('get-form-submissions', [$this->domain(), $form->id]));
 
-        $response->assertStatus(Response::HTTP_OK);
-
-        $this->assertSchema($response, 'GetFormSubmissions', Response::HTTP_OK);
+        $response->assertSchema('GetFormSubmissions', Response::HTTP_OK);
     }
 
     /**

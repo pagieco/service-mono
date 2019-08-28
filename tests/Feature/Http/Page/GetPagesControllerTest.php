@@ -5,7 +5,6 @@ namespace Tests\Feature\Http\Page;
 use App\Page;
 use Tests\TestCase;
 use App\Http\Response;
-use Tests\ValidatesOpenAPISchema;
 use Tests\Feature\Http\AuthenticatedRoute;
 use Illuminate\Foundation\Testing\TestResponse;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -14,7 +13,6 @@ class GetPagesControllerTest extends TestCase
 {
     use RefreshDatabase;
     use AuthenticatedRoute;
-    use ValidatesOpenAPISchema;
 
     /** @test */
     public function it_returns_an_empty_response_when_no_pages_where_found()
@@ -23,9 +21,7 @@ class GetPagesControllerTest extends TestCase
 
         $response = $this->get(route('get-pages', $this->domain()->id));
 
-        $response->assertStatus(Response::HTTP_NO_CONTENT);
-
-        $this->assertSchema($response, 'GetPages', Response::HTTP_NO_CONTENT);
+        $response->assertSchema('GetPages', Response::HTTP_NO_CONTENT);
     }
 
     /** @test */
@@ -75,9 +71,7 @@ class GetPagesControllerTest extends TestCase
 
         $response = $this->get(route('get-pages', $this->domain()->id));
 
-        $response->assertStatus(Response::HTTP_FORBIDDEN);
-
-        $this->assertSchema($response, 'GetPages', Response::HTTP_FORBIDDEN);
+        $response->assertSchema('GetPages', Response::HTTP_FORBIDDEN);
     }
 
     /** @test */
@@ -94,12 +88,10 @@ class GetPagesControllerTest extends TestCase
 
         $response = $this->get(route('get-pages', $domain->id));
 
-        $response->assertStatus(Response::HTTP_OK);
-
         $this->assertNotNull($response->json('links'));
         $this->assertNotNull($response->json('meta'));
 
-        $this->assertSchema($response, 'GetPages', Response::HTTP_OK);
+        $response->assertSchema('GetPages', Response::HTTP_OK);
     }
 
     /**

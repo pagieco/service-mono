@@ -5,7 +5,6 @@ namespace Tests\Feature\Http\Workflow;
 use App\Workflow;
 use Tests\TestCase;
 use App\Http\Response;
-use Tests\ValidatesOpenAPISchema;
 use Tests\Feature\Http\AuthenticatedRoute;
 use Illuminate\Foundation\Testing\TestResponse;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -14,7 +13,6 @@ class GetWorkflowsControllerTest extends TestCase
 {
     use RefreshDatabase;
     use AuthenticatedRoute;
-    use ValidatesOpenAPISchema;
 
     /** @test */
     public function it_returns_an_empty_response_when_no_workflows_where_found()
@@ -68,7 +66,7 @@ class GetWorkflowsControllerTest extends TestCase
         $this->assertNotNull($response->json('links'));
         $this->assertNotNull($response->json('meta'));
 
-        $this->assertSchema($response, 'GetWorkflows', Response::HTTP_OK);
+        $response->assertSchema('GetWorkflows', Response::HTTP_OK);
     }
 
     /**

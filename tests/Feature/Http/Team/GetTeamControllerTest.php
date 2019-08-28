@@ -5,7 +5,6 @@ namespace Tests\Feature\Http\Teams;
 use App\Team;
 use Tests\TestCase;
 use App\Http\Response;
-use Tests\ValidatesOpenAPISchema;
 use Tests\Feature\Http\AuthenticatedRoute;
 use Illuminate\Foundation\Testing\TestResponse;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -14,7 +13,6 @@ class GetTeamControllerTest extends TestCase
 {
     use RefreshDatabase;
     use AuthenticatedRoute;
-    use ValidatesOpenAPISchema;
 
     /** @test */
     public function it_throws_a_404_exception_when_the_team_could_not_be_found()
@@ -23,9 +21,7 @@ class GetTeamControllerTest extends TestCase
 
         $response = $this->get(route('get-team', faker()->uuid));
 
-        $response->assertStatus(Response::HTTP_NOT_FOUND);
-
-        $this->assertSchema($response, 'GetTeam', Response::HTTP_NOT_FOUND);
+        $response->assertSchema('GetTeam', Response::HTTP_NOT_FOUND);
     }
 
     /** @test */
@@ -37,9 +33,7 @@ class GetTeamControllerTest extends TestCase
 
         $response = $this->get(route('get-team', $team->getKey()));
 
-        $response->assertStatus(Response::HTTP_FORBIDDEN);
-
-        $this->assertSchema($response, 'GetTeam', Response::HTTP_FORBIDDEN);
+        $response->assertSchema('GetTeam', Response::HTTP_FORBIDDEN);
     }
 
     /** @test */
@@ -49,9 +43,7 @@ class GetTeamControllerTest extends TestCase
 
         $response = $this->get(route('get-team', $this->team->getKey()));
 
-        $response->assertStatus(Response::HTTP_FORBIDDEN);
-
-        $this->assertSchema($response, 'GetTeam', Response::HTTP_FORBIDDEN);
+        $response->assertSchema('GetTeam', Response::HTTP_FORBIDDEN);
     }
 
     /** @test */
@@ -61,9 +53,7 @@ class GetTeamControllerTest extends TestCase
 
         $response = $this->get(route('get-team', $this->team->getKey()));
 
-        $response->assertStatus(Response::HTTP_OK);
-
-        $this->assertSchema($response, 'GetTeam', Response::HTTP_OK);
+        $response->assertSchema('GetTeam', Response::HTTP_OK);
     }
 
     /**

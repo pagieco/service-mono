@@ -5,7 +5,6 @@ namespace Tests\Feature\Http\Asset;
 use App\Asset;
 use Tests\TestCase;
 use Illuminate\Http\Response;
-use Tests\ValidatesOpenAPISchema;
 use Tests\Feature\Http\AuthenticatedRoute;
 use Illuminate\Foundation\Testing\TestResponse;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -14,7 +13,6 @@ class DeleteAssetTest extends TestCase
 {
     use RefreshDatabase;
     use AuthenticatedRoute;
-    use ValidatesOpenAPISchema;
 
     /** @test */
     public function it_throws_a_404_not_found_exception_when_the_asset_could_not_be_found()
@@ -23,9 +21,7 @@ class DeleteAssetTest extends TestCase
 
         $response = $this->delete(route('delete-asset', [$this->domain(), faker()->uuid]));
 
-        $response->assertStatus(Response::HTTP_NOT_FOUND);
-
-        $this->assertSchema($response, 'DeleteAsset', Response::HTTP_NOT_FOUND);
+        $response->assertSchema('DeleteAsset', Response::HTTP_NOT_FOUND);
     }
 
     /** @test */
@@ -40,9 +36,7 @@ class DeleteAssetTest extends TestCase
             $resource->id,
         ]));
 
-        $response->assertStatus(Response::HTTP_FORBIDDEN);
-
-        $this->assertSchema($response, 'DeleteAsset', Response::HTTP_FORBIDDEN);
+        $response->assertSchema('DeleteAsset', Response::HTTP_FORBIDDEN);
 
         $this->assertDatabaseHas('assets', [
             'id' => $resource->id,
@@ -58,9 +52,7 @@ class DeleteAssetTest extends TestCase
 
         $response = $this->delete(route('delete-asset', [$this->domain(), $asset->id]));
 
-        $response->assertStatus(Response::HTTP_NOT_FOUND);
-
-        $this->assertSchema($response, 'DeleteAsset', Response::HTTP_NOT_FOUND);
+        $response->assertSchema('DeleteAsset', Response::HTTP_NOT_FOUND);
 
         $this->assertDatabaseHas('assets', [
             'id' => $asset->id,
@@ -79,9 +71,7 @@ class DeleteAssetTest extends TestCase
             $resource->id,
         ]));
 
-        $response->assertStatus(Response::HTTP_NO_CONTENT);
-
-        $this->assertSchema($response, 'DeleteAsset', Response::HTTP_NO_CONTENT);
+        $response->assertSchema('DeleteAsset', Response::HTTP_NO_CONTENT);
 
         $this->assertDatabaseMissing('assets', [
             'id' => $resource->id,

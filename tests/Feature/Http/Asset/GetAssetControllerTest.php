@@ -5,7 +5,6 @@ namespace Tests\Feature\Http\Asset;
 use App\Asset;
 use Tests\TestCase;
 use App\Http\Response;
-use Tests\ValidatesOpenAPISchema;
 use Tests\Feature\Http\AuthenticatedRoute;
 use Illuminate\Foundation\Testing\TestResponse;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -14,7 +13,6 @@ class GetAssetControllerTest extends TestCase
 {
     use RefreshDatabase;
     use AuthenticatedRoute;
-    use ValidatesOpenAPISchema;
 
     /** @test */
     public function it_throws_a_404_not_found_exception_when_the_asset_could_not_be_found()
@@ -23,9 +21,7 @@ class GetAssetControllerTest extends TestCase
 
         $response = $this->get(route('get-asset', [$this->domain(), faker()->uuid]));
 
-        $response->assertStatus(Response::HTTP_NOT_FOUND);
-
-        $this->assertSchema($response, 'GetAsset', Response::HTTP_NOT_FOUND);
+        $response->assertSchema('GetAsset', Response::HTTP_NOT_FOUND);
     }
 
     /** @test */
@@ -37,9 +33,7 @@ class GetAssetControllerTest extends TestCase
 
         $response = $this->get(route('get-asset', [$this->domain(), $asset->id]));
 
-        $response->assertStatus(Response::HTTP_FORBIDDEN);
-
-        $this->assertSchema($response, 'GetAsset', Response::HTTP_FORBIDDEN);
+        $response->assertSchema('GetAsset', Response::HTTP_FORBIDDEN);
     }
 
     /** @test */
@@ -51,9 +45,7 @@ class GetAssetControllerTest extends TestCase
 
         $response = $this->get(route('get-asset', [$this->domain(), $asset->id]));
 
-        $response->assertStatus(Response::HTTP_NOT_FOUND);
-
-        $this->assertSchema($response, 'GetAsset', Response::HTTP_NOT_FOUND);
+        $response->assertSchema('GetAsset', Response::HTTP_NOT_FOUND);
     }
 
     /** @test */
@@ -65,9 +57,7 @@ class GetAssetControllerTest extends TestCase
 
         $response = $this->get(route('get-asset', [$this->domain(), $asset->id]));
 
-        $response->assertStatus(Response::HTTP_OK);
-
-        $this->assertSchema($response, 'GetAsset', Response::HTTP_OK);
+        $response->assertSchema('GetAsset', Response::HTTP_OK);
     }
 
     /**

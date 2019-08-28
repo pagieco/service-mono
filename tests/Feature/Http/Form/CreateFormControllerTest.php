@@ -5,7 +5,6 @@ namespace Tests\Feature\Http\Form;
 use Tests\TestCase;
 use App\Http\Response;
 use App\Enums\FormFieldType;
-use Tests\ValidatesOpenAPISchema;
 use App\Enums\FormFieldValidation;
 use Tests\Feature\Http\AuthenticatedRoute;
 use Illuminate\Foundation\Testing\TestResponse;
@@ -15,7 +14,6 @@ class CreateFormControllerTest extends TestCase
 {
     use RefreshDatabase;
     use AuthenticatedRoute;
-    use ValidatesOpenAPISchema;
 
     /** @test */
     public function it_requires_the_name_when_creating_a_new_form()
@@ -24,9 +22,7 @@ class CreateFormControllerTest extends TestCase
 
         $response = $this->post(route('create-form', $this->domain()));
 
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-
-        $this->assertSchema($response, 'CreateForm', Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertSchema('CreateForm', Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /** @test */
@@ -38,9 +34,7 @@ class CreateFormControllerTest extends TestCase
             'name' => 'aa',
         ]);
 
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-
-        $this->assertSchema($response, 'CreateForm', Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertSchema('CreateForm', Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /** @test */
@@ -52,9 +46,7 @@ class CreateFormControllerTest extends TestCase
             'name' => str_repeat('a', 101),
         ]);
 
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-
-        $this->assertSchema($response, 'CreateForm', Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertSchema('CreateForm', Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /** @test */
@@ -67,9 +59,7 @@ class CreateFormControllerTest extends TestCase
             'description' => str_repeat('a', 251),
         ]);
 
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-
-        $this->assertSchema($response, 'CreateForm', Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertSchema('CreateForm', Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /** @test */
@@ -81,9 +71,7 @@ class CreateFormControllerTest extends TestCase
             'name' => faker()->name,
         ]);
 
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-
-        $this->assertSchema($response, 'CreateForm', Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertSchema('CreateForm', Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /** @test */
@@ -96,9 +84,7 @@ class CreateFormControllerTest extends TestCase
             'fields' => 'a random string',
         ]);
 
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-
-        $this->assertSchema($response, 'CreateForm', Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertSchema('CreateForm', Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /** @test */
@@ -115,14 +101,12 @@ class CreateFormControllerTest extends TestCase
             ],
         ]);
 
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-
         $response->assertJsonStructure([
             'message',
             'errors' => ['fields.my-field.display_name'],
         ]);
 
-        $this->assertSchema($response, 'CreateForm', Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertSchema('CreateForm', Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /** @test */
@@ -139,14 +123,12 @@ class CreateFormControllerTest extends TestCase
             ],
         ]);
 
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-
         $response->assertJsonStructure([
             'message',
             'errors' => ['fields.my-field.display_name'],
         ]);
 
-        $this->assertSchema($response, 'CreateForm', Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertSchema('CreateForm', Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /** @test */
@@ -163,14 +145,12 @@ class CreateFormControllerTest extends TestCase
             ],
         ]);
 
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-
         $response->assertJsonStructure([
             'message',
             'errors' => ['fields.my-field.display_name'],
         ]);
 
-        $this->assertSchema($response, 'CreateForm', Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertSchema('CreateForm', Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /** @test */
@@ -187,14 +167,12 @@ class CreateFormControllerTest extends TestCase
             ],
         ]);
 
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-
         $response->assertJsonStructure([
             'message',
             'errors' => ['fields.my-field.slug'],
         ]);
 
-        $this->assertSchema($response, 'CreateForm', Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertSchema('CreateForm', Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /** @test */
@@ -211,14 +189,12 @@ class CreateFormControllerTest extends TestCase
             ],
         ]);
 
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-
         $response->assertJsonStructure([
             'message',
             'errors' => ['fields.my-field.slug'],
         ]);
 
-        $this->assertSchema($response, 'CreateForm', Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertSchema('CreateForm', Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /** @test */
@@ -235,14 +211,12 @@ class CreateFormControllerTest extends TestCase
             ],
         ]);
 
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-
         $response->assertJsonStructure([
             'message',
             'errors' => ['fields.my-field.slug'],
         ]);
 
-        $this->assertSchema($response, 'CreateForm', Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertSchema('CreateForm', Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /** @test */
@@ -259,14 +233,12 @@ class CreateFormControllerTest extends TestCase
             ],
         ]);
 
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-
         $response->assertJsonStructure([
             'message',
             'errors' => ['fields.my-field.slug'],
         ]);
 
-        $this->assertSchema($response, 'CreateForm', Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertSchema('CreateForm', Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /** @test */
@@ -283,14 +255,12 @@ class CreateFormControllerTest extends TestCase
             ],
         ]);
 
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-
         $response->assertJsonStructure([
             'message',
             'errors' => ['fields.my-field.type'],
         ]);
 
-        $this->assertSchema($response, 'CreateForm', Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertSchema('CreateForm', Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /** @test */
@@ -312,7 +282,7 @@ class CreateFormControllerTest extends TestCase
             'errors' => ['fields.my-field.validations'],
         ]);
 
-        $this->assertSchema($response, 'CreateForm', Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertSchema('CreateForm', Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /** @test */
@@ -336,7 +306,7 @@ class CreateFormControllerTest extends TestCase
             'errors' => ['fields.my-field.validations'],
         ]);
 
-        $this->assertSchema($response, 'CreateForm', Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertSchema('CreateForm', Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /** @test */
@@ -358,9 +328,7 @@ class CreateFormControllerTest extends TestCase
             ],
         ]);
 
-        $response->assertStatus(Response::HTTP_FORBIDDEN);
-
-        $this->assertSchema($response, 'CreateForm', Response::HTTP_FORBIDDEN);
+        $response->assertSchema('CreateForm', Response::HTTP_FORBIDDEN);
     }
 
     /** @test */
@@ -382,9 +350,7 @@ class CreateFormControllerTest extends TestCase
             ],
         ]);
 
-        $response->assertStatus(Response::HTTP_CREATED);
-
-        $this->assertSchema($response, 'CreateForm', Response::HTTP_CREATED);
+        $response->assertSchema('CreateForm', Response::HTTP_CREATED);
     }
 
     /**

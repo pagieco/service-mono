@@ -3,9 +3,9 @@
 namespace Tests\Feature\Http\Page;
 
 use App\Page;
+use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 use App\Http\Response;
-use Tests\ValidatesOpenAPISchema;
 use Tests\Feature\Http\AuthenticatedRoute;
 use Illuminate\Foundation\Testing\TestResponse;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -14,7 +14,6 @@ class PublishPageControllerTest extends TestCase
 {
     use RefreshDatabase;
     use AuthenticatedRoute;
-    use ValidatesOpenAPISchema;
 
     /** @test */
     public function it_validates_for_dom_presence_when_publishing_a_page()
@@ -33,9 +32,7 @@ class PublishPageControllerTest extends TestCase
             'css' => [],
         ]);
 
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-
-        $this->assertSchema($response, 'PublishPage', Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertSchema('PublishPage', Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /** @test */
@@ -56,9 +53,7 @@ class PublishPageControllerTest extends TestCase
             'css' => [],
         ]);
 
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-
-        $this->assertSchema($response, 'PublishPage', Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertSchema('PublishPage', Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /** @test */
@@ -78,9 +73,7 @@ class PublishPageControllerTest extends TestCase
             'dom' => [],
         ]);
 
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-
-        $this->assertSchema($response, 'PublishPage', Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertSchema('PublishPage', Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /** @test */
@@ -101,14 +94,14 @@ class PublishPageControllerTest extends TestCase
             'css' => '',
         ]);
 
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-
-        $this->assertSchema($response, 'PublishPage', Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertSchema('PublishPage', Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /** @test */
     public function it_correctly_publishes_the_page()
     {
+        Storage::fake();
+
         $this->login()->forceAccess($this->role, 'page:publish');
 
         $page = factory(Page::class)->create([
@@ -132,9 +125,7 @@ class PublishPageControllerTest extends TestCase
 
         $this->assertNotNull($page->domain->css_file);
 
-        $response->assertStatus(Response::HTTP_OK);
-
-        $this->assertSchema($response, 'PublishPage', Response::HTTP_OK);
+        $response->assertSchema('PublishPage', Response::HTTP_OK);
     }
 
     /**

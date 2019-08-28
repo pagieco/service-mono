@@ -5,7 +5,6 @@ namespace Tests\Feature\Http\Environment;
 use Tests\TestCase;
 use App\Environment;
 use App\Http\Response;
-use Tests\ValidatesOpenAPISchema;
 use Tests\Feature\Http\AuthenticatedRoute;
 use Illuminate\Foundation\Testing\TestResponse;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -14,7 +13,6 @@ class CreateEnvironmentsControllerTest extends TestCase
 {
     use RefreshDatabase;
     use AuthenticatedRoute;
-    use ValidatesOpenAPISchema;
 
     /** @test */
     public function it_requires_the_name_when_creating_a_new_environment()
@@ -23,9 +21,7 @@ class CreateEnvironmentsControllerTest extends TestCase
 
         $response = $this->post(route('create-environment'));
 
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-
-        $this->assertSchema($response, 'CreateEnvironment', Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertSchema('CreateEnvironment', Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /** @test */
@@ -37,9 +33,7 @@ class CreateEnvironmentsControllerTest extends TestCase
             'name' => 'a',
         ]);
 
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-
-        $this->assertSchema($response, 'CreateEnvironment', Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertSchema('CreateEnvironment', Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /** @test */
@@ -51,9 +45,7 @@ class CreateEnvironmentsControllerTest extends TestCase
             'name' => str_repeat('a', 101),
         ]);
 
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-
-        $this->assertSchema($response, 'CreateEnvironment', Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertSchema('CreateEnvironment', Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /** @test */
@@ -65,9 +57,7 @@ class CreateEnvironmentsControllerTest extends TestCase
             'name' => 'test environment',
         ]);
 
-        $response->assertStatus(Response::HTTP_FORBIDDEN);
-
-        $this->assertSchema($response, 'CreateEnvironment', Response::HTTP_FORBIDDEN);
+        $response->assertSchema('CreateEnvironment', Response::HTTP_FORBIDDEN);
     }
 
     /** @test */
@@ -79,7 +69,7 @@ class CreateEnvironmentsControllerTest extends TestCase
             'name' => 'test environment',
         ]);
 
-        $this->assertSchema($response, 'CreateEnvironment', Response::HTTP_CREATED);
+        $response->assertSchema('CreateEnvironment', Response::HTTP_CREATED);
 
         $this->assertDatabaseHas(Environment::getTableName(), [
             'id' => $response->json('data.id'),

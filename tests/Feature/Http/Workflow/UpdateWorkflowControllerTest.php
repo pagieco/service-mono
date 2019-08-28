@@ -5,7 +5,6 @@ namespace Tests\Feature\Http\Workflow;
 use App\Workflow;
 use Tests\TestCase;
 use App\Http\Response;
-use Tests\ValidatesOpenAPISchema;
 use Tests\Feature\Http\AuthenticatedRoute;
 use Illuminate\Foundation\Testing\TestResponse;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -14,7 +13,6 @@ class UpdateWorkflowControllerTest extends TestCase
 {
     use RefreshDatabase;
     use AuthenticatedRoute;
-    use ValidatesOpenAPISchema;
 
     /** @test */
     public function it_throws_a_404_exception_when_the_workflow_could_not_be_found()
@@ -23,9 +21,7 @@ class UpdateWorkflowControllerTest extends TestCase
 
         $response = $this->patch(route('update-workflow', faker()->uuid));
 
-        $response->assertStatus(Response::HTTP_NOT_FOUND);
-
-        $this->assertSchema($response, 'UpdateWorkflow', Response::HTTP_NOT_FOUND);
+        $response->assertSchema('UpdateWorkflow', Response::HTTP_NOT_FOUND);
     }
 
     /** @test */
@@ -37,9 +33,7 @@ class UpdateWorkflowControllerTest extends TestCase
             'name' => 'Workflow name',
         ]);
 
-        $response->assertStatus(Response::HTTP_FORBIDDEN);
-
-        $this->assertSchema($response, 'UpdateWorkflow', Response::HTTP_FORBIDDEN);
+        $response->assertSchema('UpdateWorkflow', Response::HTTP_FORBIDDEN);
     }
 
     /** @test */
@@ -53,9 +47,7 @@ class UpdateWorkflowControllerTest extends TestCase
             'name' => 'Workflow name',
         ]);
 
-        $response->assertStatus(Response::HTTP_NOT_FOUND);
-
-        $this->assertSchema($response, 'UpdateWorkflow', Response::HTTP_NOT_FOUND);
+        $response->assertSchema('UpdateWorkflow', Response::HTTP_NOT_FOUND);
     }
 
     /** @test */
@@ -67,9 +59,7 @@ class UpdateWorkflowControllerTest extends TestCase
             'name' => null,
         ]);
 
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-
-        $this->assertSchema($response, 'UpdateWorkflow', Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertSchema('UpdateWorkflow', Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /** @test */
@@ -81,9 +71,7 @@ class UpdateWorkflowControllerTest extends TestCase
             'name' => 'a',
         ]);
 
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-
-        $this->assertSchema($response, 'UpdateWorkflow', Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertSchema('UpdateWorkflow', Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /** @test */
@@ -95,9 +83,7 @@ class UpdateWorkflowControllerTest extends TestCase
             'name' => str_repeat('a', 101),
         ]);
 
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-
-        $this->assertSchema($response, 'UpdateWorkflow', Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertSchema('UpdateWorkflow', Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /** @test */
@@ -110,9 +96,7 @@ class UpdateWorkflowControllerTest extends TestCase
             'description' => str_repeat('a', 251),
         ]);
 
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-
-        $this->assertSchema($response, 'UpdateWorkflow', Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertSchema('UpdateWorkflow', Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /** @test */
@@ -132,9 +116,7 @@ class UpdateWorkflowControllerTest extends TestCase
             'name' => $newName,
         ]);
 
-        $response->assertStatus(Response::HTTP_OK);
-
-        $this->assertSchema($response, 'UpdateWorkflow', Response::HTTP_OK);
+        $response->assertSchema('UpdateWorkflow', Response::HTTP_OK);
     }
 
     /**

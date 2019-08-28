@@ -6,6 +6,7 @@ use Ramsey\Uuid\Uuid;
 use App\ModelObservers;
 use Laravel\Passport\Client;
 use Laravel\Passport\Passport;
+use App\Macros\TestResponseMacros;
 use App\Macros\UploadedFileMacros;
 use Illuminate\Support\ServiceProvider;
 
@@ -13,6 +14,7 @@ class AppServiceProvider extends ServiceProvider
 {
     use ModelObservers;
     use UploadedFileMacros;
+    use TestResponseMacros;
 
     /**
      * Register any application services.

@@ -6,14 +6,12 @@ use App\User;
 use Tests\TestCase;
 use App\Http\Response;
 use GuzzleHttp\Client;
-use Tests\ValidatesOpenApiSchema;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class AuthenticateControllerTest extends TestCase
 {
     use RefreshDatabase;
-    use ValidatesOpenApiSchema;
 
     /** @test */
     public function it_validates_on_presence_of_email()
@@ -22,9 +20,7 @@ class AuthenticateControllerTest extends TestCase
             'password' => 'my-password',
         ]);
 
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-
-        $this->assertSchema($response, 'Authenticate', Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertSchema('Authenticate', Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /** @test */
@@ -35,9 +31,7 @@ class AuthenticateControllerTest extends TestCase
             'password' => 'my-password',
         ]);
 
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-
-        $this->assertSchema($response, 'Authenticate', Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertSchema('Authenticate', Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /** @test */
@@ -48,9 +42,7 @@ class AuthenticateControllerTest extends TestCase
             'password' => 'my-password',
         ]);
 
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-
-        $this->assertSchema($response, 'Authenticate', Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertSchema('Authenticate', Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /** @test */
@@ -60,9 +52,7 @@ class AuthenticateControllerTest extends TestCase
             'email' => faker()->email,
         ]);
 
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-
-        $this->assertSchema($response, 'Authenticate', Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertSchema('Authenticate', Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     public function it_throws_an_unauthorized_exception_for_an_invalid_email()
@@ -74,9 +64,7 @@ class AuthenticateControllerTest extends TestCase
             'password' => 'password',
         ]);
 
-        $response->assertStatus(Response::HTTP_UNAUTHORIZED);
-
-        $this->assertSchema($response, 'Authenticate', Response::HTTP_UNAUTHORIZED);
+        $response->assertSchema('Authenticate', Response::HTTP_UNAUTHORIZED);
     }
 
     /** @test */
@@ -89,9 +77,7 @@ class AuthenticateControllerTest extends TestCase
             'password' => 'incorrect-password',
         ]);
 
-        $response->assertStatus(Response::HTTP_UNAUTHORIZED);
-
-        $this->assertSchema($response, 'Authenticate', Response::HTTP_UNAUTHORIZED);
+        $response->assertSchema('Authenticate', Response::HTTP_UNAUTHORIZED);
     }
 
     /** @test */

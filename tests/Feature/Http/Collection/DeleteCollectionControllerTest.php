@@ -6,7 +6,6 @@ use App\Collection;
 use Tests\TestCase;
 use App\Http\Response;
 use Tests\RefreshCollections;
-use Tests\ValidatesOpenAPISchema;
 use Tests\Feature\Http\AuthenticatedRoute;
 use Illuminate\Foundation\Testing\TestResponse;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -16,7 +15,6 @@ class DeleteCollectionControllerTest extends TestCase
     use RefreshDatabase;
     use AuthenticatedRoute;
     use RefreshCollections;
-    use ValidatesOpenAPISchema;
 
     /** @test */
     public function it_throws_a_404_not_found_exception_when_the_collection_could_not_be_found()
@@ -25,9 +23,7 @@ class DeleteCollectionControllerTest extends TestCase
 
         $response = $this->delete(route('delete-collection', [$this->domain(), faker()->uuid]));
 
-        $response->assertStatus(Response::HTTP_NOT_FOUND);
-
-        $this->assertSchema($response, 'DeleteCollection', Response::HTTP_NOT_FOUND);
+        $response->assertSchema('DeleteCollection', Response::HTTP_NOT_FOUND);
     }
 
     /** @test */
@@ -42,9 +38,7 @@ class DeleteCollectionControllerTest extends TestCase
             $resource->id,
         ]));
 
-        $response->assertStatus(Response::HTTP_FORBIDDEN);
-
-        $this->assertSchema($response, 'DeleteCollection', Response::HTTP_FORBIDDEN);
+        $response->assertSchema('DeleteCollection', Response::HTTP_FORBIDDEN);
     }
 
     /** @test */
@@ -56,9 +50,7 @@ class DeleteCollectionControllerTest extends TestCase
 
         $response = $this->delete(route('delete-collection', [$this->domain(), $collection->id]));
 
-        $response->assertStatus(Response::HTTP_NOT_FOUND);
-
-        $this->assertSchema($response, 'DeleteCollection', Response::HTTP_NOT_FOUND);
+        $response->assertSchema('DeleteCollection', Response::HTTP_NOT_FOUND);
     }
 
     /** @test */
@@ -73,9 +65,7 @@ class DeleteCollectionControllerTest extends TestCase
             $resource->id,
         ]));
 
-        $response->assertStatus(Response::HTTP_NO_CONTENT);
-
-        $this->assertSchema($response, 'DeleteCollection', Response::HTTP_NO_CONTENT);
+        $response->assertSchema('DeleteCollection', Response::HTTP_NO_CONTENT);
     }
 
     /**

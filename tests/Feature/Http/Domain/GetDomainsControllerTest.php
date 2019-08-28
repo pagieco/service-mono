@@ -5,7 +5,6 @@ namespace Tests\Feature\Http\Domain;
 use App\Domain;
 use Tests\TestCase;
 use App\Http\Response;
-use Tests\ValidatesOpenAPISchema;
 use Tests\Feature\Http\AuthenticatedRoute;
 use Illuminate\Foundation\Testing\TestResponse;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -14,7 +13,6 @@ class GetDomainsControllerTest extends TestCase
 {
     use RefreshDatabase;
     use AuthenticatedRoute;
-    use ValidatesOpenAPISchema;
 
     /** @test */
     public function it_returns_an_empty_response_when_no_domains_where_found()
@@ -23,9 +21,7 @@ class GetDomainsControllerTest extends TestCase
 
         $response = $this->get(route('get-domains'));
 
-        $response->assertStatus(Response::HTTP_NO_CONTENT);
-
-        $this->assertSchema($response, 'GetDomains', Response::HTTP_NO_CONTENT);
+        $response->assertSchema('GetDomains', Response::HTTP_NO_CONTENT);
     }
 
     /** @test */
@@ -48,9 +44,7 @@ class GetDomainsControllerTest extends TestCase
 
         $response = $this->get(route('get-domains'));
 
-        $response->assertStatus(Response::HTTP_FORBIDDEN);
-
-        $this->assertSchema($response, 'GetDomains', Response::HTTP_FORBIDDEN);
+        $response->assertSchema('GetDomains', Response::HTTP_FORBIDDEN);
     }
 
     /** @test */
@@ -61,9 +55,7 @@ class GetDomainsControllerTest extends TestCase
 
         $response = $this->get(route('get-domains'));
 
-        $response->assertStatus(Response::HTTP_OK);
-
-        $this->assertSchema($response, 'GetDomains', Response::HTTP_OK);
+        $response->assertSchema('GetDomains', Response::HTTP_OK);
     }
 
     /**

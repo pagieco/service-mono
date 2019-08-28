@@ -5,7 +5,6 @@ namespace Tests\Feature\Http\Environment;
 use Tests\TestCase;
 use App\Environment;
 use App\Http\Response;
-use Tests\ValidatesOpenAPISchema;
 use Tests\Feature\Http\AuthenticatedRoute;
 use Illuminate\Foundation\Testing\TestResponse;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -14,7 +13,6 @@ class GetEnvironmentsControllerTest extends TestCase
 {
     use RefreshDatabase;
     use AuthenticatedRoute;
-    use ValidatesOpenAPISchema;
 
     /** @test */
     public function it_returns_an_empty_response_when_no_environments_where_found()
@@ -23,9 +21,7 @@ class GetEnvironmentsControllerTest extends TestCase
 
         $response = $this->get(route('get-environments'));
 
-        $response->assertStatus(Response::HTTP_NO_CONTENT);
-
-        $this->assertSchema($response, 'GetEnvironments', Response::HTTP_NO_CONTENT);
+        $response->assertSchema('GetEnvironments', Response::HTTP_NO_CONTENT);
     }
 
     /** @test */
@@ -51,9 +47,7 @@ class GetEnvironmentsControllerTest extends TestCase
 
         $response = $this->get(route('get-environments'));
 
-        $response->assertStatus(Response::HTTP_FORBIDDEN);
-
-        $this->assertSchema($response, 'GetEnvironments', Response::HTTP_FORBIDDEN);
+        $response->assertSchema('GetEnvironments', Response::HTTP_FORBIDDEN);
     }
 
     /** @test */
@@ -64,9 +58,7 @@ class GetEnvironmentsControllerTest extends TestCase
 
         $response = $this->get(route('get-environments'));
 
-        $response->assertStatus(Response::HTTP_OK);
-
-        $this->assertSchema($response, 'GetEnvironments', Response::HTTP_OK);
+        $response->assertSchema('GetEnvironments', Response::HTTP_OK);
     }
 
     /**

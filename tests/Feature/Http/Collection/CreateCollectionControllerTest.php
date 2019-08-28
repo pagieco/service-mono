@@ -6,7 +6,6 @@ use Tests\TestCase;
 use App\Http\Response;
 use Tests\RefreshCollections;
 use App\Enums\DatabaseFieldType;
-use Tests\ValidatesOpenAPISchema;
 use Tests\Feature\Http\AuthenticatedRoute;
 use Illuminate\Foundation\Testing\TestResponse;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -16,7 +15,6 @@ class CreateCollectionControllerTest extends TestCase
     use RefreshDatabase;
     use AuthenticatedRoute;
     use RefreshCollections;
-    use ValidatesOpenAPISchema;
 
     /** @test */
     public function it_requires_the_name_when_creating_a_new_collection()
@@ -25,9 +23,7 @@ class CreateCollectionControllerTest extends TestCase
 
         $response = $this->post(route('create-collection', $this->domain()));
 
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-
-        $this->assertSchema($response, 'CreateCollection', Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertSchema('CreateCollection', Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /** @test */
@@ -39,9 +35,7 @@ class CreateCollectionControllerTest extends TestCase
             'name' => 'aa',
         ]);
 
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-
-        $this->assertSchema($response, 'CreateCollection', Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertSchema('CreateCollection', Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /** @test */
@@ -53,9 +47,7 @@ class CreateCollectionControllerTest extends TestCase
             'name' => str_repeat('a', 101),
         ]);
 
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-
-        $this->assertSchema($response, 'CreateCollection', Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertSchema('CreateCollection', Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /** @test */
@@ -68,9 +60,7 @@ class CreateCollectionControllerTest extends TestCase
             'description' => str_repeat('a', 251),
         ]);
 
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-
-        $this->assertSchema($response, 'CreateCollection', Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertSchema('CreateCollection', Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /** @test */
@@ -82,9 +72,7 @@ class CreateCollectionControllerTest extends TestCase
             'name' => faker()->name,
         ]);
 
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-
-        $this->assertSchema($response, 'CreateCollection', Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertSchema('CreateCollection', Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /** @test */
@@ -97,9 +85,7 @@ class CreateCollectionControllerTest extends TestCase
             'fields' => 'a random string',
         ]);
 
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-
-        $this->assertSchema($response, 'CreateCollection', Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertSchema('CreateCollection', Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /** @test */
@@ -116,14 +102,12 @@ class CreateCollectionControllerTest extends TestCase
             ],
         ]);
 
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-
         $response->assertJsonStructure([
             'message',
             'errors' => ['fields.my-field.name'],
         ]);
 
-        $this->assertSchema($response, 'CreateCollection', Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertSchema('CreateCollection', Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /** @test */
@@ -140,14 +124,12 @@ class CreateCollectionControllerTest extends TestCase
             ],
         ]);
 
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-
         $response->assertJsonStructure([
             'message',
             'errors' => ['fields.my-field.name'],
         ]);
 
-        $this->assertSchema($response, 'CreateCollection', Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertSchema('CreateCollection', Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /** @test */
@@ -164,14 +146,12 @@ class CreateCollectionControllerTest extends TestCase
             ],
         ]);
 
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-
         $response->assertJsonStructure([
             'message',
             'errors' => ['fields.my-field.name'],
         ]);
 
-        $this->assertSchema($response, 'CreateCollection', Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertSchema('CreateCollection', Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /** @test */
@@ -188,14 +168,12 @@ class CreateCollectionControllerTest extends TestCase
             ],
         ]);
 
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-
         $response->assertJsonStructure([
             'message',
             'errors' => ['fields.my-field.slug'],
         ]);
 
-        $this->assertSchema($response, 'CreateCollection', Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertSchema('CreateCollection', Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /** @test */
@@ -212,14 +190,12 @@ class CreateCollectionControllerTest extends TestCase
             ],
         ]);
 
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-
         $response->assertJsonStructure([
             'message',
             'errors' => ['fields.my-field.slug'],
         ]);
 
-        $this->assertSchema($response, 'CreateCollection', Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertSchema('CreateCollection', Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /** @test */
@@ -236,14 +212,12 @@ class CreateCollectionControllerTest extends TestCase
             ],
         ]);
 
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-
         $response->assertJsonStructure([
             'message',
             'errors' => ['fields.my-field.slug'],
         ]);
 
-        $this->assertSchema($response, 'CreateCollection', Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertSchema('CreateCollection', Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /** @test */
@@ -260,14 +234,12 @@ class CreateCollectionControllerTest extends TestCase
             ],
         ]);
 
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-
         $response->assertJsonStructure([
             'message',
             'errors' => ['fields.my-field.slug'],
         ]);
 
-        $this->assertSchema($response, 'CreateCollection', Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertSchema('CreateCollection', Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /** @test */
@@ -284,14 +256,12 @@ class CreateCollectionControllerTest extends TestCase
             ],
         ]);
 
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-
         $response->assertJsonStructure([
             'message',
             'errors' => ['fields.my-field.helptext'],
         ]);
 
-        $this->assertSchema($response, 'CreateCollection', Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertSchema('CreateCollection', Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /** @test */
@@ -308,14 +278,12 @@ class CreateCollectionControllerTest extends TestCase
             ],
         ]);
 
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-
         $response->assertJsonStructure([
             'message',
             'errors' => ['fields.my-field.is_required'],
         ]);
 
-        $this->assertSchema($response, 'CreateCollection', Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertSchema('CreateCollection', Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /** @test */
@@ -332,14 +300,12 @@ class CreateCollectionControllerTest extends TestCase
             ],
         ]);
 
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-
         $response->assertJsonStructure([
             'message',
             'errors' => ['fields.my-field.type'],
         ]);
 
-        $this->assertSchema($response, 'CreateCollection', Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertSchema('CreateCollection', Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /** @test */
@@ -361,9 +327,7 @@ class CreateCollectionControllerTest extends TestCase
             ],
         ]);
 
-        $response->assertStatus(Response::HTTP_FORBIDDEN);
-
-        $this->assertSchema($response, 'CreateCollection', Response::HTTP_FORBIDDEN);
+        $response->assertSchema('CreateCollection', Response::HTTP_FORBIDDEN);
     }
 
     /** @test */
@@ -385,9 +349,7 @@ class CreateCollectionControllerTest extends TestCase
             ],
         ]);
 
-        $response->assertStatus(Response::HTTP_CREATED);
-
-        $this->assertSchema($response, 'CreateCollection', Response::HTTP_CREATED);
+        $response->assertSchema('CreateCollection', Response::HTTP_CREATED);
     }
 
     /**

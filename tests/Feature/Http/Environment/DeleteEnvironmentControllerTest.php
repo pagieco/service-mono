@@ -5,7 +5,6 @@ namespace Tests\Feature\Http\Environment;
 use Tests\TestCase;
 use App\Environment;
 use App\Http\Response;
-use Tests\ValidatesOpenAPISchema;
 use Tests\Feature\Http\AuthenticatedRoute;
 use Illuminate\Foundation\Testing\TestResponse;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -14,7 +13,6 @@ class DeleteEnvironmentControllerTest extends TestCase
 {
     use RefreshDatabase;
     use AuthenticatedRoute;
-    use ValidatesOpenAPISchema;
 
     /** @test */
     public function it_throws_a_404_exception_when_the_environment_could_not_be_found()
@@ -23,9 +21,7 @@ class DeleteEnvironmentControllerTest extends TestCase
 
         $response = $this->delete(route('delete-environment', faker()->uuid));
 
-        $response->assertStatus(Response::HTTP_NOT_FOUND);
-
-        $this->assertSchema($response, 'DeleteEnvironment', Response::HTTP_NOT_FOUND);
+        $response->assertSchema('DeleteEnvironment', Response::HTTP_NOT_FOUND);
     }
 
     /** @test */
@@ -35,9 +31,7 @@ class DeleteEnvironmentControllerTest extends TestCase
 
         $response = $this->delete(route('delete-environment', $this->createTestResource()->id));
 
-        $response->assertStatus(Response::HTTP_FORBIDDEN);
-
-        $this->assertSchema($response, 'DeleteEnvironment', Response::HTTP_FORBIDDEN);
+        $response->assertSchema('DeleteEnvironment', Response::HTTP_FORBIDDEN);
     }
 
     /** @test */
@@ -51,9 +45,7 @@ class DeleteEnvironmentControllerTest extends TestCase
 
         $response = $this->delete(route('delete-environment', $environment->id));
 
-        $response->assertStatus(Response::HTTP_NO_CONTENT);
-
-        $this->assertSchema($response, 'DeleteEnvironment', Response::HTTP_NO_CONTENT);
+        $response->assertSchema('DeleteEnvironment', Response::HTTP_NO_CONTENT);
 
         $this->domain()->refresh();
 

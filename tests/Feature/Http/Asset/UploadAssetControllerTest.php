@@ -5,7 +5,6 @@ namespace Tests\Feature\Http\Asset;
 use Tests\TestCase;
 use Illuminate\Http\Response;
 use Illuminate\Http\UploadedFile;
-use Tests\ValidatesOpenAPISchema;
 use App\Jobs\CreateAssetThumbnail;
 use Illuminate\Support\Facades\Storage;
 use Tests\Feature\Http\AuthenticatedRoute;
@@ -16,7 +15,6 @@ class UploadAssetControllerTest extends TestCase
 {
     use RefreshDatabase;
     use AuthenticatedRoute;
-    use ValidatesOpenAPISchema;
 
     /** @test */
     public function it_throws_a_403_forbidden_exception_when_the_user_is_not_allowed_to_upload_an_asset()
@@ -29,9 +27,7 @@ class UploadAssetControllerTest extends TestCase
             'file' => UploadedFile::fake()->image('avatar.jpeg'),
         ]);
 
-        $response->assertStatus(Response::HTTP_FORBIDDEN);
-
-        $this->assertSchema($response, 'UploadAsset', Response::HTTP_FORBIDDEN);
+        $response->assertSchema('UploadAsset', Response::HTTP_FORBIDDEN);
 
         $path = sprintf('%s/avatar.jpeg', $this->domain()->id);
 
@@ -51,7 +47,7 @@ class UploadAssetControllerTest extends TestCase
             'file' => UploadedFile::fake()->image('avatar.jpeg'),
         ]);
 
-        $this->assertSchema($response, 'UploadAsset', Response::HTTP_CREATED);
+        $response->assertSchema('UploadAsset', Response::HTTP_CREATED);
 
         Storage::disk('uploads')->assertExists($response->json('data.path'));
     }

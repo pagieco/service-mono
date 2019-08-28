@@ -5,7 +5,6 @@ namespace Tests\Feature\Http\Auth;
 use App\User;
 use Tests\TestCase;
 use App\Http\Response;
-use Tests\ValidatesOpenAPISchema;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -13,7 +12,6 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 class RegistrationControllerTest extends TestCase
 {
     use RefreshDatabase;
-    use ValidatesOpenAPISchema;
 
     /** @test */
     public function it_validates_on_presence_of_email()
@@ -25,9 +23,7 @@ class RegistrationControllerTest extends TestCase
             'timezone' => faker()->timezone,
         ]);
 
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-
-        $this->assertSchema($response, 'Register', Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertSchema('Register', Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /** @test */
@@ -40,9 +36,7 @@ class RegistrationControllerTest extends TestCase
             'timezone' => faker()->timezone,
         ]);
 
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-
-        $this->assertSchema($response, 'Register', Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertSchema('Register', Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /** @test */
@@ -57,9 +51,7 @@ class RegistrationControllerTest extends TestCase
             'timezone' => faker()->timezone,
         ]);
 
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-
-        $this->assertSchema($response, 'Register', Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertSchema('Register', Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /** @test */
@@ -72,9 +64,7 @@ class RegistrationControllerTest extends TestCase
             'timezone' => faker()->timezone,
         ]);
 
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-
-        $this->assertSchema($response, 'Register', Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertSchema('Register', Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /** @test */
@@ -87,9 +77,7 @@ class RegistrationControllerTest extends TestCase
             'timezone' => faker()->timezone,
         ]);
 
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-
-        $this->assertSchema($response, 'Register', Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertSchema('Register', Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /** @test */
@@ -102,9 +90,7 @@ class RegistrationControllerTest extends TestCase
             'timezone' => faker()->timezone,
         ]);
 
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-
-        $this->assertSchema($response, 'Register', Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertSchema('Register', Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /** @test */
@@ -117,9 +103,7 @@ class RegistrationControllerTest extends TestCase
             'timezone' => faker()->timezone,
         ]);
 
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-
-        $this->assertSchema($response, 'Register', Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertSchema('Register', Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /** @test */
@@ -132,9 +116,7 @@ class RegistrationControllerTest extends TestCase
             'timezone' => faker()->timezone,
         ]);
 
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-
-        $this->assertSchema($response, 'Register', Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertSchema('Register', Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /** @test */
@@ -147,9 +129,7 @@ class RegistrationControllerTest extends TestCase
             'timezone' => faker()->timezone,
         ]);
 
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-
-        $this->assertSchema($response, 'Register', Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertSchema('Register', Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /** @test */
@@ -162,9 +142,7 @@ class RegistrationControllerTest extends TestCase
             'timezone' => faker()->timezone,
         ]);
 
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-
-        $this->assertSchema($response, 'Register', Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertSchema('Register', Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /** @test */
@@ -176,9 +154,7 @@ class RegistrationControllerTest extends TestCase
             'password' => faker()->password,
         ]);
 
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-
-        $this->assertSchema($response, 'Register', Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertSchema('Register', Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /** @test */
@@ -191,9 +167,7 @@ class RegistrationControllerTest extends TestCase
             'timezone' => 'fake-timezone',
         ]);
 
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-
-        $this->assertSchema($response, 'Register', Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertSchema('Register', Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /** @test */
@@ -208,9 +182,7 @@ class RegistrationControllerTest extends TestCase
             'timezone' => faker()->timezone,
         ]);
 
-        $response->assertStatus(Response::HTTP_CREATED);
-
-        $this->assertSchema($response, 'Register', Response::HTTP_CREATED);
+        $response->assertSchema('Register', Response::HTTP_CREATED);
 
         $user = User::find($response->json('data.id'));
 

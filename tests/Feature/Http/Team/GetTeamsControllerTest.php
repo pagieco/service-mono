@@ -5,7 +5,6 @@ namespace Tests\Feature\Http\Teams;
 use App\Team;
 use Tests\TestCase;
 use App\Http\Response;
-use Tests\ValidatesOpenAPISchema;
 use Tests\Feature\Http\AuthenticatedRoute;
 use Illuminate\Foundation\Testing\TestResponse;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -14,7 +13,6 @@ class GetTeamsControllerTest extends TestCase
 {
     use RefreshDatabase;
     use AuthenticatedRoute;
-    use ValidatesOpenAPISchema;
 
     /** @test */
     public function it_doesnt_include_teams_where_the_user_has_no_access_to()
@@ -45,9 +43,7 @@ class GetTeamsControllerTest extends TestCase
 
         $response = $this->get(route('get-teams'));
 
-        $response->assertStatus(Response::HTTP_FORBIDDEN);
-
-        $this->assertSchema($response, 'GetTeams', Response::HTTP_FORBIDDEN);
+        $response->assertSchema('GetTeams', Response::HTTP_FORBIDDEN);
     }
 
     /** @test */
@@ -66,12 +62,10 @@ class GetTeamsControllerTest extends TestCase
 
         $response = $this->get(route('get-teams'));
 
-        $response->assertStatus(Response::HTTP_OK);
-
         $this->assertNotNull($response->json('links'));
         $this->assertNotNull($response->json('meta'));
 
-        $this->assertSchema($response, 'GetTeams', Response::HTTP_OK);
+        $response->assertSchema('GetTeams', Response::HTTP_OK);
     }
 
     /**

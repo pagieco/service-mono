@@ -6,7 +6,6 @@ use App\User;
 use Tests\TestCase;
 use App\Http\Response;
 use Illuminate\Support\Str;
-use Tests\ValidatesOpenAPISchema;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Http\RedirectResponse;
@@ -16,7 +15,6 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 class VerificationControllerTest extends TestCase
 {
     use RefreshDatabase;
-    use ValidatesOpenAPISchema;
 
     /** @test */
     public function it_fails_with_a_403_exception_when_the_signature_is_expired()
@@ -25,9 +23,7 @@ class VerificationControllerTest extends TestCase
 
         $response = $this->get($route);
 
-        $response->assertStatus(Response::HTTP_FORBIDDEN);
-
-        $this->assertSchema($response, 'VerifyAccount', Response::HTTP_FORBIDDEN);
+        $response->assertSchema('VerifyAccount', Response::HTTP_FORBIDDEN);
     }
 
     /** @test */
@@ -37,9 +33,7 @@ class VerificationControllerTest extends TestCase
 
         $response = $this->get($route);
 
-        $response->assertStatus(Response::HTTP_FORBIDDEN);
-
-        $this->assertSchema($response, 'VerifyAccount', Response::HTTP_FORBIDDEN);
+        $response->assertSchema('VerifyAccount', Response::HTTP_FORBIDDEN);
     }
 
     /** @test */
@@ -49,9 +43,7 @@ class VerificationControllerTest extends TestCase
 
         $response = $this->get($route);
 
-        $response->assertStatus(Response::HTTP_NOT_FOUND);
-
-        $this->assertSchema($response, 'VerifyAccount', Response::HTTP_NOT_FOUND);
+        $response->assertSchema('VerifyAccount', Response::HTTP_NOT_FOUND);
     }
 
     /** @test */
@@ -65,11 +57,9 @@ class VerificationControllerTest extends TestCase
 
         $response = $this->get($route);
 
-        $response->assertStatus(Response::HTTP_BAD_REQUEST);
-
         $response->assertJson(['message' => 'The user was already verified.']);
 
-        $this->assertSchema($response, 'VerifyAccount', Response::HTTP_BAD_REQUEST);
+        $response->assertSchema('VerifyAccount', Response::HTTP_BAD_REQUEST);
     }
 
     /** @test */
@@ -84,8 +74,6 @@ class VerificationControllerTest extends TestCase
         ]);
 
         $response = $this->get($route);
-
-        $response->assertStatus(Response::HTTP_FOUND);
 
         $this->assertInstanceOf(RedirectResponse::class, $response->baseResponse);
 

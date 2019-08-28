@@ -5,7 +5,6 @@ namespace Tests\Feature\Http\Environment;
 use Tests\TestCase;
 use App\Environment;
 use App\Http\Response;
-use Tests\ValidatesOpenAPISchema;
 use Tests\Feature\Http\AuthenticatedRoute;
 use Illuminate\Foundation\Testing\TestResponse;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -14,7 +13,6 @@ class DetachDomainControllerTest extends TestCase
 {
     use RefreshDatabase;
     use AuthenticatedRoute;
-    use ValidatesOpenAPISchema;
 
     /** @test */
     public function it_throws_a_404_exception_when_the_environment_could_not_be_found()
@@ -25,9 +23,7 @@ class DetachDomainControllerTest extends TestCase
             'domain' => $this->domain()->id,
         ]);
 
-        $response->assertStatus(Response::HTTP_NOT_FOUND);
-
-        $this->assertSchema($response, 'DetachDomain', Response::HTTP_NOT_FOUND);
+        $response->assertSchema('DetachDomain', Response::HTTP_NOT_FOUND);
     }
 
     /** @test */
@@ -39,9 +35,7 @@ class DetachDomainControllerTest extends TestCase
             'domain' => faker()->uuid,
         ]);
 
-        $response->assertStatus(Response::HTTP_BAD_REQUEST);
-
-        $this->assertSchema($response, 'DetachDomain', Response::HTTP_BAD_REQUEST);
+        $response->assertSchema('DetachDomain', Response::HTTP_BAD_REQUEST);
     }
 
     /** @test */
@@ -53,9 +47,7 @@ class DetachDomainControllerTest extends TestCase
             'domain' => $this->domain()->id,
         ]);
 
-        $response->assertStatus(Response::HTTP_FORBIDDEN);
-
-        $this->assertSchema($response, 'DetachDomain', Response::HTTP_FORBIDDEN);
+        $response->assertSchema('DetachDomain', Response::HTTP_FORBIDDEN);
     }
 
     /** @test */
@@ -67,9 +59,7 @@ class DetachDomainControllerTest extends TestCase
             'domain' => 'non-valid-uuid',
         ]);
 
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-
-        $this->assertSchema($response, 'DetachDomain', Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertSchema('DetachDomain', Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /** @test */
@@ -83,9 +73,7 @@ class DetachDomainControllerTest extends TestCase
             'domain' => $this->domain()->id,
         ]);
 
-        $response->assertStatus(Response::HTTP_NO_CONTENT);
-
-        $this->assertSchema($response, 'DetachDomain', Response::HTTP_NO_CONTENT);
+        $response->assertSchema('DetachDomain', Response::HTTP_NO_CONTENT);
 
         $this->assertDatabaseMissing('domains', [
             'environment_id' => $environment->id,

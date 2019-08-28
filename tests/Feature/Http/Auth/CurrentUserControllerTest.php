@@ -4,7 +4,6 @@ namespace Tests\Feature\Http\Auth;
 
 use Tests\TestCase;
 use App\Http\Response;
-use Tests\ValidatesOpenAPISchema;
 use Tests\Feature\Http\AuthenticatedRoute;
 use Illuminate\Foundation\Testing\TestResponse;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -13,7 +12,6 @@ class CurrentUserControllerTest extends TestCase
 {
     use RefreshDatabase;
     use AuthenticatedRoute;
-    use ValidatesOpenAPISchema;
 
     /** @test */
     public function it_retrieves_the_currently_logged_in_user()
@@ -22,7 +20,7 @@ class CurrentUserControllerTest extends TestCase
 
         $response = $this->get(route('current-user'));
 
-        $this->assertSchema($response, 'CurrentUser', Response::HTTP_OK);
+        $response->assertSchema('CurrentUser', Response::HTTP_OK);
     }
 
     /**

@@ -5,7 +5,6 @@ namespace Tests\Feature\Http\Workflow;
 use App\Workflow;
 use Tests\TestCase;
 use App\Http\Response;
-use Tests\ValidatesOpenAPISchema;
 use Tests\Feature\Http\AuthenticatedRoute;
 use Illuminate\Foundation\Testing\TestResponse;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -14,7 +13,6 @@ class CreateWorkflowControllerTest extends TestCase
 {
     use RefreshDatabase;
     use AuthenticatedRoute;
-    use ValidatesOpenAPISchema;
 
     /** @test */
     public function it_requires_the_name_when_creating_a_new_workflow()
@@ -23,9 +21,7 @@ class CreateWorkflowControllerTest extends TestCase
 
         $response = $this->post(route('create-workflow', $this->domain()));
 
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-
-        $this->assertSchema($response, 'CreateWorkflow', Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertSchema('CreateWorkflow', Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /** @test */
@@ -37,9 +33,7 @@ class CreateWorkflowControllerTest extends TestCase
             'name' => 'aa',
         ]);
 
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-
-        $this->assertSchema($response, 'CreateWorkflow', Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertSchema('CreateWorkflow', Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /** @test */
@@ -51,9 +45,7 @@ class CreateWorkflowControllerTest extends TestCase
             'name' => str_repeat('a', 101),
         ]);
 
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-
-        $this->assertSchema($response, 'CreateWorkflow', Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertSchema('CreateWorkflow', Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /** @test */
@@ -65,9 +57,7 @@ class CreateWorkflowControllerTest extends TestCase
             'description' => str_repeat('a', 251),
         ]);
 
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-
-        $this->assertSchema($response, 'CreateWorkflow', Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertSchema('CreateWorkflow', Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /** @test */
@@ -79,9 +69,7 @@ class CreateWorkflowControllerTest extends TestCase
             'name' => faker()->name,
         ]);
 
-        $response->assertStatus(Response::HTTP_FORBIDDEN);
-
-        $this->assertSchema($response, 'CreateWorkflow', Response::HTTP_FORBIDDEN);
+        $response->assertSchema('CreateWorkflow', Response::HTTP_FORBIDDEN);
     }
 
     /** @test */
@@ -93,9 +81,7 @@ class CreateWorkflowControllerTest extends TestCase
             'name' => faker()->name,
         ]);
 
-        $response->assertStatus(Response::HTTP_CREATED);
-
-        $this->assertSchema($response, 'CreateWorkflow', Response::HTTP_CREATED);
+        $response->assertSchema('CreateWorkflow', Response::HTTP_CREATED);
 
         $this->assertDatabaseHas(Workflow::getTableName(), [
             'id' => $response->json('data.id'),

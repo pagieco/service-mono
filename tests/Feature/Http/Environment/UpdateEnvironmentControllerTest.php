@@ -5,7 +5,6 @@ namespace Tests\Feature\Http\Environment;
 use Tests\TestCase;
 use App\Environment;
 use App\Http\Response;
-use Tests\ValidatesOpenAPISchema;
 use Tests\Feature\Http\AuthenticatedRoute;
 use Illuminate\Foundation\Testing\TestResponse;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -14,7 +13,6 @@ class UpdateEnvironmentControllerTest extends TestCase
 {
     use RefreshDatabase;
     use AuthenticatedRoute;
-    use ValidatesOpenAPISchema;
 
     /** @test */
     public function it_throws_a_404_exception_when_the_environment_could_not_be_found()
@@ -23,9 +21,7 @@ class UpdateEnvironmentControllerTest extends TestCase
 
         $response = $this->patch(route('update-environment', faker()->uuid));
 
-        $response->assertStatus(Response::HTTP_NOT_FOUND);
-
-        $this->assertSchema($response, 'UpdateEnvironment', Response::HTTP_NOT_FOUND);
+        $response->assertSchema('UpdateEnvironment', Response::HTTP_NOT_FOUND);
     }
 
     /** @test */
@@ -37,9 +33,7 @@ class UpdateEnvironmentControllerTest extends TestCase
             'name' => 'Environment name',
         ]);
 
-        $response->assertStatus(Response::HTTP_FORBIDDEN);
-
-        $this->assertSchema($response, 'UpdateEnvironment', Response::HTTP_FORBIDDEN);
+        $response->assertSchema('UpdateEnvironment', Response::HTTP_FORBIDDEN);
     }
 
     /** @test */
@@ -53,9 +47,7 @@ class UpdateEnvironmentControllerTest extends TestCase
             'name' => 'Environment name',
         ]);
 
-        $response->assertStatus(Response::HTTP_NOT_FOUND);
-
-        $this->assertSchema($response, 'UpdateEnvironment', Response::HTTP_NOT_FOUND);
+        $response->assertSchema('UpdateEnvironment', Response::HTTP_NOT_FOUND);
     }
 
     /** @test */
@@ -67,9 +59,7 @@ class UpdateEnvironmentControllerTest extends TestCase
             'name' => null,
         ]);
 
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-
-        $this->assertSchema($response, 'UpdateEnvironment', Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertSchema('UpdateEnvironment', Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /** @test */
@@ -81,9 +71,7 @@ class UpdateEnvironmentControllerTest extends TestCase
             'name' => 'a',
         ]);
 
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-
-        $this->assertSchema($response, 'UpdateEnvironment', Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertSchema('UpdateEnvironment', Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /** @test */
@@ -95,9 +83,7 @@ class UpdateEnvironmentControllerTest extends TestCase
             'name' => str_repeat('a', 105),
         ]);
 
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-
-        $this->assertSchema($response, 'UpdateEnvironment', Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertSchema('UpdateEnvironment', Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /** @test */
@@ -117,9 +103,7 @@ class UpdateEnvironmentControllerTest extends TestCase
             'name' => $newName,
         ]);
 
-        $response->assertStatus(Response::HTTP_OK);
-
-        $this->assertSchema($response, 'UpdateEnvironment', Response::HTTP_OK);
+        $response->assertSchema('UpdateEnvironment', Response::HTTP_OK);
     }
 
     /**

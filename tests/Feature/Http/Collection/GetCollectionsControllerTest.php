@@ -5,7 +5,6 @@ namespace Tests\Feature\Http\Collection;
 use App\Collection;
 use Tests\TestCase;
 use App\Http\Response;
-use Tests\ValidatesOpenAPISchema;
 use Tests\Feature\Http\AuthenticatedRoute;
 use Illuminate\Foundation\Testing\TestResponse;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -14,7 +13,6 @@ class GetCollectionsControllerTest extends TestCase
 {
     use RefreshDatabase;
     use AuthenticatedRoute;
-    use ValidatesOpenAPISchema;
 
     /** @test */
     public function it_returns_an_empty_response_when_no_collections_where_found()
@@ -23,7 +21,7 @@ class GetCollectionsControllerTest extends TestCase
 
         $response = $this->get(route('get-collections', $this->domain()->id));
 
-        $response->assertStatus(Response::HTTP_NO_CONTENT);
+        $response->assertSchema('GetCollections', Response::HTTP_NO_CONTENT);
     }
 
     /** @test */
@@ -73,7 +71,7 @@ class GetCollectionsControllerTest extends TestCase
 
         $response = $this->get(route('get-collections', $this->domain()->id));
 
-        $response->assertStatus(Response::HTTP_FORBIDDEN);
+        $response->assertSchema('GetCollections', Response::HTTP_FORBIDDEN);
     }
 
     /** @test */
@@ -95,7 +93,7 @@ class GetCollectionsControllerTest extends TestCase
         $this->assertNotNull($response->json('links'));
         $this->assertNotNull($response->json('meta'));
 
-        $this->assertSchema($response, 'GetCollections', Response::HTTP_OK);
+        $response->assertSchema('GetCollections', Response::HTTP_OK);
     }
 
     /**

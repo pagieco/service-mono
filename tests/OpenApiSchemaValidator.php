@@ -9,22 +9,37 @@ use Illuminate\Http\Response;
 use cebe\openapi\spec\OpenApi;
 use cebe\openapi\spec\Operation;
 use cebe\openapi\SpecObjectInterface;
+use PHPUnit\Framework\TestCase as PHPUnit;
 use Illuminate\Foundation\Testing\TestResponse;
 
-trait ValidatesOpenAPISchema
+class OpenApiSchemaValidator
 {
+    protected $response;
+
+    /**
+     * Create a new open-api schema validator instance.
+     *
+     * @param  \Illuminate\Foundation\Testing\TestResponse $response
+     * @return void
+     */
+    public function __construct(TestResponse $response)
+    {
+        $this->response = $response;
+    }
+
     /**
      * Assert that the schema matches the given operation.
      *
-     * @param  \Illuminate\Foundation\Testing\TestResponse $response
      * @param  string $operationId
      * @param  int $statusCode
      * @param  array $override
      * @throws \cebe\openapi\exceptions\TypeErrorException
      * @throws \cebe\openapi\exceptions\UnresolvableReferenceException
      */
-    protected function assertSchema(TestResponse $response, string $operationId, int $statusCode = 200, array $override = null): void
+    public function assertSchema(string $operationId, int $statusCode = 200, array $override = null): void
     {
+        $response = $this->response;
+
         $operation = $this->getOperation(
             $response,
             $this->openSchemaFile(),
@@ -86,7 +101,7 @@ trait ValidatesOpenAPISchema
         }
 
         if ($specOperation === null) {
-            $this->fail('Spec operation not found.');
+            PHPUnit::fail('Spec operation not found.');
         }
 
         return $specOperation;
@@ -104,11 +119,11 @@ trait ValidatesOpenAPISchema
         $response = $operation->responses[$statusCode];
 
         if (! isset($response)) {
-            $this->fail("Schema with statusCode {$statusCode} not found.");
+            PHPUnit::fail("Schema with statusCode {$statusCode} not found.");
         }
 
         if (! isset($response->content['application/json'])) {
-            $this->fail('Response "application/json" not found.');
+            PHPUnit::fail('Response "application/json" not found.');
         }
 
         return $response->content['application/json']->schema;
@@ -171,7 +186,7 @@ trait ValidatesOpenAPISchema
             }
         }
 
-        $this->assertEquals(
+        PHPUnit::assertEquals(
             implode('/', $requestPathParts),
             implode('/', $schemaPathParts)
         );
