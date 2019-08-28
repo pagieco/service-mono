@@ -139,6 +139,7 @@ return [
         'workflow:create' => ['Create workflow', 'Create a new workflow.'],
         'workflow:update' => ['Update workflow', 'Update a workflow.'],
         'workflow:delete' => ['Delete workflow', 'Delete a workflow.'],
+        'user:upload-picture' => ['Upload picture', 'Upload a user picture.'],
     ],
 
     /*
