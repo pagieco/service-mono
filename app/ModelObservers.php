@@ -11,5 +11,6 @@ trait ModelObservers
      */
     protected $observers = [
         Asset::class => Observers\AssetObserver::class,
+        FormSubmission::class => Observers\FormSubmissionObserver::class,
     ];
 }

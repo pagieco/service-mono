@@ -1,11 +1,23 @@
 <?php
 
+// Public auth routes....
 Route::post('auth/authenticate', 'Auth\AuthenticateController')->name('authenticate');
 Route::post('auth/register', 'Auth\RegistrationController')->name('register');
 Route::get('auth/verify-email', 'Auth\VerificationController')->name('verification.verify')->middleware('signed');
 
+// Public form routes...
+Route::post('/forms/{form}/submit', 'Form\SubmitFormController')->name('submit-form');
+
+// Public visitor routes...
+Route::post('/visitor', 'Visitor\IdentifyVisitorController')->name('identify-visitor');
+
 Route::middleware(['auth:api', 'verified'])->group(function () {
+    // Auth routes...
     Route::get('/auth/current-user', 'Auth\CurrentUserController')->name('current-user');
+
+    // User routes...
+    Route::patch('/user', 'User\UpdateUserController')->name('update-user');
+    Route::post('/user/upload-picture', 'User\UploadPictureController')->name('upload-user-picture');
 
     // Domain routes...
     Route::get('/domains', 'Domain\GetDomainsController')->name('get-domains');
@@ -52,6 +64,12 @@ Route::middleware(['auth:api', 'verified'])->group(function () {
         Route::get('/forms', 'Form\GetFormsController')->name('get-forms');
         Route::post('/forms', 'Form\CreateFormController')->name('create-form');
         Route::get('/forms/{form}/submissions', 'Form\GetFormSubmissionsController')->name('get-form-submissions');
+
+        // Automation Routes...
+//        Route::get('/automations', 'Automation\GetAutomationsController')->name('get-automations');
+//        Route::post('/automations', 'Automation\CreateAutomationController')->name('create-automation');
+//        Route::get('/automations/{automation}', 'Automation\GetAutomationController')->name('get-automation');
+//        Route::delete('/automations/{automation}', 'Automation\GetAutomationController')->name('get-automation');
 
         // Page routes...
         Route::get('/pages', 'Page\GetPagesController')->name('get-pages');

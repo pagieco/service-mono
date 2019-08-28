@@ -2,11 +2,9 @@
 
 namespace App\Providers;
 
-use App\Listeners\LogUserLogin;
+use App\Listeners;
 use Illuminate\Auth\Events\Registered;
-use App\Listeners\CreatePersonalUserTeam;
 use Laravel\Passport\Events\AccessTokenCreated;
-use App\Listeners\CreateInitialDomainAndEnvironment;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
@@ -20,12 +18,13 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         Registered::class => [
             SendEmailVerificationNotification::class,
-            CreatePersonalUserTeam::class,
-            CreateInitialDomainAndEnvironment::class,
+            Listeners\CreatePersonalUserTeam::class,
+            Listeners\CreateInitialDomainAndEnvironment::class,
+            Listeners\FetchUsersGravatar::class,
         ],
 
         AccessTokenCreated::class => [
-            LogUserLogin::class,
+            Listeners\LogUserLogin::class,
         ],
     ];
 

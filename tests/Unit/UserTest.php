@@ -12,6 +12,7 @@ use App\Concerns\Paginatable;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class UserTest extends ModelTestCase
 {
@@ -169,5 +170,17 @@ class UserTest extends ModelTestCase
         $this->user->assignRole($role->id);
 
         $this->assertTrue($this->user->hasAccess($permission->slug));
+    }
+
+    /** @test */
+    public function it_belongs_to_many_form_subscriptions()
+    {
+        $this->assertInstanceOf(BelongsToMany::class, app($this->model)->formSubscriptions());
+    }
+
+    /** @test */
+    public function it_can_upload_a_profile_picture()
+    {
+        $this->markTestIncomplete();
     }
 }
