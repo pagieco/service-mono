@@ -21,6 +21,7 @@ class CreateDomainsTable extends Migration
             $table->string('domain_name');
             $table->mediumText('css_rules')->nullable();
             $table->string('css_file')->nullable();
+            $table->string('api_token', 64)->unique();
             $table->timestamps();
 
             $table->foreign('team_id')

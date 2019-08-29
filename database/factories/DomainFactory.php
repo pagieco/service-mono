@@ -16,5 +16,6 @@ $factory->define(Domain::class, function (Faker $faker) {
         'team_id' => $team->id,
         'environment_id' => $environment->id,
         'domain_name' => $faker->domainName,
+        'api_token' => (new Domain)->generateApiToken(),
     ];
 });

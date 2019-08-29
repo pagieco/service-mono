@@ -25,7 +25,7 @@ class Domain extends Model
      * @var array
      */
     protected $fillable = [
-        'domain_name', 'css_rules', 'css_file',
+        'domain_name', 'css_rules', 'css_file', 'api_token',
     ];
 
     /**
@@ -75,6 +75,16 @@ class Domain extends Model
     public function pages(): HasMany
     {
         return $this->hasMany(Page::class)->orderBy('name');
+    }
+
+    /**
+     * Generate a unique api-token for this domain.
+     *
+     * @return string
+     */
+    public function generateApiToken(): string
+    {
+        return strtolower(Str::random(64));
     }
 
     /**

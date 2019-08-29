@@ -45,6 +45,14 @@ class DomainTest extends ModelTestCase
     }
 
     /** @test */
+    public function it_can_generate_an_api_token()
+    {
+        $token = (new Domain)->generateApiToken();
+
+        $this->assertEquals(64, strlen($token));
+    }
+
+    /** @test */
     public function it_can_create_a_vanity_domain_name()
     {
         $domainName = Domain::createVanityDomainName();
