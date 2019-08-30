@@ -78,6 +78,16 @@ class Domain extends Model
     }
 
     /**
+     * Get the profiles that belong to this domain.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function profiles(): HasMany
+    {
+        return $this->hasMany(Profile::class)->orderBy('created_at');
+    }
+
+    /**
      * Generate a unique api-token for this domain.
      *
      * @return string

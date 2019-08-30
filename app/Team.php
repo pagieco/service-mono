@@ -78,6 +78,16 @@ class Team extends Model
     }
 
     /**
+     * Get the profiles that belong to this team.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function profiles(): HasMany
+    {
+        return $this->hasMany(Profile::class)->orderBy('created_at');
+    }
+
+    /**
      * Get the workflows that belong to this team.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

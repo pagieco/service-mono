@@ -16,6 +16,7 @@ tags:
   - name: Domains
   - name: Environments
   - name: Teams
+  - name: Profile
   - name: Fonts
   - name: User
   - name: Workflows
@@ -354,6 +355,28 @@ paths:
           $ref: '#/components/responses/status-403-response'
         404:
           $ref: '#/components/responses/status-404-response'
+
+  /identify:
+    post:
+      description: Identify a profile
+      tags:
+        - Profile
+      operationId: IdentifyProfile
+      parameters:
+        - in: header
+          name: x-domain-token
+          schema:
+            type: string
+          required: true
+      responses:
+        200:
+          $ref: '#/components/responses/identify-profile'
+        400:
+          $ref: '#/components/responses/status-400-response'
+        404:
+          $ref: '#/components/responses/status-404-response'
+        422:
+          $ref: '#/components/responses/status-422-response'
 
   /font-list:
     get:
@@ -877,6 +900,15 @@ components:
               data:
                 $ref: '#/components/schemas/environment'
 
+    identify-profile:
+      description: OK
+      content:
+        application/json:
+          schema:
+            properties:
+              data:
+                $ref: '#/components/schemas/profile'
+
     get-teams:
       description: OK
       content:
@@ -1257,6 +1289,50 @@ components:
           format: uuid
         name:
           type: string
+
+    profile:
+      properties:
+        id:
+          type: string
+          format: uuid
+        team_id:
+          type: string
+          format: uuid
+        domain_id:
+          type: string
+          format: uuid
+        email:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+        address_1:
+          type: string
+        address_2:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        zip:
+          type: string
+        country:
+          type: string
+        phone:
+          type: string
+        timezone:
+          type: string
+        tags:
+          type: object
+        custom_fields:
+          type: object
+        created_at:
+          type: string
+          format: 'date-time'
+        updated_at:
+          type: string
+          format: 'date-time'
 
     team:
       properties:

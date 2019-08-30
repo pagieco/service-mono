@@ -9,7 +9,7 @@ Route::get('auth/verify-email', 'Auth\VerificationController')->name('verificati
 Route::post('/forms/{form}/submit', 'Form\SubmitFormController')->name('submit-form');
 
 // Public visitor routes...
-Route::post('/visitor', 'Visitor\IdentifyVisitorController')->name('identify-visitor');
+Route::post('/identify', 'Profile\IdentifyProfileController')->name('identify-profile');
 
 Route::middleware(['auth:api', 'verified'])->group(function () {
     // Auth routes...

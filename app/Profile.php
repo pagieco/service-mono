@@ -8,6 +8,7 @@ use App\Database\Eloquent\Model;
 class Profile extends Model
 {
     use Concerns\HasUUID;
+    use Concerns\BelongsToTeam;
     use Concerns\BelongsToDomain;
 
     /**
@@ -23,7 +24,6 @@ class Profile extends Model
      * @var array
      */
     protected $fillable = [
-        'status',           // The profile's status whether active or unsubscribed
         'email',            // The profile's email address
         'first_name',       // The profile's first name
         'last_name',        // The profile's last name
@@ -34,13 +34,9 @@ class Profile extends Model
         'zip',              // The postal code in which the profile resides
         'country',          // The country in which the profile resides
         'phone',            // The profiles's primary phone number
-        'eu_consent',       // A string describing wether the profile GDPR consent is granted, denied, or unknown
         'timezone',         // The profie's timezone
         'tags',             // An array containing one or more tags
         'custom_fields',    // An object containing custom field data
-        'prospect',         // Returns true if the profile is marked as a lead
-        'lead_score',       // The profile's lead score
-        'lifetime_value',   // The profile's lifetime value in cents
     ];
 
     /**
