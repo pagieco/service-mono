@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Profile;
 use App\Domain;
 use App\Http\Resources\ProfileResource;
 use App\Http\Requests\IdentifyProfileRequest;
-use Illuminate\Support\Facades\Cookie;
 
 class IdentifyProfileController
 {
@@ -25,7 +24,7 @@ class IdentifyProfileController
         // just use that value to retrieve the profile.
         if ($request->has('profile_id')) {
             $profile = $domain->profiles()->findOrFail($request->get('profile_id'));
-        } else if ($request->has('email')) {
+        } elseif ($request->has('email')) {
             // Othberwise, when the email is posted we can
             // retrieve the profile from the given email address
             $profile = $domain->profiles()->where([
