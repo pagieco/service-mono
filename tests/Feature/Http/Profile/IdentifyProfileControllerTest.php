@@ -97,7 +97,7 @@ class IdentifyProfileControllerTest extends TestCase
 
         $profile = factory(Profile::class)->create();
 
-        $this->defaultHeaders['x-domain-token'] = $domain->api_token;
+        $this->defaultHeaders[Domain::API_TOKEN_HEADER_KEY] = $domain->api_token;
 
         $response = $this->post(route('identify-profile'), [
             'profile_id' => $profile->id,
@@ -115,7 +115,7 @@ class IdentifyProfileControllerTest extends TestCase
             'domain_id' => $domain->id,
         ]);
 
-        $this->defaultHeaders['x-domain-token'] = $domain->api_token;
+        $this->defaultHeaders[Domain::API_TOKEN_HEADER_KEY] = $domain->api_token;
 
         $response = $this->post(route('identify-profile'), [
             'profile_id' => $profile->id,
@@ -133,7 +133,7 @@ class IdentifyProfileControllerTest extends TestCase
             'domain_id' => $domain->id,
         ]);
 
-        $this->defaultHeaders['x-domain-token'] = $domain->api_token;
+        $this->defaultHeaders[Domain::API_TOKEN_HEADER_KEY] = $domain->api_token;
 
         $response = $this->post(route('identify-profile'), [
             'email' => $profile->email,

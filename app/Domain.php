@@ -13,6 +13,13 @@ class Domain extends Model
     use Concerns\BelongsToTeam;
 
     /**
+     * The request header key where the domain's api token can be found.
+     *
+     * @var string
+     */
+    public const API_TOKEN_HEADER_KEY = 'x-domain-token';
+
+    /**
      * The table associated with the model.
      *
      * @var string

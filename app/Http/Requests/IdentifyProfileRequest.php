@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Domain;
 use App\Http\Response;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -26,7 +27,7 @@ class IdentifyProfileRequest extends FormRequest
      */
     public function getDomainToken(): string
     {
-        abort_if(! $token = $this->header('x-domain-token'), Response::HTTP_BAD_REQUEST);
+        abort_if(! $token = $this->header(Domain::API_TOKEN_HEADER_KEY), Response::HTTP_BAD_REQUEST);
 
         return $token;
     }
