@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Profile;
 
 use App\Domain;
+use App\Profile;
+use App\Http\Response;
 use App\Http\Resources\ProfileResource;
 use App\Http\Requests\IdentifyProfileRequest;
 
@@ -20,17 +22,7 @@ class IdentifyProfileController
             ->where('api_token', $request->getDomainToken())
             ->firstOrFail();
 
-        // If the request has the profile-id posted then
-        // just use that value to retrieve the profile.
-        if ($request->has('profile_id')) {
-            $profile = $domain->profiles()->findOrFail($request->get('profile_id'));
-        } elseif ($request->has('email')) {
-            // Othberwise, when the email is posted we can
-            // retrieve the profile from the given email address
-            $profile = $domain->profiles()->where([
-                'email' => $request->get('email'),
-            ])->firstOrFail();
-        }
+        abort_if(! $profile = Profile::identify($request, $domain), Response::HTTP_NOT_FOUND);
 
         return new ProfileResource($profile);
     }

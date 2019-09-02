@@ -20,5 +20,6 @@ class DatabaseSeeder extends Seeder
         $this->call(DomainsTableSeeder::class);
         $this->call(AssetsTableSeeder::class);
         $this->call(PagesTableSeeder::class);
+        $this->call(ProfilesTableSeeder::class);
     }
 }

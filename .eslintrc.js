@@ -28,6 +28,14 @@ module.exports = {
       'allowForLoopAfterthoughts': true
     }],
 
+    'no-param-reassign': ['error', {
+      props: false,
+    }],
+
+    'no-shadow': ['error', {
+      'allow': ['state', 'getters'],
+    }],
+
     // Disable console.log warnings.
     'no-console': 'off',
   },

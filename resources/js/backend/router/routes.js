@@ -1,4 +1,30 @@
+import { clearAccessToken } from '../auth';
+import auth from './middleware/auth';
+import Dashboard from './views/Dashboard.vue';
+import SignIn from './views/SignIn.vue';
+
 export default [
+  {
+    path: '/',
+    name: 'dashboard',
+    component: Dashboard,
+    meta: {
+      middleware: [auth],
+    },
+  },
+  {
+    path: '/sign-in',
+    name: 'sign-in',
+    component: SignIn,
+  },
+  {
+    path: '/sign-out',
+    name: 'sign-out',
+    beforeEnter: (to, from, next) => {
+      clearAccessToken();
+      next({ name: 'sign-in' });
+    },
+  },
   {
     path: '/404',
     name: '404',

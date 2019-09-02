@@ -16,7 +16,6 @@ class CreateProfilesTable extends Migration
         Schema::create('profiles', function (Blueprint $table) {
             $table->uuid('id');
             $table->primary('id');
-            $table->uuid('team_id');
             $table->uuid('domain_id');
             $table->string('email');
             $table->string('first_name')->nullable();
@@ -32,10 +31,6 @@ class CreateProfilesTable extends Migration
             $table->json('tags')->nullable();
             $table->json('custom_fields')->nullable();
             $table->timestamps();
-
-            $table->foreign('team_id')
-                ->references('id')->on('teams')
-                ->onDelete('cascade');
 
             $table->foreign('domain_id')
                 ->references('id')->on('domains')

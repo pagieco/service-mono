@@ -2,7 +2,7 @@ import Vue from 'vue';
 import VueMeta from 'vue-meta';
 import VueRouter from 'vue-router';
 import routes from './routes';
-import store from '../state/store';
+import middlewareFactory from './middleware/middleware-factory';
 
 Vue.use(VueRouter);
 Vue.use(VueMeta, {
@@ -15,28 +15,22 @@ const router = new VueRouter({
   mode: 'history',
 });
 
-router.beforeEach((routeTo, routeFrom, next) => {
-  // Check if auth is required on this route (including nested routes.
-  const authRequired = routeTo.matched.some(route => route.meta.authRequired);
+router.beforeEach((to, from, next) => {
+  if (to.meta.middleware) {
+    const middleware = Array.isArray(to.meta.middleware)
+      ? to.meta.middleware
+      : [to.meta.middleware];
 
-  function redirectToLogin() {
-    next({ name: 'forbidden', query: { redirectFrom: routeFrom.fullPath } });
+    const context = { from, next, router, to };
+    const nextMiddleware = middlewareFactory(context, middleware, 1);
+
+    return middleware[0]({
+      ...context,
+      next: nextMiddleware,
+    });
   }
 
-  // If auth isn't required for the route, just continue...
-  if (!authRequired) {
-    return next();
-  }
-
-  // If auth is required and the user is logged in...
-  if (store.getters['auth/loggedIn']) {
-    return store.dispatch('auth/validatePolicy', routeTo.meta.authRequired)
-      .then(() => next())
-      .catch(() => redirectToLogin());
-  }
-
-  // If auth is reuqired and the user is currently not logged in, redirect to login.
-  return redirectToLogin();
+  return next();
 });
 
 export default router;

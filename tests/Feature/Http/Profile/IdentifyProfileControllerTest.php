@@ -107,6 +107,24 @@ class IdentifyProfileControllerTest extends TestCase
     }
 
     /** @test */
+    public function it_returns_a_404_not_found_exception_when_no_profile_is_found()
+    {
+        $domain = factory(Domain::class)->create();
+
+        factory(Profile::class)->create([
+            'domain_id' => $domain->id,
+        ]);
+
+        $this->defaultHeaders[Domain::API_TOKEN_HEADER_KEY] = $domain->api_token;
+
+        $response = $this->post(route('identify-profile'), [
+            'profile_id' => faker()->uuid,
+        ]);
+
+        $response->assertSchema('IdentifyProfile', Response::HTTP_NOT_FOUND);
+    }
+
+    /** @test */
     public function it_returns_a_valid_profile_when_the_profile_id_can_be_retrieved_from_the_request()
     {
         $domain = factory(Domain::class)->create();

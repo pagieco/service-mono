@@ -16,7 +16,7 @@
 
   <title>{{ config('app.name') }}</title>
 
-  <link rel="stylesheet" href="{{ asset(mix('css/vendor.css')) }}" />
+  <link rel="stylesheet" href="{{ asset(mix('css/backend.css')) }}" />
   <style>
     [v-cloak] > * { display:none }
     [v-cloak]::before { content: "loading…" }
